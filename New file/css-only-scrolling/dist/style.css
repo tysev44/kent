@@ -1,0 +1,181 @@
+@property --top-fade {
+	syntax: "<length>";
+	inherits: false;
+	initial-value: 0;
+}
+
+@property --bottom-fade {
+	syntax: "<length>";
+	inherits: false;
+	initial-value: 0;
+}
+
+body {
+	font-smoothing: antialiased;
+	min-height: 100dvh;
+	display: grid;
+	place-items: center;
+	background-color: hsl(240deg 50% 97.5%);
+	margin: 0;
+}
+
+main {
+	width: 340px;
+	height: 264px;
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	border-radius: 15px;
+	background-color: hsla(240deg 90% 99.5% 1);
+	box-shadow: hsla(240deg 60% 90% / 25%) 0 52px 100px -20px,
+		hsla(240deg 50% 5% / 30%) 0px 30px 60px -30px,
+		0 0 0 .5px hsla(240deg 12% 50% / 25%);
+}
+
+section {
+	padding: 12px;
+	flex-grow: 1;
+	overflow-y: auto;
+	-ms-scroll-chaining: none;
+	    overscroll-behavior: contain;
+	container-type: inline-size;
+	container-name: scroll-area;
+	-webkit-mask: linear-gradient(to bottom,
+		#0000,
+		#ffff var(--top-fade) calc(100% - var(--bottom-fade)),
+		#0000
+	);
+	        mask: linear-gradient(to bottom,
+		#0000,
+		#ffff var(--top-fade) calc(100% - var(--bottom-fade)),
+		#0000
+	);
+	-webkit-animation: scroll;
+	        animation: scroll;
+	animation-timeline: --scroll;
+	scroll-timeline: --scroll y;
+	-ms-scroll-snap-type: y mandatory;
+	    scroll-snap-type: y mandatory;
+	scrollbar-width: none;
+}
+
+section::-webkit-scrollbar {
+	display: none;
+}
+
+ul {
+	list-style: none;
+	padding: 4px;
+	display: grid;
+	grid-gap: 12px;
+	perspective: 400px;
+	transform-style: preserve-3d;
+}
+
+@-webkit-keyframes animate-in {
+	0% {
+		transform: rotateX(0deg) scale(1);
+	}
+	50% {
+		transform-origin: 50% 100%;
+		transform: rotateX(-20deg) scale(.85);
+	}
+	85%,
+	100% {
+		transform: rotateX(0deg);
+	}
+}
+
+@keyframes animate-in {
+	0% {
+		transform: rotateX(0deg) scale(1);
+	}
+	50% {
+		transform-origin: 50% 100%;
+		transform: rotateX(-20deg) scale(.85);
+	}
+	85%,
+	100% {
+		transform: rotateX(0deg);
+	}
+}
+
+@-webkit-keyframes animate-out {
+	0% {
+		transform: rotateX(0deg) scale(1);
+	}
+	50% {
+		transform-origin: 50% 100%;
+		transform: rotateX(20deg) scale(.85);
+	}
+	85%,
+	100% {
+		transform: rotateX(0deg);
+	}
+}
+
+@keyframes animate-out {
+	0% {
+		transform: rotateX(0deg) scale(1);
+	}
+	50% {
+		transform-origin: 50% 100%;
+		transform: rotateX(20deg) scale(.85);
+	}
+	85%,
+	100% {
+		transform: rotateX(0deg);
+	}
+}
+
+@-webkit-keyframes scroll {
+	0% {
+		--top-fade: 0;
+	}
+	10%, 100% {
+		--top-fade: 20px;
+	}
+	0%, 90% {
+		--bottom-fade: 20px;
+	}
+	100% {
+		--bottom-fade: 0;
+	}
+}
+
+@keyframes scroll {
+	0% {
+		--top-fade: 0;
+	}
+	10%, 100% {
+		--top-fade: 20px;
+	}
+	0%, 90% {
+		--bottom-fade: 20px;
+	}
+	100% {
+		--bottom-fade: 0;
+	}
+}
+
+li {
+	-webkit-animation-name: animate-in, animate-out, blur-edges;
+	        animation-name: animate-in, animate-out, blur-edges;
+	-webkit-animation-timing-function: linear, linear, linear;
+	        animation-timing-function: linear, linear, linear;
+	-webkit-animation-fill-mode: forwards, forwards, both;
+	        animation-fill-mode: forwards, forwards, both;
+	animation-timeline: view(), view(), view();
+	animation-range: entry, exit, 0%, 100%;
+	background-color: hsla(240, 30%, 95%, 1);
+	color: hsla(240deg, 15%, 20%, 1);
+	padding: 12px 20px;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}

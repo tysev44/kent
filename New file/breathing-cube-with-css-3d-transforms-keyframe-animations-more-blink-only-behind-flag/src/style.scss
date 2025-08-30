@@ -1,0 +1,116 @@
+@import 'compass/css3';
+
+$d: 25vmin;
+$sl: gold, darkorange;
+$ani: b .5s ease-in-out infinite alternate;
+
+@mixin pdata($f: 1) {
+	$c: .551915*.25;
+	d: path('M.25 .25' + 
+					'c#{$f*$c} #{$c} #{$f*$c} #{.5 - $c} 0 .5' + 
+					'h.5' + 
+					'c#{-$f*$c}#{-$c} #{-$f*$c} #{$c - .5} 0-.5')
+}
+
+@property --f {
+	syntax: '<number>';
+	initial-value: 1;
+	inherits: true;
+}
+
+@property --ax {
+	syntax: '<angle>';
+	initial-value: -30deg;
+	inherits: true;
+}
+
+@property --ay {
+	syntax: '<angle>';
+	initial-value: 60deg;
+	inherits: true;
+}
+
+body {
+	overflow: hidden;
+	margin: 0;
+	height: 100vh;
+	perspective: 25em
+}
+
+path {
+	@include pdata();
+	animation: $ani;
+	animation-name: breathe-front
+}
+
+@keyframes breathe-front { to { @include pdata(-1) } }
+
+div, :before { position: absolute }
+
+div:not(:empty) { transform-style: preserve-3d }
+
+.cube {
+	top: 50%; left: 50%;
+	transform: rotatex(var(--ax, -30deg)) rotatey(var(--ay, 60deg));
+	animation: o 0s cubic-bezier(1, 0, 0, 1) infinite alternate;
+	animation-name: oscx, oscy;
+	animation-duration: 2.9s, 3.7s;
+	
+	&__face {
+		transform: var(--rot, rotatex(calc(var(--i)*90deg))) 
+			translatez(.5*$d);
+		
+		&[style]:nth-child(2n) {
+			margin: -.5*$d;
+			padding: .5*$d;
+			background: nth($sl, 1);
+			
+			&:nth-child(n + 3) { background: nth($sl, 2) }
+		}
+		
+		&:last-child {
+			--rot: rotatey(-90deg);
+			
+			&:before {
+				margin: -$d;
+				padding: $d;
+				background: linear-gradient($sl) 50%/ 50% 50%;
+				clip-path: url(#c);
+				content: ''
+			}
+		}
+	}
+}
+
+@keyframes oscx { to { --ax: 15deg } }
+
+@keyframes oscy { to { --ay: 120deg } }
+
+.slice {
+	--f: 1;
+	--h: calc(2*#{$d/sqrt(2)}*var(--tan));
+	margin: calc(-.5*var(--h)) -.5*$d;
+	width: $d; height: var(--h);
+	transform: scalez(var(--f)) translatez(.5*$d) 
+		rotatex(calc(((var(--j) + .5)/var(--ns) - .5)*90deg)) 
+		translatez(-$d/sqrt(2)) 
+		scaley(1.01);
+	animation: $ani;
+	animation-name: breathe-slice;
+	
+	&, &:before {
+		background: Linear-gradient(
+				calc(var(--i)*90deg - var(--m, 0)*180deg), $sl) 
+			50% calc(-1*var(--j)*var(--h)) /
+			100% calc(var(--ns)*var(--h));
+	}
+	
+	&:before {
+		--m: 1;
+		top: 0; right: 0; bottom: 0; left: 0;
+		opacity: calc(.5*(1 - var(--f)));
+		content: ''
+	}
+}
+
+@keyframes breathe-slice { to { --f: -1 } }

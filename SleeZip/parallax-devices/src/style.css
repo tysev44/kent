@@ -1,0 +1,525 @@
+/*
+WHY DO CLASSES HAVE AN OPACITY OF ZERO?:
+So on page load they don't all show up in their preloaded state.
+JS RUNS AFTER CSS!!!
+so for the desired effect, everything starts with an opacity of 0 :)
+
+NOTE: This CSS may seem weird because of the separation of styles
+depending on the number the element is (e.g. iphone1, iphone2). This
+type of styling is meant to be modular so someone could potentially add multiple
+of the same device etc...
+*/
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.iphone {
+  position: absolute;
+  width: 253px;
+  height: 550px;
+  border-radius: 34px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  perspective: 1000px;
+
+  > * {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+  }
+}
+
+.iphone1 {
+  overflow: hidden;
+  opacity: 0;
+
+  .layer1 {
+    background-color: #c4cdd1;
+  }
+
+  .layer2 {
+    width: 260px;
+    height: 550px;
+    background-color: #e1e5e8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    span {
+      position: absolute;
+      bottom: 70px;
+      font-size: 20px;
+      font-family: serif;
+      color: gray;
+    }
+
+    .mouse {
+      position: absolute;
+      height: 32px;
+      fill: gray;
+    }
+
+    .arrows {
+      position: absolute;
+      height: 40px;
+      transform: translateY(40px);
+      fill: gray;
+    }
+  }
+
+  .layer3 {
+    height: 510px;
+    bottom: -510px;
+    background-color: #7856f0;
+  }
+
+  .layer4 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    perspective: 500px;
+
+    .hw {
+      color: #f0f1f6;
+      font-family: sans-serif;
+      font-size: 32px;
+      font-weight: bold;
+      opacity: 0;
+      position: absolute;
+    }
+
+    .home-bar {
+      position: absolute;
+      bottom: 10px;
+      width: 80px;
+      height: 5px;
+      background-color: #0f0f0f;
+      border-radius: 9999px;
+    }
+
+    .txt {
+      position: absolute;
+      color: #f0f1f6;
+      font-family: serif;
+      font-size: 20px;
+      opacity: 0;
+    }
+  }
+}
+
+.iphone2 {
+  opacity: 0;
+
+  .layer1 {
+    background-color: #39363f;
+  }
+
+  .layer2 {
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    video {
+      height: 100%;
+      opacity: 0.7;
+    }
+  }
+
+  .layer3 {
+    background: linear-gradient(rgba(0, 0, 0, 0), #191211 87%);
+  }
+
+  .layer4 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .fingerprint {
+      position: absolute;
+      fill: rgb(255, 255, 255);
+      height: 80px;
+    }
+
+    .future {
+      position: absolute;
+      font-family: serif;
+      color: white;
+      width: 200px;
+      text-align: center;
+      font-size: 18px;
+      transform: translateY(160px);
+    }
+  }
+}
+
+.tv {
+  position: absolute;
+  width: 504px;
+  height: 290px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  perspective: 1000px;
+
+  > * {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+  }
+
+  .stand {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transform: translateY(120px);
+    width: auto;
+    height: auto;
+    border-radius: 0;
+    opacity: 0;
+
+    .neck {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 180px;
+
+      .neckL,
+      .neckR {
+        width: 10px;
+        height: 30px;
+        background-color: #39363f;
+      }
+    }
+
+    .base {
+      width: 300px;
+      height: 6px;
+      border-radius: 9999px;
+      background-color: #39363f;
+    }
+  }
+}
+
+.tv1 {
+  opacity: 0;
+
+  .layer1 {
+    background-color: #39363f;
+  }
+
+  .layer2 {
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    video {
+      width: 490px;
+      border-radius: inherit;
+      opacity: 0.7;
+    }
+  }
+
+  .layer3 {
+    width: 97.5%;
+    height: 96%;
+    background: linear-gradient(rgba(0, 0, 0, 0) 60%, #191211 98%);
+  }
+
+  .layer4 {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 8px;
+
+    .appleTV {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      filter: invert();
+      opacity: 0.7;
+    }
+
+    .pill {
+      position: absolute;
+      height: 10px;
+      width: 70px;
+      bottom: 100px;
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      border-radius: 9999px;
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+
+      > * {
+        aspect-ratio: 1;
+        height: 4px;
+        border-radius: 9999px;
+        background: rgba(255, 255, 255, 0.3);
+      }
+
+      .dot:nth-child(3) {
+        background: rgba(255, 255, 255, 0.8);
+      }
+    }
+
+    .up-next {
+      position: absolute;
+      left: 22px;
+      bottom: 86px;
+      font-family: sans-serif;
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.8);
+      font-weight: bolder;
+    }
+
+    .movies {
+      width: 100%;
+      height: 60px;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+
+      > * {
+        height: 100%;
+        border-radius: 8px;
+      }
+    }
+  }
+}
+
+.macbook {
+  position: absolute;
+  width: 480px;
+  aspect-ratio: 1.6;
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  perspective: 1000px;
+  transform: translateY(-50px);
+  opacity: 0;
+
+  > * {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+  }
+
+  .layer1 {
+    background-color: #39363f;
+  }
+
+  .base {
+    width: 544px;
+    background-color: #e1e5e8;
+    transform: translateY(198px) rotateX(80deg);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    opacity: 0;
+
+    .keyboard {
+      width: 480px;
+      height: 170px;
+      border-radius: 10px;
+      background-color: #2c2a31;
+      padding: 6px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+
+      .row {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 3px;
+
+        .sm-key,
+        .md-key,
+        .lg-key {
+          background-color: #393939;
+          height: 34px;
+          border-radius: 5px;
+        }
+
+        .sm-key {
+          width: 40px;
+        }
+
+        .md-key {
+          width: 80px;
+        }
+
+        .lg-key {
+          width: 220px;
+        }
+      }
+    }
+
+    .trackpad {
+      width: 200px;
+      height: 90px;
+      border-radius: 10px;
+      background-color: #bfc3c7;
+    }
+  }
+}
+
+.macbook1 {
+  .layer2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 464px;
+    height: 284px;
+    border-radius: 10px;
+    overflow: hidden;
+
+    video {
+      height: 100%;
+    }
+  }
+
+  .layer3 {
+    width: 464px;
+    height: 284px;
+    border-radius: 10px;
+    background: linear-gradient(
+      rgba(0, 0, 0, 0.4) 2%,
+      rgba(0, 0, 0, 0) 80%,
+      rgba(0, 0, 0, 0.4) 98%
+    );
+  }
+
+  .layer4 {
+    width: 464px;
+    height: 284px;
+
+    .title {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      font-family: sans-serif;
+      color: #f0f1f6;
+    }
+
+    .menu {
+      width: 100%;
+      position: absolute;
+      bottom: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+
+      .progress {
+        position: absolute;
+        bottom: 28px;
+        width: 96%;
+        height: 3px;
+        background-color: #2c2a31;
+        border-radius: 9999px;
+
+        .bar {
+          height: 100%;
+          width: 33%;
+          border-radius: inherit;
+          background-color: #f0f1f6;
+        }
+      }
+
+      .controls {
+        position: relative;
+        margin-bottom: 6px;
+        height: 14px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        > * {
+          position: absolute;
+          fill: #f0f1f6;
+          height: 100%;
+        }
+
+        .pause {
+          left: 14px;
+        }
+
+        .forward {
+          left: 40px;
+        }
+
+        .volume {
+          left: 64px;
+        }
+
+        .cc {
+          right: 40px;
+        }
+
+        .fullscreen {
+          right: 14px;
+        }
+      }
+    }
+  }
+}
+
+.end-text {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  z-index: 9999;
+  opacity: 0;
+
+  span {
+    font-family: sans-serif;
+
+    a {
+      color: #7856f0;
+      text-decoration: none;
+    }
+  }
+
+  .thanks {
+    font-size: 20px;
+    font-weight: bold;
+  }
+}

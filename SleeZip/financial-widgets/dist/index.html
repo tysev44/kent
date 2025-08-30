@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Financial Widgets</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<script type="text/x-handlebars" id="application">
+	{{icon-sprites}}
+		
+	{{outlet}}
+</script>
+<script type="text/x-handlebars" id="index">
+	{{#widget-grid}}
+		{{#each widget in model}}
+			{{#financial-widget iconName=widget.icon label=widget.label info=widget.info value=widget.value percentValue=widget.percent isCurrency=widget.is_currency}}
+				{{#each row in widget.rows}}
+		 			{{financial-widget-row name=row.name value=row.value isCurrency=widget.is_currency isButton=row.linked}}
+				{{else}}
+				 	{{#financial-widget-button iconName="plus"}}
+				 		New Invoice
+					{{/financial-widget-button}}
+				{{/each}}
+				{{#if widget.percent}}
+				 	{{financial-widget-progress label=widget.progress_label percentValue=widget.percent invert=true}}
+				{{/if}}
+			{{/financial-widget}}
+		{{/each}}
+	{{/widget-grid}}
+</script>
+<script type="text/x-handlebars" id="components/financial-widget">
+	<div class="widget__header">
+		<div class="widget__header-info">
+			<div class="widget__name">
+				<span>{{label}}</span>
+				{{#if info}}
+					<div class="widget__tip-wrapper">
+						<button class="widget__info-button" type="button" aria-label="Info" {{bind-attr aria-describedby=tipId}}>
+							{{icon-sprite name="info"}}
+						</button>
+						<div {{bind-attr id=tipId}} role="tooltip" class="widget__tip">{{info}}</div>
+					</div>
+				{{/if}}
+			</div>
+			<strong class="widget__value">
+				{{#if isCurrency}}
+					{{currency value}}
+				{{else}}
+					{{decimal value 2}}
+				{{/if}}
+				{{#if percentValue}}
+				  <sup class="widget__percent">{{percent percentValue}}</sup>
+				{{/if}}
+			</strong>
+		</div>
+		<div class="widget__icon-frame">
+			{{icon-sprite name=iconName}}
+		</div>
+	</div>
+	<div class="widget__body">
+		{{yield}}
+	</div>
+</script>
+<script type="text/x-handlebars" id="components/financial-widget-button">
+	{{#if start}}
+		{{#if iconName}}
+			{{icon-sprite name=iconName}}
+		{{/if}}
+	{{/if}}
+	<span>{{yield}}</span>
+	{{#if end}}
+		{{#if iconName}}
+			{{icon-sprite name=iconName}}
+		{{/if}}
+	{{/if}}
+</script>
+<script type="text/x-handlebars" id="components/financial-widget-progress">
+	<label class="widget__progress-label" {{bind-attr for=progressId}}>{{label}}</label>
+	<progress class="widget__progress" {{bind-attr id=progressId value=filled}} min="0" max="1"></progress>
+</script>
+<script type="text/x-handlebars" id="components/financial-widget-row">
+	<div class="widget__row-name">{{name}}</div>
+	<div {{bind-attr class=":widget__row-value isZero:widget__row-value--dim"}}>
+		{{#if isButton}}
+			{{#financial-widget-button iconName="caret" iconPosition="end"}}
+				{{#if isCurrency}}
+					{{currency value}}
+				{{else}}
+					{{decimal value 2}}
+				{{/if}}
+			{{/financial-widget-button}}
+		{{else}}
+			<strong>
+				{{#if isCurrency}}
+					{{currency value}}
+				{{else}}
+					{{decimal value 2}}
+				{{/if}}
+			</strong>
+		{{/if}}
+	</div>
+</script>
+<script type="text/x-handlebars" id="components/icon-sprites">
+	<symbol id="caret" viewBox="0 0 20 20">
+		<g fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+			<polyline points="5 5,10 10,5 15" />
+		</g>
+	</symbol>
+	<symbol id="hourglass" viewBox="0 0 20 20">
+		<g fill="none" stroke="currentcolor" stroke-linejoin="round" stroke-width="2">
+			<polygon points="5 2,15 2,15 7,5 13,5 18,15 18,15 13,5 7" />
+		</g>
+	</symbol>
+	<symbol id="info" viewBox="0 0 20 20">
+		<g fill="none" stroke="currentcolor" stroke-width="2">
+			<circle cx="10" cy="10" r="8" />
+			<circle cx="10" cy="7" r="0.5" />
+			<line x1="10" y1="10" x2="10" y2="15" />
+		</g>
+	</symbol>
+	<symbol id="pie-chart" viewBox="0 0 20 20">
+		<g fill="none" stroke="currentcolor" stroke-width="2">
+			<line x1="10" y1="2" x2="10" y2="18" />
+			<line x1="10" y1="10" x2="18" y2="10" />
+			<circle cx="10" cy="10" r="9" />
+		</g>
+	</symbol>
+	<symbol id="plus" viewBox="0 0 20 20">
+		<g fill="none" stroke="currentcolor" stroke-linecap="round" stroke-width="2">
+			<line x1="10" y1="4" x2="10" y2="16" />
+			<line x1="4" y1="10" x2="16" y2="10" />
+		</g>
+	</symbol>
+	<symbol id="up-arrow" viewBox="0 0 20 20">
+		<g fill="none" stroke="currentcolor" stroke-linecap="round" stroke-width="2">
+			<polyline points="2 10,10 2,18 10" />
+			<polyline points="10 2,10 18" />
+		</g>
+	</symbol>
+	<symbol id="venn" viewBox="0 0 20 20">
+		<g fill="none" stroke="currentcolor" stroke-width="2">
+			<circle cx="7" cy="10" r="6" stroke-dasharray="37.7 37.7" stroke-dashoffset="18.35" transform="rotate(87.5,7,10)" />
+			<circle cx="13" cy="10" r="6" stroke-dasharray="37.7 37.7" stroke-dashoffset="18.35" transform="rotate(-92.5,13,10)" />
+		</g>
+		<ellipse fill="currentcolor" cx="10" cy="10" rx="3" ry="5.5" />
+	</symbol>
+</script>
+<script type="text/x-handlebars" id="components/icon-sprite">
+	<use {{bind-attr href=sprite}} />
+</script>
+<script type="text/x-handlebars" id="components/widget-grid">
+	{{yield}}
+</script>
+<!-- partial -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.1.2/handlebars.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/ember.js/1.2.0/ember.min.js'></script><script  src="./script.js"></script>
+
+</body>
+</html>

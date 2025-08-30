@@ -1,0 +1,81 @@
+button {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  border: none;
+  outline: none;
+  display: block;
+  color: #fff;
+  margin: 0;
+  display: block;
+  min-width: 120px;
+  padding: 12px 20px;
+  font: 600 16px/24px "Inter";
+  border-radius: 10px;
+  background: #15181C;
+  cursor: none;
+  box-shadow: 0px 8px 20px -8px rgba(26, 33, 43, 0.5), 0px 4px 12px 0px rgba(26, 33, 43, 0.05), 0px 1px 3px 0px rgba(26, 33, 43, 0.25), 0px 1.5px 0.5px 0px #454D57 inset, 0px -3px 1px 0px rgba(0, 0, 0, 0.5) inset;
+  transform: ranslateZ(0);
+  transition: transform 0.2s;
+}
+button:hover {
+  transform: scaleX(1.03) scaleY(1.06) translateZ(0);
+}
+button:active {
+  transform: scaleX(0.98) scaleY(0.96) translateZ(0);
+}
+
+.cursor {
+  width: 21px;
+  height: 21px;
+  position: fixed;
+  left: -6px;
+  top: -5px;
+  pointer-events: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  display: none;
+  transform: translate(var(--x), var(--y));
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.4));
+  background-image: url("https://assets.codepen.io/165585/default.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+body:has(button:hover) .cursor {
+  background-image: url("https://assets.codepen.io/165585/pointer.png");
+}
+
+html {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+}
+
+* {
+  box-sizing: inherit;
+}
+*:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  font-family: "Inter", Arial;
+  justify-content: center;
+  align-items: center;
+  background-color: #FAFCFE;
+}
+body .twitter {
+  position: fixed;
+  display: block;
+  right: 12px;
+  bottom: 12px;
+}
+body .twitter svg {
+  width: 32px;
+  height: 32px;
+  fill: #fff;
+}

@@ -1,0 +1,129 @@
+body {
+  height: 100vh;
+  margin: 0;
+  display: grid;
+  place-items: center;
+}
+
+.pnf {
+  font-size: 30px;
+  position: relative;
+  overflow: hidden;
+  width: 11.625em;
+  height: 11.625em;
+}
+
+.pnf__chat {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  height: 0.9375em;
+  width: 3.1875em;
+  display: flex;
+  justify-content: space-between;
+}
+
+.pnf__chatBubble {
+  display: block;
+  width: 0.9375em;
+  height: 0.9375em;
+  border-radius: 50%;
+  background-color: #ee313d;
+  animation: chatting 2s infinite;
+}
+.pnf__chatBubble:nth-child(1) {
+  animation-delay: -1s;
+}
+.pnf__chatBubble:nth-child(2) {
+  animation-delay: -0.85s;
+  background-color: #8d2036;
+}
+.pnf__chatBubble:nth-child(3) {
+  animation-delay: -0.7s;
+}
+
+.pnf__column {
+  --color-first-head: #b22634;
+  --color-second-head: #8d2036;
+  position: relative;
+  width: 100%;
+  height: 50%;
+  background-color: #ee313d;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.pnf__column::before, .pnf__column::after {
+  content: "";
+  position: relative;
+  width: 50%;
+  height: 2.90625em;
+  width: 5.8125em;
+}
+.pnf__column::before {
+  background-color: #ffd862;
+  border-radius: 0 0 2.90625em 2.90625em;
+}
+.pnf__column::after {
+  left: 0.53125em;
+  background-color: #ffffff;
+  border-radius: 2.90625em 2.90625em 0 0;
+}
+
+.pnf__column:nth-child(2) {
+  --color-first-head: #8d2036;
+  --color-second-head: #b22634;
+  background-color: #f2623e;
+}
+.pnf__column:nth-child(2)::before {
+  right: 0.53125em;
+  background-color: #ffffff;
+}
+.pnf__column:nth-child(2)::after {
+  left: unset;
+  background-color: #ffd862;
+}
+
+.pnf__head {
+  position: absolute;
+  left: 0;
+  height: 100%;
+  width: 2.375em;
+  border-radius: 0 2.375em 0 0;
+  background-color: var(--color-first-head);
+}
+.pnf__head::before {
+  content: "";
+  display: block;
+  width: 3.0625em;
+  height: 3.6875em;
+  border-radius: 0 3.0625em 0 0;
+  background-color: inherit;
+}
+.pnf__head::after {
+  content: "";
+  position: absolute;
+  top: 2em;
+  left: 1.25em;
+  width: 0.625em;
+  height: 0.625em;
+  border-radius: 50%;
+  background-color: #ffffff;
+}
+.pnf__head:nth-child(2) {
+  left: unset;
+  right: 0;
+  transform: scaleX(-1);
+  background-color: var(--color-second-head);
+}
+
+@keyframes chatting {
+  10% {
+    transform: translateY(-0.625em);
+  }
+  50% {
+    transform: translateY(0);
+  }
+}

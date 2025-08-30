@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>🎨 Theme color switch animation concept</title>
+  <link rel="stylesheet" href="https://public.codepenassets.com/css/reset-2.0.min.css">
+<link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<section>
+  <div 
+       class="splash-loader-default" 
+       data-delay="1" 
+       data-repeat="0.5" 
+       data-initial="0" 
+       data-scale="1.5"
+       >
+    <div class="middle dot-1"></div>
+  </div>
+</section>
+
+<main>
+  <ul class="circle">
+    <li style="--i:0"></li>
+    <li style="--i:1"></li>
+    <li style="--i:2"></li>
+    <li style="--i:3"></li>
+    <li style="--i:4"></li>
+    <li style="--i:5"></li>
+    <li style="--i:6"></li>
+    <li style="--i:7"></li>
+  </ul>
+
+  <div 
+       class="splash-loader" 
+       data-delay="5"
+       data-repeat="2.25"
+       data-initial=".4" 
+       data-scale="1"
+       >
+    <div class="middle dot-1"></div>
+  </div>
+
+  <svg class="bucket default" viewBox="0 0 18 18">
+    <g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round">
+      <path class="bucketPath" d="M15.25 3.3C15.25 4.03605 14.0591 4.49863 12.283 4.86019C11.9774 4.9224 12.5 8.5 12.2913 10.5C12 11.5 9.5 12.282 9.5 9C9.5 9 8.5 9 8.5 8.5C8 7.5 8.52034 5.18332 8.04024 5.18332C5.5 5 2.75 4.43218 2.75 3.3C2.75 2.16782 5.54822 1.25 9 1.25C12.4518 1.25 15.25 2.16782 15.25 3.3Z" fill="currentColor" fill-opacity=".5"/>
+      <path d="M2.75 3.25V12.75C2.75 15.5 5.54822 16.75 9 16.75C12.4518 16.75 15.25 15.5 15.25 12.75V3.25"/>
+    </g>
+  </svg>
+
+  <div class="new">
+    <svg class="bucket" viewBox="0 0 18 18">
+      <g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round">
+        <path class="bucketPath" d="M15.25 3.3C15.25 4.03605 14.0591 4.49863 12.283 4.86019C11.9774 4.9224 12.5 8.5 12.2913 10.5C12 11.5 9.5 12.282 9.5 9C9.5 9 8.5 9 8.5 8.5C8 7.5 8.52034 5.18332 8.04024 5.18332C5.5 5 2.75 4.43218 2.75 3.3C2.75 2.16782 5.54822 1.25 9 1.25C12.4518 1.25 15.25 2.16782 15.25 3.3Z" fill="currentColor" fill-opacity=".5"/>
+        <path d="M2.75 3.25V12.75C2.75 15.5 5.54822 16.75 9 16.75C12.4518 16.75 15.25 15.5 15.25 12.75V3.25"/>
+      </g>
+    </svg>
+  </div>
+</main>
+
+<section>
+  <img src="https://assets.codepen.io/165585/states.png" alt="">
+</section>
+<!-- partial -->
+  <script src='https://unpkg.com/gsap@3/dist/gsap.min.js'></script>
+<script src='https://unpkg.com/gsap@3/dist/EasePack.min.js'></script>
+<script src='https://unpkg.com/gsap@3/dist/MotionPathPlugin.min.js'></script>
+<script src='https://assets.codepen.io/16327/Physics2DPlugin3.min.js'></script>
+<script src='https://assets.codepen.io/16327/MorphSVGPlugin3.min.js'></script><script  src="./script.js"></script>
+
+</body>
+</html>

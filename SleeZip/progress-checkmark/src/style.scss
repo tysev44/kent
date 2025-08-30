@@ -1,0 +1,85 @@
+.progress {
+	--progress-circle-scale: 1;
+	--progress-circle-x: 0;
+	--progress-circle-offset: 0;
+	--progress-circle-stroke: 6;
+	--progress-tick-offset: 100;
+	
+	position: relative;
+
+	svg {
+		display: block;
+		fill: none;
+		overflow: visible;
+		stroke-linecap: round;
+		stroke-linejoin: round;
+
+		&.pie {
+			width: 16px;
+			height: 16px;
+			transform: translateX(var(--progress-circle-x)) rotate(-90deg) scale(var(--progress-circle-scale));
+
+			circle {
+				stroke-width: var(--progress-circle-stroke);
+				stroke: black;
+				
+				&:first-child {
+					stroke-opacity: .25;
+				}
+
+				&:last-child {
+					stroke-dasharray: 100;
+					stroke-dashoffset: var(--progress-circle-offset);
+				}
+			}
+		}
+
+		&.tick {
+			width: 24px;
+			height: 24px;
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			transform: translate(-50%, -50%);
+			stroke-width: 3.5;
+			stroke: black;
+
+			polyline {
+				stroke-dasharray: 100;
+				stroke-dashoffset: var(--progress-tick-offset);
+			}
+		}
+	}
+}
+
+html {
+	box-sizing: border-box;
+	-webkit-font-smoothing: antialiased;
+}
+
+* {
+	box-sizing: inherit;
+	&:before,
+	&:after {
+		box-sizing: inherit;
+	}
+}
+
+// Center & dribbble
+body {
+	min-height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: #fff;
+	.dribbble {
+		position: fixed;
+		display: block;
+		right: 20px;
+		bottom: 20px;
+		img {
+			display: block;
+			height: 28px;
+		}
+	}
+}

@@ -1,0 +1,67 @@
+body {
+ margin:0;
+ background: #000;
+}
+svg {
+  visibility: hidden;
+  display: block;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 1200px;
+  height: auto;
+}
+
+.controls {
+  position: absolute;
+  width: 100%;
+  bottom: 10%;
+}
+
+.overlay {
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+
+#slider {
+  width:420px;
+  margin:20px auto;
+  z-index: 9;
+}
+
+button {
+  transform: translateX(-50%);
+  left: 50%;
+  position: absolute;
+  font-family: 'futura';
+  padding: 1rem 2rem;
+  text-transform: uppercase;
+  background: white;
+  border: none;
+  letter-spacing: 0.2rem;
+  overflow: hidden;
+  z-index: 9;
+  &:hover {
+    background: black;
+    color: white;
+  }
+}
+
+span.ui-slider-handle.ui-state-default.ui-corner-all {
+    border-radius: 100px;
+    transform: translateY(-25%);
+    background: white;
+    border: none;
+}
+
+div#slider {
+    height: 2px;
+    border: none;
+    background: #fff;
+}

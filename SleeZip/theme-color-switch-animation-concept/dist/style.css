@@ -1,0 +1,151 @@
+* {
+  box-sizing: border-box;
+}
+
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 32px;
+  background-color: #f6f6fe;
+  margin: 0;
+  overflow: hidden;
+}
+
+@media (width <= 840px) {
+  body {
+    flex-direction: column;
+    gap: 16px;
+  }
+}
+.bucket {
+  overflow: visible;
+  width: 24px;
+  height: 24px;
+  display: block;
+  transform: translateY(var(--bucket-y)) translateZ(0);
+}
+.bucket.default {
+  color: var(--bucket-color);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin: -12px 0 0 -12px;
+}
+
+.new {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 24px;
+  margin: -12px 0 0 -12px;
+  height: 24px;
+  -webkit-clip-path: circle(var(--bucket-scale) at 50% 0%);
+          clip-path: circle(var(--bucket-scale) at 50% 0%);
+  z-index: 2;
+  overflow: hidden;
+  background-color: #f6f6fe;
+}
+.new .bucket {
+  color: var(--bucket-new-color);
+  z-index: 1;
+}
+
+.circle {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  width: 200px;
+  height: 200px;
+  transform: rotate(-45deg);
+  z-index: 1;
+}
+
+.circle li {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 16px;
+  height: 16px;
+  margin: -8px 0 0 -8px;
+  border-radius: 50%;
+  transform: rotate(calc(var(--i) * 45deg)) translateY(-64px) rotate(calc(var(--i) * -45deg));
+}
+
+.splash-loader,
+.splash-loader-default {
+  width: 80px;
+  height: 60px;
+  position: relative;
+}
+
+.splash-loader div,
+.splash-loader-default div {
+  left: 50%;
+  top: 0;
+  position: absolute;
+  transform-origin: center center;
+  width: 10px;
+  height: 14px;
+  margin-left: -5px;
+  background-color: var(--color, transparent);
+}
+.splash-loader div.dot-1,
+.splash-loader-default div.dot-1 {
+  -webkit-clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+          clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+  border-radius: 0 0 50% 50%;
+}
+.splash-loader div.dot-2,
+.splash-loader-default div.dot-2 {
+  border-radius: 50%;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+section {
+  display: grid;
+  place-items: center;
+  width: 178px;
+  height: 104px;
+  border-radius: 15px;
+  background-color: white;
+  box-shadow: 0 0 0 1px rgba(13, 13, 38, 0.05), 0 4px 16px -4px rgba(13, 13, 38, 0.05), 0 12px 40px -8px rgba(13, 13, 38, 0.05);
+}
+section img {
+  display: block;
+  width: 164px;
+}
+section .splash-loader-default {
+  top: -15%;
+  height: 48px;
+  --color: #707bea;
+}
+
+main {
+  --color: transparent;
+  --bucket-color: transparent;
+  --bucket-scale: 0px;
+  --bucket-new-color: transparent;
+  --bucket-y: 0px;
+  display: grid;
+  place-items: center;
+  position: relative;
+}
+main .splash-loader {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 15%;
+  height: 64px;
+  overflow: hidden;
+}

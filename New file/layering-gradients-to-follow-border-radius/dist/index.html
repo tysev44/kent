@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Layering gradients to follow border-radius</title>
+  <link rel="stylesheet" href="./style.css">
+<script src="https://public.codepenassets.com/js/prefixfree-1.0.7.min.js"></script>
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<body style="--dim: 2" data-dim="2">
+  <form>
+    <div class="toggle" role="group" aria-label="Switch between 2D and 3D view for the graphics below.">
+      <input type="radio" name="dim" id="dim0" value="2" checked="checked"/>
+      <label for="dim0" style="--i: 0">2D</label>
+      <input type="radio" name="dim" id="dim1" value="3"/>
+      <label for="dim1" style="--i: 1">3D</label>
+      <div class="toggle__vis" aria-hidden="true"></div>
+    </div>
+  </form>
+  <section role="graphics-document" aria-label="Shows how backgrounds are layered, animating from 2D to 3D.">
+    <div class="a3d">
+      <div class="layer" data-box="border" style="--c: #f90; --m0: 1; --m1: 1"><code class="info">border-box</code>
+        <div class="meas">b</div>
+        <div class="round">
+          <div class="txt">r</div>
+        </div>
+      </div>
+      <div class="layer" data-box="padding" style="--c: #b53; --m0: 1; --m1: 0"><code class="info">padding-box</code>
+        <div class="meas">p</div>
+        <div class="round">
+          <div class="txt">r - b</div>
+        </div>
+      </div>
+      <div class="layer" data-box="content" style="--c: #95a; --m0: 0; --m1: 0"><code class="info">content-box</code>
+        <div class="round">
+          <div class="txt">r - b - p</div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <pre><span class="token--decl"><span class="token--prop">border</span><span class="token--punc">:</span> <span class="token--val"><span class="token--keyw">solid</span> <span class="token--len">$b</span> <span class="token--col">transparent</span><span class="token--punc">;</span></span></span><span class="token--decl"><span class="token--prop">padding</span><span class="token--punc">:</span> <span class="token--val"><span class="token--len">$p</span><span class="token--punc">;</span></span></span><span class="token--decl"><span class="token--prop">border-radius</span><span class="token--punc">:</span> <span class="token--val"><span class="token--len">$r</span><span class="token--punc">;</span></span></span></pre>
+</body>
+<!-- partial -->
+  <script  src="./script.js"></script>
+
+</body>
+</html>

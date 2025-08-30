@@ -1,0 +1,32 @@
+.squircle {
+  aspect-ratio: 1;
+  background: oklch(64% 59% 23deg);
+
+  clip-path: shape(
+    evenodd from 0% 50%,
+    curve by 50% -50% with 0% -45% / 5% -50%,
+    smooth by 50% 50% with 50% 5%,
+    smooth by -50% 50% with -5% 50%,
+    smooth by -50% -50% with -50% -5%
+  );
+
+  &:nth-child(1) {
+    width: 100px;
+  }
+
+  &:nth-child(2) {
+    width: 200px;
+  }
+
+  &:nth-child(3) {
+    width: 300px;
+  }
+}
+
+body {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}

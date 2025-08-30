@@ -1,0 +1,80 @@
+$color: (
+  pink: #feabbc,
+  blue: #3789fd,
+  black: #5e5e60,
+);
+
+.vessel {
+  width: 405px;
+  height: 735px;
+  border: 2px solid #ddd;
+  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.wrapper {
+  position: absolute;
+  top: 20px;
+  left: 100px;
+}
+
+.item {
+  display: block;
+  list-style: none;
+  width: 350px;
+  height: 200px;
+  border-radius: 20px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: .5s all ease-out;
+  transform: perspective(250px) rotateX(-20deg);
+  &.pink {
+    background: map-get($color, pink);
+    top: 10px;
+    &:after{
+      background:map-get($color, pink);
+    }
+  }
+  &.blue {
+    background: map-get($color, blue);
+    top: 70px;
+    &:after{
+      background:map-get($color, blue);
+    }
+  }
+  &.black {
+    top: 130px;
+    background: map-get($color, black);
+    &:after{
+      background:map-get($color, black);
+    }
+  }
+  &:after {
+      content: '';
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      border-radius: 30px;
+      bottom: -25px;
+      left: 6px;
+      z-index: -1;
+      filter: blur(15px) opacity(30%);
+      opacity: 0;
+      transition: .5s all ease-out;
+    }
+  &.hide {
+    top: -300px;
+    transform: perspective(250px) rotateX(0deg);
+    opacity: 0;
+    z-index: -100;
+  }
+  &.show {
+    transform: perspective(250px) rotateX(0deg);
+    top: 10px;
+     &:after{
+       opacity: 1;
+    }
+  }
+}

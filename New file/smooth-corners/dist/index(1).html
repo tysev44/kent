@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Smooth Corners</title>
+  <link rel="stylesheet" href="https://public.codepenassets.com/css/normalize-5.0.0.min.css">
+<link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&amp;family=Geist:wght@100..900&amp;display=swap'><link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<svg width="0" height="0" style="position: absolute;">
+	<defs>
+		<clipPath id="squircle-clip" clipPathUnits="userSpaceOnUse">
+			<path d=""></path>
+		</clipPath>
+	</defs>
+</svg>
+
+<div class="main-container">
+	<div class="code-explanation-panel">
+		<div class="code-section">
+			<h2>
+				<code>corner-shape</code>
+				Alternative    
+			</h2>
+		</div>
+
+		<div class="code-section">
+			<h3>CSS: Variables & Clipping</h3>
+			<p>CSS variables define <code>radius</code> and <code>smoothness</code> values. The <code>clip-path</code> property applies the SVG shape.</p>
+			<pre><code id="css-code-block" class="language-css"></code></pre>
+		</div>
+
+		<div class="code-section">
+			<h3>JavaScript: Path Calculation</h3>
+			<p>Observes element's size and the CSS variables. Then calculates the points for cubic Bézier curves to create the smooth corners.</p>
+			<pre><code id="js-code-block" class="language-js"></code></pre>
+		</div>
+	</div>
+
+	<div class="preview-panel">
+		<div class="preview-content">
+			<div class="button-container">
+				<div class="squircle-button">
+					Squircle
+				</div>
+			</div>
+
+			<div class="controls-container">
+				<div class="control">
+					<label for="radius-x-slider">
+						Horizontal Radius (Rx):
+						<span id="radius-x-value">28</span>
+					</label>
+					<input id="radius-x-slider" type="range" min="0" max="100" value="28">
+				</div>
+
+				<div class="control">
+					<label for="radius-y-slider">
+						Vertical Radius (Ry):
+						<span id="radius-y-value">28</span>
+					</label>
+					<input id="radius-y-slider" type="range" min="0" max="100" value="28">
+				</div>
+
+				<div class="control">
+					<label for="smoothness-slider">
+						Corner Smoothness (S):
+						<span id="smoothness-value">0.7</span>
+					</label>
+					<input id="smoothness-slider" type="range" min="0" max="1" step="0.01" value="0.7">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- partial -->
+  <script  src="./script.js"></script>
+
+</body>
+</html>

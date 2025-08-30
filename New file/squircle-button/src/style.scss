@@ -1,0 +1,158 @@
+.sketch-button {
+  --squircle: 40px;
+
+  -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
+  appearance: none;
+  outline: none;
+  border: none;
+  font-family: inherit;
+  background: none;
+  font-size: 16px;
+  font-weight: 500;
+  position: relative;
+  border-radius: calc(var(--squircle) * .45);
+  span {
+    background-image: linear-gradient(90deg, #fcecfe, #fbf6e7, #e6fcf5);
+    padding: 12px 24px;
+    position: relative;
+    line-height: 24px;
+    color: #14387e;
+    display: block;
+    box-shadow: 0 1px 2px rgba(0 0 0 / 2%), 0 4px 16px rgba(0 0 0 / 2%),
+      0 4px 24px rgba(0 0 0 / 2%);
+
+    clip-path: shape(
+      from 0 var(--squircle),
+      curve to var(--squircle) 0 with 0 0 / 0 0,
+      hline to calc(100% - var(--squircle)),
+      curve to 100% var(--squircle) with 100% 0 / 100% 0,
+      vline to calc(100% - var(--squircle)),
+      curve to calc(100% - var(--squircle)) 100% with 100% 100% / 100% 100%,
+      hline to var(--squircle),
+      curve to 0 calc(100% - var(--squircle)) with 0 100% / 0 100%,
+      close
+    );
+  }
+
+  &.start {
+    svg {
+      animation: stroke 1s linear;
+    }
+  }
+
+  .lines {
+    position: absolute;
+    inset: 0;
+    mix-blend-mode: hard-light;
+    pointer-events: none;
+    z-index: 1;
+    transform: scaleX(.92) scaleY(.95) translateZ(0);
+
+    & > div {
+      position: absolute;
+      inset: 0;
+
+      &:last-child {
+        transform: rotate(180deg);
+      }
+
+      svg {
+        display: block;
+        position: absolute;
+        inset: 0;
+        overflow: visible;
+        fill: none;
+        stroke-width: 1;
+        stroke: #c9e9ff;
+        width: 100%;
+        height: 100%;
+        stroke-dasharray: 2 10;
+        stroke-dashoffset: 14;
+        opacity: 0;
+      }
+
+      svg {
+        &:nth-child(1) {
+          stroke: #f8fcff;
+        }
+        &:nth-child(2) {
+          stroke-width: 6px;
+          filter: blur(20px);
+        }
+        &:nth-child(3) {
+          stroke-width: 5px;
+          filter: blur(6px);
+        }
+        &:nth-child(4) {
+          stroke-width: 10px;
+          filter: blur(56px);
+        }
+      }
+    }
+  }
+}
+
+@keyframes stroke {
+  30%,
+  55% {
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: 4;
+    opacity: 0;
+  }
+}
+
+html {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+}
+
+* {
+  box-sizing: inherit;
+  &:before,
+  &:after {
+    box-sizing: inherit;
+  }
+}
+
+// Center & twitter
+body {
+  min-height: 100vh;
+  display: flex;
+  font-family: "Inter", Arial;
+  justify-content: center;
+  align-items: center;
+  background: radial-gradient(circle at 50% 0%, #9588c7 15%, #c79ed5 75%);
+
+  &:before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("https://assets.codepen.io/165585/noise.png");
+    background-size: cover;
+    -webkit-mask-image: radial-gradient(
+      circle at 50% 100%,
+      transparent 50%,
+      black
+    );
+    mask-image: radial-gradient(
+      circle at 50% 100%,
+      rgba(0 0 0 / 30%) 10%,
+      black
+    );
+    opacity: 0.25;
+  }
+  .twitter {
+    position: fixed;
+    display: block;
+    right: 12px;
+    bottom: 12px;
+    svg {
+      width: 32px;
+      height: 32px;
+      fill: #fff;
+    }
+  }
+}

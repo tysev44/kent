@@ -1,0 +1,92 @@
+body {
+  width: 350px;
+  margin: 50px auto 0;
+  background: #0099ff;
+  font-family: 'Noto Sans', sans-serif;
+  position: relative;
+}
+.window {
+  position: relative;
+  padding: 2px;
+  width: 200px;
+  height: 200px;
+  margin: 420px auto 20px auto;
+  background: -webkit-radial-gradient(90px 0, circle cover, #e4f5fc 40%, #69BCE0 100%);
+  background: radial-gradient(90px 0, circle cover, #e4f5fc 40%, #69BCE0 100%);
+    background: -moz-radial-gradient(90px 0, circle cover, #e4f5fc 40%, #69BCE0 100%);
+  border-radius: 40% / 5%;
+  border-bottom:1px solid #27798F;
+  border-top: 1px solid #105464;
+  color: white;
+  text-align: center;
+  text-indent: 0.1em;
+  box-shadow: 0 0 30px rgba(0,0,0,0.4);
+}
+.window:before {
+  content: '';
+  position: absolute;
+  top: 5%;
+  bottom: 5%;
+  right: -3%;
+  left: -3%;
+  background: inherit;
+  border-radius: 3% / 50%;
+  border-left: 1px solid #fff;
+  border-right: 1px solid #1593A0;
+  z-index:0;
+}
+
+.middle {
+  position: relative;
+  margin: 15px 10px;
+  height: 170px;
+  width: 177px;
+  border-radius:5px;
+  border: 1px solid #678D9E;
+  box-shadow: 1px 1px 0 0 #fff;
+  background: url("https://si0.twimg.com/profile_images/3165656450/ee9d02df98d27d89024661674050eee6.jpeg");
+  background-size: cover;
+  
+}
+h1, p {
+  text-align: center;
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 1.7rem;
+  
+}
+h1 {
+  margin: 30px 0 0;
+  text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
+}
+p {
+  margin: 5px 0 0;
+  font-size: 0.9rem;
+}
+[type="text"] {
+  margin-top: 15px;
+  width: 95%;
+  padding: 8px 10px;
+  border: 1px solid #777;
+  border-radius: 3px;
+}
+button {
+  position: absolute;
+  right: -55px;
+  bottom: -1px;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  border: 0;
+  border: 1px solid #5D7687;
+  background: #e0f3fa;
+  background: #e4f5fc;
+  background: -moz-linear-gradient(top, #e4f5fc 0%, #bfe8f9 50%, #9fd8ef 51%, #2ab0ed 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#e4f5fc), color-stop(50%,#bfe8f9), color-stop(51%,#9fd8ef), color-stop(100%,#2ab0ed));
+  background: -webkit-linear-gradient(top, #e4f5fc 0%,#bfe8f9 50%,#9fd8ef 51%,#2ab0ed 100%);
+  background: -o-linear-gradient(top, #e4f5fc 0%,#bfe8f9 50%,#9fd8ef 51%,#2ab0ed 100%);
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  font-size: 1.8rem;
+  color: #eee;
+  text-shadow: -1px 1px 2px rgba(0,0,0,0.3);
+}

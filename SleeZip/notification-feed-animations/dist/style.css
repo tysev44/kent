@@ -1,0 +1,132 @@
+* {
+  border: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --hue: 223;
+  --sat: 10%;
+  --white: hsl(0, 0%, 100%);
+  --gray100: hsl(var(--hue), var(--sat), 90%);
+  --gray200: hsl(var(--hue), var(--sat), 80%);
+  --gray700: hsl(var(--hue), var(--sat), 30%);
+  --gray800: hsl(var(--hue), var(--sat), 20%);
+  --gray900: hsl(var(--hue), var(--sat), 10%);
+  --gray950: hsl(var(--hue), var(--sat), 5%);
+  --trans-dur: 0.3s;
+  color-scheme: light dark;
+  font-size: clamp(0.75rem, 0.7rem + 0.25vw, 1rem);
+}
+
+body {
+  background-color: light-dark(var(--gray200), var(--gray950));
+  color: light-dark(var(--gray900), var(--gray100));
+  display: grid;
+  place-items: center;
+  font: 1em/1.5 -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, sans-serif;
+  height: 100vh;
+  overflow-x: hidden;
+  transition: background-color var(--trans-dur), color var(--trans-dur);
+}
+
+.avatar {
+  aspect-ratio: 1;
+  background-color: light-dark(var(--gray100), var(--gray700));
+  border-radius: 50%;
+  font-size: 2.5em;
+  line-height: 1;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  width: 100%;
+  transition: background-color var(--trans-dur);
+}
+
+.note {
+  height: 5.75em;
+}
+.note, .note__inner {
+  animation-duration: 0.75s;
+  animation-fill-mode: forwards;
+}
+.note__inner {
+  animation-name: note-in;
+  background-color: light-dark(var(--white), var(--gray800));
+  border-radius: 1em;
+  box-shadow: 0 0 1.5em rgba(0, 0, 0, 0.1);
+  display: grid;
+  grid-template-columns: 3.75em 1fr;
+  gap: 1em;
+  padding: 1em;
+  padding-inline-end: 2em;
+  width: 100%;
+  max-width: 26em;
+  transform-origin: 50% 100%;
+  transition: background-color var(--trans-dur), box-shadow var(--trans-dur);
+}
+.note__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+}
+.note__message {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.note__title {
+  font-size: 1em;
+  font-weight: 600;
+}
+.note--out {
+  animation-name: note-shrink;
+}
+.note--out .note__inner {
+  animation-name: note-out;
+  transform-origin: 50% 50%;
+}
+.note-center {
+  display: flex;
+  gap: 0.75em;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 1.5em;
+  width: 100vw;
+}
+
+/* Animations */
+@keyframes note-in {
+  from {
+    filter: blur(10px);
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    filter: blur(0);
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes note-out {
+  from {
+    filter: blur(0);
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    filter: blur(10px);
+    opacity: 0;
+    transform: translateY(-100%) scale(1.1);
+  }
+}
+@keyframes note-shrink {
+  from {
+    height: 5.75em;
+  }
+  to {
+    height: 0;
+  }
+}

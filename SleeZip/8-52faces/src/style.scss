@@ -1,0 +1,68 @@
+body {
+ margin:0;
+ background: #ffe;
+}
+.hide {
+  display: none;
+}
+
+svg {
+  position: absolute;  
+  display: inline-block;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 32%;
+}
+
+html, body, .container {
+    height: 100%;
+}
+.container {
+  position: relative;
+  margin: auto;
+  width: 800px;
+  
+  svg:nth-child(1) {
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+  }
+    svg:nth-child(2) {
+    margin: 0;
+    left: 0;
+  }
+    svg:nth-child(3) {
+    margin: 0;
+    right: 0;
+  }
+  
+  svg:nth-child(2), svg:nth-child(3) {
+    visibility: hidden;
+  }
+}
+
+#slider {
+  width:420px;
+  margin:20px auto;
+}
+
+button {
+  transform: translateX(-50%);
+  left: 50%;
+  position: absolute;
+  font-family: 'futura';
+  padding: 1rem 2rem;
+  text-transform: uppercase;
+  background: white;
+  border: none;
+  letter-spacing: 0.2rem;
+  overflow: hidden;
+  &:hover {
+    background: black;
+    color: white;
+  }
+}
+
+.pinned {
+  position: absolute;
+}

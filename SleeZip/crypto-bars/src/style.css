@@ -1,0 +1,17 @@
+body {
+background-color: #020202;
+  margin: 0;
+overflow: hidden;
+}
+
+#container{
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+  height: 100vh;
+
+}
+#canvas3d{
+  width: 100% !important;
+  height: 100% !important;
+}

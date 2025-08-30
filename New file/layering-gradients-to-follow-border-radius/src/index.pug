@@ -1,0 +1,51 @@
+- var dim = 2;
+- var boxes = { border: '#f90', padding: '#b53', content: '#95a'};
+
+body(style=`--dim: ${dim}` data-dim=dim)
+	form
+		div.toggle(role='group' aria-label='Switch between 2D and 3D view for the graphics below.')
+			- for(var i = 0; i < 2; i++) {
+				input(type='radio' name='dim' id=`dim${i}` value=i + 2 checked= dim === i + 2)
+				label(for=`dim${i}` style=`--i: ${i}`) #{i + 2}D
+			- }
+			div.toggle__vis(aria-hidden='true')
+
+	section(role='graphics-document' aria-label='Shows how backgrounds are layered, animating from 2D to 3D.')
+		.a3d
+			- var i = 0;
+			- for(var p in boxes) {
+				.layer(data-box=p style=`--c: ${boxes[p]}; --m0: ${1 - (i > 1)}; --m1: ${1 - (i > 0)}`)
+					code.info #{p}-box
+					if p !== 'content'
+						.meas #{p[0]}
+					.round
+						.txt r#{p === 'border' ? '' : ` - b${p === 'padding' ? '' : ' - p'}`}
+				- ++i;
+			- }
+
+	pre
+		span.token--decl
+			span.token--prop border
+			span.token--punc :
+			|  
+			span.token--val
+				span.token--keyw solid
+				|  
+				span.token--len $b
+				|  
+				span.token--col transparent
+				span.token--punc ;
+		span.token--decl
+			span.token--prop padding
+			span.token--punc :
+			|  
+			span.token--val
+				span.token--len $p
+				span.token--punc ;
+		span.token--decl
+			span.token--prop border-radius
+			span.token--punc :
+			|  
+			span.token--val
+				span.token--len $r
+				span.token--punc ;

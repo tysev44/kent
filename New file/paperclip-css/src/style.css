@@ -1,0 +1,114 @@
+html {
+  width: 100%;
+  height: 100%;
+  background: #487c67;
+}
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.paper {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background: #b2ddcb;
+  width: 100%;
+  height: 50%;
+  z-index: 4;
+}
+.paper2 {
+  background: #a5cdbc;
+  transform: rotate(0.5deg);
+  z-index: 3;
+  animation: paper 2s;
+}
+.paper3 {
+  background: #97c0af;
+  transform: rotate(1deg);
+  z-index: 2;
+  animation: paper1 2s;
+}
+.paper-clip-icon,
+.paper-clip-icon::after,
+.paper-clip-icon::before {
+  border-color: #fff !important;
+}
+.paper-clip-icon {
+  margin-top: -40px;
+  width: 40px;
+  height: 40px;
+  border-bottom: none;
+  border-left: 6px solid;
+  border-right: 6px solid;
+  border-top: none;
+  position: relative;
+  z-index: 5;
+}
+.paper-clip-icon::before {
+  position: absolute;
+  content: "";
+  top: -30px;
+  right: -6px;
+  width: 29px;
+  height: 60px;
+  border-top-left-radius: 40px;
+  border-top-right-radius: 40px;
+  border-bottom: none;
+  border-left: 6px solid;
+  border-right: 6px solid;
+  border-top: 6px solid;
+}
+.paper-clip-icon::after {
+  position: absolute;
+  content: "";
+  bottom: -80px;
+  right: 5px;
+  width: 18px;
+  height: 104px;
+  border-bottom-left-radius: 40px;
+  border-bottom-right-radius: 40px;
+  border-top: none;
+  border-left: 6px solid;
+  border-right: 6px solid;
+  border-bottom: 6px solid;
+}
+
+@-webkit-keyframes paper {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(0.5deg);
+  }
+}
+@keyframes paper {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(0.5deg);
+  }
+}
+
+@-webkit-keyframes paper1 {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(1deg);
+  }
+}
+@keyframes paper1 {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(1deg);
+  }
+}

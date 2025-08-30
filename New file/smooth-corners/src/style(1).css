@@ -1,0 +1,375 @@
+:root {
+	/* Squircle CSS Variables */
+	--corner-radius-x: 28;
+	--corner-radius-y: 28;
+	--corner-smoothness: 0.7;
+
+	/* Panda CSS Color Tokens */
+	--blue: hsla(234, 84%, 69%, 1);
+	--blue-light: hsla(234, 84%, 69%, 0.5);
+	--blue-500: hsla(234, 50%, 75%, 1);
+	--blue-200: hsla(234, 75%, 94%, 1);
+	--blue-100: hsla(234, 90%, 75%, .1);
+
+	--lime: hsla(151, 66%, 61%, 1);
+	--pink: hsla(295, 73%, 68%, 1);
+	--purple: hsla(266, 54%, 62%, 1);
+	--orange: hsla(32, 100%, 66%, 1);
+	--peach: hsla(11, 90%, 77%, 1);
+	--cyan: hsla(194, 71%, 56%, 1);
+	--green: hsla(109, 59%, 51%, 1);
+	--red: hsla(5, 90%, 56%, 1);
+
+	--gray-1000: hsla(240, 8%, 50%, 1);
+	--gray-800: hsla(240, 8%, 63%, 1);
+	--gray-600: hsla(240, 8%, 70%, 1);
+	--gray-400: hsla(240, 10%, 80%, 1);
+	--gray-300: hsla(240, 10%, 85%, 1);
+	--gray-200: hsla(240, 10%, 90%, 1);
+	--gray-150: hsla(240, 17.5%, 95%, 1);
+	--gray-100: hsla(240, 20%, 97%, 1);
+	--gray-50: hsla(240, 20%, 98%, 1);
+	--gray-0: #fff;
+
+	/* Theme Colors */
+	--bg-color: var(--gray-50);
+	--panel-bg: var(--gray-0);
+	--panel-bg-lighter: var(--gray-100);
+	--text-color: var(--gray-1000);
+	--text-light: var(--gray-600);
+	--accent-color: var(--blue);
+	--accent-light: var(--blue-light);
+	--accent-pale: var(--blue-200);
+	--border-color: var(--gray-200);
+	--code-bg: var(--gray-50);
+	--shadow: 0 6px 20px -6px hsla(240, 10%, 40%, 0.1), 0 4px 8px -2px hsla(240, 10%, 40%, 0.02), 0 0 0 0.5px hsla(240, 10%, 40%, 0.08);
+	--shadow-primary: 0 2px 4px -3px hsla(240, 25%, 16%, 0.20), 0 2px 4px -3px hsla(240, 25%, 16%, 0.20);
+	--shadow-primary-hover: 0 2px 4px -3px hsla(240, 25%, 16%, 0.35), inset 0 -2px 3px hsla(234, 69%, 80%, .3);
+
+	--font-sans: 'Inter', sans-serif;
+	--font-mono: 'JetBrains Mono', monospace;
+}
+
+body {
+	font-family: var(--font-sans);
+	background-color: var(--bg-color);
+	color: var(--text-color);
+	margin: 0;
+	padding: 2rem;
+	box-sizing: border-box;
+	min-height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+/* --- Main Layout --- */
+.main-container {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 2rem;
+	width: 100%;
+	max-width: 1200px;
+	background-color: var(--panel-bg);
+	border-radius: 13px;
+	padding: 2rem;
+	box-shadow: var(--shadow);
+	border: 1px solid var(--border-color);
+}
+
+.preview-panel {
+	padding: 32px;
+	border-left: 1px solid var(--border-color);
+	background-color: var(--gray-50);
+	border-radius: 0 9px 9px 0;
+	margin: -2rem -2rem -2rem 0;
+	padding: 2rem;
+}
+
+.preview-content {
+	position: sticky;
+	top: 48px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-content: center;
+}
+
+.button-container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-bottom: 48px;
+}
+
+.squircle-button {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 160px;
+	height: 50px;
+	font-size: 1rem;
+	font-weight: 600;
+	color: var(--gray-0);
+	background: var(--accent-color);
+	box-shadow: var(--shadow-primary);
+	clip-path: url(#squircle-clip);
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	transition: all 0.2s ease;
+	/* Make it resizable for demonstration */
+	resize: both;
+	overflow: hidden;
+	min-width: 120px;
+	min-height: 44px;
+}
+
+.squircle-button:hover {
+	transform: translateY(-1px);
+	box-shadow: var(--shadow-primary-hover);
+}
+
+.color-variants {
+	display: flex;
+	gap: 8px;
+	justify-content: center;
+	margin-bottom: 32px;
+}
+
+.variant-btn {
+	padding: 6px 12px;
+	border: 1px solid var(--border-color);
+	background: var(--gray-0);
+	border-radius: 7px;
+	font-size: 13px;
+	font-weight: 500;
+	color: var(--text-color);
+	cursor: pointer;
+	transition: all 0.2s ease;
+	font-family: var(--font-sans);
+}
+
+.variant-btn:hover {
+	background: var(--gray-50);
+	border-color: var(--gray-300);
+}
+
+.variant-btn.active {
+	background: var(--accent-color);
+	color: white;
+	border-color: var(--accent-color);
+}
+
+/* Button color variations */
+.squircle-button[data-variant="gradient"] {
+	background: linear-gradient(135deg, var(--purple), var(--blue), var(--cyan), var(--lime));
+	background-size: 300% 300%;
+	animation: gradient-shift 8s ease infinite;
+}
+
+.squircle-button[data-variant="purple"] {
+	background: var(--purple);
+}
+
+.squircle-button[data-variant="lime"] {
+	background: var(--lime);
+	color: var(--gray-1000);
+}
+
+@keyframes gradient-shift {
+	0% { background-position: 0% 50%; }
+	50% { background-position: 100% 50%; }
+	100% { background-position: 0% 50%; }
+}
+
+.controls-container {
+	display: flex;
+	flex-direction: column;
+	gap: 32px;
+	width: 100%;
+	max-width: 400px;
+	margin: 0 auto;
+}
+
+.control {
+	display: flex;
+	flex-direction: column;
+}
+
+.control label {
+	display: block;
+	font-size: 14px;
+	font-weight: 500;
+	color: var(--text-light);
+	margin-bottom: 16px;
+	letter-spacing: 0.03em;
+}
+
+.control label span {
+	font-weight: 700;
+	color: var(--accent-color);
+	background-color: var(--blue-100);
+	padding: 2px 8px;
+	border-radius: 5px;
+	font-family: var(--font-mono);
+	font-size: 12px;
+	margin-left: 4px;
+	border: 1px solid var(--blue-200);
+}
+
+input[type="range"] {
+	-webkit-appearance: none;
+	appearance: none;
+	width: 100%;
+	height: 6px;
+	background: var(--border-color);
+	border-radius: 3px;
+	outline: none;
+	opacity: 0.9;
+	transition: opacity 0.2s;
+}
+
+input[type="range"]:hover {
+	opacity: 1;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	appearance: none;
+	width: 24px;
+	height: 24px;
+	background: var(--accent-color);
+	cursor: pointer;
+	border-radius: 50%;
+	border: 3px solid var(--gray-0);
+	box-shadow: var(--shadow);
+	transition: all 0.2s ease;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+	transform: scale(1.1);
+	box-shadow: 0 0 0 2px var(--blue-light);
+}
+
+input[type="range"]::-moz-range-thumb {
+	width: 24px;
+	height: 24px;
+	background: var(--accent-color);
+	cursor: pointer;
+	border-radius: 50%;
+	border: 3px solid var(--gray-0);
+	box-shadow: var(--shadow);
+}
+
+.code-explanation-panel {
+	display: flex;
+	flex-direction: column;
+	gap: 1.5rem;
+	overflow-y: auto;
+}
+
+h2 {
+	margin-top: 0;
+	margin-bottom: 0.5rem;
+	font-size: 1.3rem;
+	font-weight: 700;
+	letter-spacing: 0.05em;
+}
+
+h2 code {
+	color: var(--accent-color);
+	background-color: var(--blue-100);
+	padding: 0.2em 0.4em;
+	border-radius: 5px;
+	font-size: 0.9em;
+}
+
+.code-section {
+	background-color: var(--panel-bg);
+	padding: 1.5rem;
+	border-radius: 9px;
+	border: 1px solid var(--border-color);
+	box-shadow: 0 1px 3px hsla(240, 10%, 40%, 0.05);
+}
+
+.code-section h3 {
+	margin-top: 0;
+	margin-bottom: 0.5rem;
+	font-size: 1.1rem;
+	font-weight: 700;
+	color: var(--text-color);
+}
+
+.code-section p {
+	font-size: 0.9rem;
+	color: var(--text-light);
+	margin-top: 0;
+	margin-bottom: 1rem;
+	line-height: 1.6;
+}
+
+.code-section p code {
+	color: var(--accent-color);
+	background-color: var(--blue-100);
+	padding: 0.15em 0.3em;
+	border-radius: 3px;
+	font-family: var(--font-mono);
+	font-size: 0.85em;
+}
+
+.code-section pre {
+	background-color: var(--code-bg);
+	border: 1px solid var(--border-color);
+	border-radius: 7px;
+	padding: 1rem;
+	margin: 0;
+	font-family: var(--font-mono);
+	font-size: 0.8rem;
+	line-height: 1.6;
+	white-space: pre-wrap;
+	overflow-x: auto;
+}
+
+.code-line {
+	display: block;
+	transition: background-color 0.2s ease-in-out;
+	border-radius: 2px;
+	padding: 0 2px;
+}
+
+.code-line.highlight {
+	background-color: var(--blue-100);
+	box-shadow: 0 0 0 1px var(--blue-200);
+}
+
+/* --- Syntax Highlighting --- */
+.token-comment { color: var(--gray-600); font-style: italic; }
+.token-punctuation { color: var(--gray-800); }
+.token-tag, .token-property { color: var(--red); }
+.token-selector { color: var(--purple); }
+.token-attr-name, .token-keyword { color: var(--purple); }
+.token-attr-value, .token-string { color: var(--green); }
+.token-function { color: var(--blue); }
+.token-variable { color: var(--orange); }
+.token-number { color: var(--peach); }
+.token-operator { color: var(--cyan); }
+
+/* --- Responsive Design --- */
+@media (max-width: 1024px) {
+	.main-container {
+		grid-template-columns: 1fr;
+	}
+	.preview-panel {
+		border-left: none;
+		border-top: 1px solid var(--border-color);
+		padding-top: 2rem;
+	}
+}
+@media (max-width: 768px) {
+	body {
+		padding: 1rem;
+	}
+	.main-container {
+		padding: 1.5rem;
+	}
+}

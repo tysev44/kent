@@ -1,0 +1,103 @@
+body {
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	text-rendering: optimizeLegibility;
+	min-height: 100vh;
+	min-height: 100dvh;
+	display: grid;
+	place-items: center;
+	background-color: hsl(240, 50%, 97.5%);
+	margin: 0;
+}
+
+main {
+	width: 320px;
+	height: 260px;
+	display: flex;
+	overflow: hidden;
+	flex-direction: column;
+	align-items: stretch;
+	border-radius: 20px;
+	background-color: hsla(240, 90%, 99.5%, 1);
+	box-shadow: hsla(240, 60%, 90%, 0.25) 0 52px 100px -20px,
+		hsla(240, 50%, 5%, 0.3) 0px 30px 60px -30px,
+		0 0 0 .5px hsla(240, 12%, 50%, .25);
+}
+
+section {
+	flex-grow: 1;
+	overflow-y: auto;
+	overscroll-behavior: contain;
+	container-type: inline-size;
+	container-name: scroll-area;
+	--mask-height: 20px; /* Retained for reference, though not used */
+	scrollbar-width: thin;
+	scrollbar-color: hsla(240%, 12%, 75%, 1) transparent;
+}
+
+section::-webkit-scrollbar {
+	width: 6px;
+}
+
+section::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+section::-webkit-scrollbar-thumb {
+	background-color: hsl(234 8% 70%);
+	border-radius: 3px;
+	border: none;
+}
+
+ul {
+	list-style: none;
+	padding: 4px;
+	display: grid;
+	grid-gap: 12px;
+	perspective: 300px;
+	transform-style: translate3d;
+}
+
+@keyframes animate-in {
+	50% {
+		transform-origin: 0% 100%;
+		transform: rotateX(-25deg) scale(.95);
+	}
+	75%,
+	100% {
+		transform: rotateX(0deg);
+	}
+}
+
+@keyframes animate-out {
+	50% {
+		transform-origin: 0% 100%;
+		transform: rotateX(25deg) scale(.95);
+	}
+	75%,
+	100% {
+		transform: rotateX(0deg);
+	}
+}
+
+@keyframes blur-edges {
+}
+
+li {
+	animation-name: animate-in, animate-out, blur-edges;
+	animation-timing-function: linear, linear, linear;
+	animation-fill-mode: forwards, forwards, both;
+	animation-timeline: view(), view(), view();
+	animation-range: entry, exit, 0%, 100%;
+	background-color: hsla(240, 30%, 95%, 1);
+	color: hsla(240, 15%, 20%, 1);
+	padding: 12px 20px;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}

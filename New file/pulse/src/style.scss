@@ -1,0 +1,27 @@
+$pulse-color: #ff0000;
+$pulse-size: 10px;
+$pulse-radius: $pulse-size + 5px;
+
+.pulse {
+  height: $pulse-size;
+  width: $pulse-size;
+  border-radius: 50%;
+  background-color: $pulse-color;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 rgba($pulse-color, 0.5);
+  }
+  100% {
+    box-shadow: 0 0 0 $pulse-radius rgba($pulse-color, 0);
+  }
+}
+
+body {
+  height: 100vh;
+  margin: 0;
+  display: grid;
+  place-items: center;
+}

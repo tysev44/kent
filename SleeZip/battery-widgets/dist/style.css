@@ -1,0 +1,182 @@
+* {
+  border: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --hue: 223;
+  --sat: 10%;
+  --light-gray1: hsl(var(--hue),var(--sat),95%);
+  --light-gray2: hsl(var(--hue),var(--sat),90%);
+  --light-gray3: hsl(var(--hue),var(--sat),85%);
+  --light-gray4: hsl(var(--hue),var(--sat),80%);
+  --light-gray5: hsl(var(--hue),var(--sat),75%);
+  --light-gray6: hsl(var(--hue),var(--sat),70%);
+  --light-gray7: hsl(var(--hue),var(--sat),65%);
+  --light-gray8: hsl(var(--hue),var(--sat),60%);
+  --light-gray9: hsl(var(--hue),var(--sat),55%);
+  --dark-gray1: hsl(var(--hue),var(--sat),45%);
+  --dark-gray2: hsl(var(--hue),var(--sat),40%);
+  --dark-gray3: hsl(var(--hue),var(--sat),35%);
+  --dark-gray4: hsl(var(--hue),var(--sat),30%);
+  --dark-gray5: hsl(var(--hue),var(--sat),25%);
+  --dark-gray6: hsl(var(--hue),var(--sat),20%);
+  --dark-gray7: hsl(var(--hue),var(--sat),15%);
+  --dark-gray8: hsl(var(--hue),var(--sat),10%);
+  --dark-gray9: hsl(var(--hue),var(--sat),5%);
+  --primary1: hsl(var(--hue),90%,70%);
+  --primary2: hsl(var(--hue),90%,50%);
+  --trans-dur: 0.3s;
+  font-size: clamp(1rem,0.95rem + 0.25vw,1.25rem);
+}
+
+body,
+button {
+  color: var(--dark-gray9);
+  font: 1em/1.5 -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, sans-serif;
+  transition: color var(--trans-dur);
+}
+
+body {
+  background: url("https://assets.codepen.io/416221/rays.jpg") center/cover;
+  height: 100vh;
+}
+
+main {
+  backdrop-filter: blur(8px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5em 3em;
+  padding: 1.5em 0;
+  width: 100%;
+  height: min-content;
+  min-height: 100vh;
+}
+
+.icon {
+  display: block;
+  overflow: visible;
+  width: 1em;
+  height: auto;
+}
+
+.widget {
+  background-color: hsla(var(--hue), var(--sat), 95%, 0.8);
+  backdrop-filter: blur(16px);
+  border-radius: 1.5em;
+  display: grid;
+  grid-template-rows: 3em 2em 1fr;
+  padding: 1em 0.75em 0.75em;
+  width: 12em;
+  height: 12em;
+}
+.widget__bar {
+  background-color: hsla(var(--hue), var(--sat), 5%, 0.1);
+  border-radius: 0.75em;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  padding: 0.375em 0;
+  position: relative;
+  width: 3.25em;
+  height: 100%;
+}
+.widget__bar-fill {
+  filter: blur(6px);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.widget__bar-fill--green {
+  background-color: #0bda16;
+}
+.widget__bar-fill--yellow {
+  background-color: #f2c40d;
+}
+.widget__bar-fill--red {
+  background-color: #f23e0d;
+}
+.widget__bar-icon, .widget__bar-percent {
+  position: relative;
+}
+.widget__bar-icon {
+  background-color: hsla(var(--hue), var(--sat), 95%, 0.9);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  width: 2.25em;
+  height: 2.25em;
+}
+.widget__bars, .widget__header {
+  display: flex;
+}
+.widget__bars {
+  gap: 0.375em;
+  height: 100%;
+}
+.widget__button {
+  background-color: transparent;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.widget__button:focus-visible, .widget__button:hover {
+  color: var(--primary2) !important;
+}
+.widget__header {
+  align-items: flex-start;
+  gap: 1em;
+  padding-inline-end: 0.375em;
+}
+.widget__header .icon {
+  width: 1.5em;
+}
+.widget__subtitle {
+  color: var(--dark-gray3);
+  font-weight: 300;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.widget__title {
+  display: -webkit-box;
+  font-weight: 600;
+  flex: 1;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+}
+.widget--dark {
+  background-color: hsla(var(--hue), var(--sat), 5%, 0.8);
+}
+.widget--dark, .widget--dark .widget__button {
+  color: var(--light-gray1);
+}
+.widget--dark .widget__button:focus-visible, .widget--dark .widget__button:hover {
+  color: var(--primary1) !important;
+}
+.widget--dark .widget__bar {
+  background-color: hsla(var(--hue), var(--sat), 95%, 0.1);
+}
+.widget--dark .widget__bar-icon {
+  background-color: hsla(var(--hue), var(--sat), 5%, 0.9);
+}
+.widget--dark .widget__subtitle {
+  color: var(--light-gray7);
+}
+
+@media (min-width: 768px) {
+  main {
+    flex-direction: row;
+  }
+}

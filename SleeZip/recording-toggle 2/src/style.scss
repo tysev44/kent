@@ -1,0 +1,199 @@
+* {
+	border: 0;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+:root {
+	--hue: 223;
+	--red: hsl(3,90%,50%);
+	--white: hsl(0,0%,100%);
+	--primary: hsl(var(--hue),90%,50%);
+	--primary-t: hsla(var(--hue),90%,50%,0);
+	--gray1: hsl(var(--hue),10%,90%);
+	--gray2: hsl(var(--hue),10%,80%);
+	--gray3: hsl(var(--hue),10%,70%);
+	--gray4: hsl(var(--hue),10%,60%);
+	--gray5: hsl(var(--hue),10%,50%);
+	--gray6: hsl(var(--hue),10%,40%);
+	--gray7: hsl(var(--hue),10%,30%);
+	--gray8: hsl(var(--hue),10%,20%);
+	--gray9: hsl(var(--hue),10%,10%);
+	--trans-dur: 0.3s;
+	--trans-timing: cubic-bezier(0.65,0,0.35,1);
+	font-size: calc(28px + (60 - 28) * (100vw - 320px) / (3840 - 320));
+}
+body,
+button {
+	color: var(--gray9);
+	font: 1em/1.5 "DM Sans", sans-serif;
+	transition:
+		background-color var(--trans-dur),
+		color var(--trans-dur);
+}
+body {
+	background-color: var(--gray1);
+}
+.recorder {
+	background-color: transparent;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	margin: auto;
+	outline: transparent;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	-webkit-appearance: none;
+	appearance: none;
+	-webkit-tap-highlight-color: transparent;
+
+	&__label {
+		&-start,
+		&-end {
+			display: block;
+			position: relative;
+		}
+		&-start,
+		&-end-text {
+			transition: opacity var(--trans-dur);
+		}
+		&-start {
+			margin-inline: 0 0.5em;
+		}
+		&-end {
+			margin-inline: 0.5em 0;
+
+			&-text {
+				opacity: 0.4;
+
+				& + & {
+					opacity: 0;
+					position: absolute;
+					top: 0;
+					left: 0;
+		
+					[dir="rtl"] & {
+						right: 0;
+						left: auto;
+					}
+				}
+			}
+		}
+	}
+	&__switch {
+		background-color: var(--white);
+		border-radius: 0.75em;
+		box-shadow:
+			0 0 0 0.125em var(--primary-t),
+			0 0.25em 0.25em hsla(0,0%,0%,0.1);
+		display: flex;
+		padding: 0.25em;
+		width: 2.5em;
+		height: 1.5em;
+
+		&,
+		&-handle {
+			transition:
+				background-color var(--trans-dur),
+				box-shadow var(--trans-dur),
+				transform var(--trans-dur) var(--trans-timing),
+				transform-origin var(--trans-dur) var(--trans-timing);
+		}
+		&-handle {
+			background-color: var(--gray3);
+			border-radius: 50%;
+			display: block;
+			transform-origin: 0 0.5em;
+			width: 1em;
+			height: 1em;
+
+			[dir="rtl"] & {
+				transform-origin: 100% 0.5em;
+			}
+		}
+	}
+	&__timer {
+		display: block;
+		overflow: visible;
+		width: 100%;
+		height: auto;
+
+		&-ring {
+			transition:
+				r var(--trans-dur) var(--trans-timing),
+				stroke-dasharray var(--trans-dur) var(--trans-timing),
+				stroke-dashoffset var(--trans-dur) var(--trans-timing),
+				stroke-width var(--trans-dur) var(--trans-timing);
+		}
+	}
+	&:focus-visible &__switch {
+		box-shadow:
+			0 0 0 0.125em var(--primary),
+			0 0.25em 0.25em hsla(0,0%,0%,0.1);
+	}
+	&:active &__switch-handle {
+		transform: scaleX(1.5);
+	}
+	// recording state
+	&[aria-pressed="true"] &__label-start {
+		opacity: 0.4;
+	}
+	&[aria-pressed="true"] &__label-end-text {
+		opacity: 0;
+	}
+	&[aria-pressed="true"] &__label-end-text + &__label-end-text {
+		opacity: 1;
+	}
+	&[aria-pressed="true"] &__switch-handle {
+		background-color: var(--red);
+		transform: translateX(100%);
+		transform-origin: 100% 0.5em;
+
+		[dir="rtl"] & {
+			transform: translateX(-100%);
+			transform-origin: 0 0.5em;
+		}
+	}
+	&[aria-pressed="true"] &__timer-ring {
+		r: 6.5px;
+		stroke-width: 3px;
+	}
+	&[aria-pressed="true"]:active &__switch-handle {
+		transform: translateX(100%) scaleX(1.5);
+
+		[dir="rtl"] & {
+			transform: translateX(-100%) scaleX(1.5);
+		}
+	}
+}
+
+
+/* Dark theme */
+@media (prefers-color-scheme: dark) {
+	body,
+	button {
+		color: var(--gray1);
+	}
+	body {
+		background-color: var(--gray9);
+	}
+	.recorder {
+		&__switch {
+			background-color: var(--gray8);
+			box-shadow:
+				0 0 0 0.125em var(--primary-t),
+				0 0.25em 0.25em hsla(0,0%,0%,0.2);
+
+			&-handle {
+				background-color: var(--gray6);
+			}
+		}
+		&:focus-visible &__switch {
+			box-shadow:
+				0 0 0 0.125em var(--primary),
+				0 0.25em 0.25em hsla(0,0%,0%,0.2);
+		}
+	}
+}

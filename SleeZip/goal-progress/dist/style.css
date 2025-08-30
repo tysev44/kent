@@ -1,0 +1,279 @@
+* {
+  border: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --hue: 223;
+  --sat: 10%;
+  --hue-danger: 6;
+  --hue-success: 126;
+  --hue-warning: 29;
+  --white: hsl(0,0%,100%);
+  --gray1: hsl(var(--hue),var(--sat),90%);
+  --gray2: hsl(var(--hue),var(--sat),80%);
+  --gray3: hsl(var(--hue),var(--sat),70%);
+  --gray4: hsl(var(--hue),var(--sat),60%);
+  --gray5: hsl(var(--hue),var(--sat),50%);
+  --gray6: hsl(var(--hue),var(--sat),40%);
+  --gray7: hsl(var(--hue),var(--sat),30%);
+  --gray8: hsl(var(--hue),var(--sat),20%);
+  --gray9: hsl(var(--hue),var(--sat),10%);
+  --danger1: hsl(var(--hue-danger),90%,94%);
+  --danger2: hsl(var(--hue-danger),90%,81%);
+  --danger3: hsl(var(--hue-danger),90%,68%);
+  --danger4: hsl(var(--hue-danger),90%,55%);
+  --danger5: hsl(var(--hue-danger),90%,42%);
+  --danger6: hsl(var(--hue-danger),90%,29%);
+  --success1: hsl(var(--hue-success),90%,80%);
+  --success2: hsl(var(--hue-success),90%,67%);
+  --success3: hsl(var(--hue-success),90%,54%);
+  --success4: hsl(var(--hue-success),90%,41%);
+  --success5: hsl(var(--hue-success),90%,28%);
+  --success6: hsl(var(--hue-success),90%,15%);
+  --warning1: hsl(var(--hue-warning),90%,90%);
+  --warning2: hsl(var(--hue-warning),90%,77%);
+  --warning3: hsl(var(--hue-warning),90%,64%);
+  --warning4: hsl(var(--hue-warning),90%,51%);
+  --warning5: hsl(var(--hue-warning),90%,38%);
+  --warning6: hsl(var(--hue-warning),90%,25%);
+  --trans-dur: 0.3s;
+  font-size: clamp(1rem,0.95rem + 0.25vw,1.25rem);
+}
+
+body {
+  background-color: var(--gray1);
+  color: var(--gray9);
+  display: flex;
+  font: 1em/1.5 "DM Sans", sans-serif;
+  height: 100vh;
+  overflow-x: hidden;
+  transition: background-color var(--trans-dur), color var(--trans-dur);
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5em;
+  margin: auto;
+  padding: 1.5em;
+  width: 100vw;
+  height: min-content;
+  min-height: 100%;
+}
+
+h2 {
+  font-size: 1.5em;
+  line-height: 1;
+  margin: 0 0 0.75rem;
+  padding-top: 0.75rem;
+}
+
+.goal-progress {
+  background-color: var(--white);
+  border-radius: 1.25em;
+  box-shadow: 0 0.25em 0.125em rgba(0, 0, 0, 0.2);
+  padding: 1em 1.5em 1.5em;
+  width: 100%;
+  max-width: 28.5em;
+  transition: background-color var(--trans-dur), box-shadow var(--trans-dur);
+}
+.goal-progress h2 {
+  font-weight: 300;
+}
+.goal-progress p,
+.goal-progress strong {
+  transition: color var(--trans-dur);
+}
+.goal-progress p {
+  color: var(--gray6);
+  font-weight: 300;
+}
+.goal-progress strong {
+  color: var(--gray9);
+  font-weight: 500;
+}
+.goal-progress__bar {
+  margin-bottom: 0.75em;
+  position: relative;
+  height: 2.25em;
+}
+.goal-progress__bar, .goal-progress__bar-fill-bottom, .goal-progress__bar-fill-top, .goal-progress__bar-track {
+  width: 100%;
+}
+.goal-progress__bar-fill-bottom, .goal-progress__bar-fill-top, .goal-progress__bar-knob-track, .goal-progress__bar-knob-wrap, .goal-progress__bar-track {
+  position: absolute;
+}
+.goal-progress__bar-fill-bottom, .goal-progress__bar-fill-top, .goal-progress__bar-knob-track {
+  transition: background-color var(--trans-dur), transform 0.45s cubic-bezier(0.65, 0, 0.35, 1);
+}
+.goal-progress__bar-fill-bottom, .goal-progress__bar-fill-top {
+  height: 100%;
+  transform: translateX(-100%);
+}
+.goal-progress__bar-knob-wrap, .goal-progress__bar-track, .goal-progress__bar-fill-bottom {
+  overflow: hidden;
+}
+.goal-progress__bar-fill-bottom:before {
+  animation: fill-pattern-move 1s linear infinite;
+  content: "";
+  display: block;
+  mask-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 9 9"><polygon points="5.75 0,8.75 0,3.25 9,0.25 9" transform="translate(-4.5,0)" /><polygon points="5.75 0,8.75 0,3.25 9,0.25 9" /><polygon points="5.75 0,8.75 0,3.25 9,0.25 9" transform="translate(4.5,0)" /></svg>');
+  mask-size: 0.75em;
+  mask-position: 0 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: calc(100% + 0.75em);
+  height: 100%;
+  transition: background-color var(--trans-dur);
+}
+.goal-progress__bar-knob {
+  border: 0.3125em solid var(--white);
+  border-radius: 50%;
+  box-shadow: 0 0.0625em 0.125em rgba(0, 0, 0, 0.4);
+  margin-right: auto;
+  width: 1.5em;
+  height: 1.5em;
+  transition: background-color var(--trans-dur);
+}
+.goal-progress__bar-knob-track {
+  top: 0.375em;
+  right: 1.625em;
+  left: 0.125em;
+}
+.goal-progress__bar-knob-wrap {
+  margin: 0 -0.125em;
+  width: calc(100% + 0.25em);
+  height: 100%;
+}
+.goal-progress__bar-track {
+  border-radius: 0.375em;
+  top: 0.75em;
+  height: 0.75em;
+  transition: background-color var(--trans-dur);
+}
+[dir=rtl] .goal-progress__bar {
+  transform: scaleX(-1);
+}
+.goal-progress--ahead .goal-progress__bar-knob {
+  background-color: var(--success5);
+}
+.goal-progress--ahead .goal-progress__bar-track {
+  background-color: var(--success1);
+}
+.goal-progress--ahead .goal-progress__bar-fill-top {
+  background-color: var(--success5);
+}
+.goal-progress--ahead .goal-progress__bar-fill-bottom:before {
+  background-color: var(--success4);
+}
+.goal-progress--ahead .goal-progress__status {
+  color: var(--success5);
+}
+.goal-progress--behind .goal-progress__bar-knob {
+  background-color: var(--danger5);
+}
+.goal-progress--behind .goal-progress__bar-track {
+  background-color: var(--danger1);
+}
+.goal-progress--behind .goal-progress__bar-fill-top {
+  background-color: var(--danger5);
+}
+.goal-progress--behind .goal-progress__bar-fill-bottom:before {
+  background-color: var(--danger4);
+}
+.goal-progress--behind .goal-progress__status {
+  color: var(--danger5);
+}
+.goal-progress--par .goal-progress__bar-knob {
+  background-color: var(--warning5);
+}
+.goal-progress--par .goal-progress__bar-track {
+  background-color: var(--warning1);
+}
+.goal-progress--par .goal-progress__bar-fill-top {
+  background-color: var(--warning5);
+}
+.goal-progress--par .goal-progress__bar-fill-bottom:before {
+  background-color: var(--warning4);
+}
+.goal-progress--par .goal-progress__status {
+  color: var(--warning5);
+}
+
+/* Dark theme */
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: var(--gray9);
+    color: var(--gray1);
+  }
+
+  .goal-progress {
+    background-color: var(--gray8);
+  }
+  .goal-progress p {
+    color: var(--gray3);
+  }
+  .goal-progress strong {
+    color: var(--gray1);
+  }
+  .goal-progress--ahead .goal-progress__bar-knob {
+    background-color: var(--success3);
+  }
+  .goal-progress--ahead .goal-progress__bar-track {
+    background-color: var(--success6);
+  }
+  .goal-progress--ahead .goal-progress__bar-fill-top {
+    background-color: var(--success3);
+  }
+  .goal-progress--ahead .goal-progress__bar-fill-bottom:before {
+    background-color: var(--success4);
+  }
+  .goal-progress--ahead .goal-progress__status {
+    color: var(--success3);
+  }
+  .goal-progress--behind .goal-progress__bar-knob {
+    background-color: var(--danger3);
+  }
+  .goal-progress--behind .goal-progress__bar-track {
+    background-color: var(--danger6);
+  }
+  .goal-progress--behind .goal-progress__bar-fill-top {
+    background-color: var(--danger3);
+  }
+  .goal-progress--behind .goal-progress__bar-fill-bottom:before {
+    background-color: var(--danger4);
+  }
+  .goal-progress--behind .goal-progress__status {
+    color: var(--danger3);
+  }
+  .goal-progress--par .goal-progress__bar-knob {
+    background-color: var(--warning3);
+  }
+  .goal-progress--par .goal-progress__bar-track {
+    background-color: var(--warning6);
+  }
+  .goal-progress--par .goal-progress__bar-fill-top {
+    background-color: var(--warning3);
+  }
+  .goal-progress--par .goal-progress__bar-fill-bottom:before {
+    background-color: var(--warning4);
+  }
+  .goal-progress--par .goal-progress__status {
+    color: var(--warning3);
+  }
+}
+/* Animations */
+@keyframes fill-pattern-move {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-0.75em);
+  }
+}

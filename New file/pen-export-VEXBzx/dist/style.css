@@ -1,0 +1,197 @@
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,700");
+body {
+  background: #fff;
+}
+
+h1 {
+  margin: 0 0 2rem;
+  font-family: "Open Sans";
+  font-size: 24px;
+  line-height: 24px;
+  font-weight: 700;
+}
+
+h2 {
+  margin: 3rem 0 1rem;
+  font-family: "Open Sans";
+  font-size: 20px;
+  line-height: 22px;
+  font-weight: 700;
+}
+
+p {
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  line-height: 15px;
+}
+
+.labels {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.labels .label {
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: 24%;
+  text-align: center;
+  box-sizing: border-box;
+  padding: 1rem;
+  font-family: "BauWebPro", "Open Sans", Arial, sans-serif;
+  font-size: 18px;
+  line-height: 20px;
+  font-weight: 700;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.labels .label.bologna {
+  background: #0f575c;
+  color: #fff;
+}
+.labels .label.eqf {
+  background: #03747a;
+  color: #fff;
+}
+.labels .label.seqf {
+  background: #00b1bb;
+  color: #fff;
+}
+.labels .label.qualifications {
+  background: #d2d9d9;
+  color: #000;
+}
+
+.svg-wrapper {
+  width: 100%;
+  max-width: 1040px;
+  height: auto;
+  margin: 5rem auto;
+  background: #f2f2f2;
+  padding: 66px;
+  box-sizing: border-box;
+}
+.svg-wrapper svg {
+  width: 100%;
+  height: auto;
+}
+.svg-wrapper svg g:focus {
+  outline: 0 none;
+}
+.svg-wrapper svg a:hover, .svg-wrapper svg a:focus {
+  outline: 0 none;
+}
+.svg-wrapper svg a:hover path, .svg-wrapper svg a:focus path {
+  paint-order: fill;
+}
+
+#sunburst-chart {
+  font-family: "BauWebPro", "Open Sans", Arial, sans-serif;
+  font-weight: 400;
+}
+#sunburst-chart .base-label {
+  fill: #262626;
+  font-size: 18px;
+  font-weight: 600;
+}
+#sunburst-chart .base-label_level {
+  font-size: 15px;
+  font-weight: 400;
+}
+#sunburst-chart .part-bologna .background {
+  fill: #0F575C;
+  stroke: #F2F2F2;
+  stroke-width: 4.032;
+}
+#sunburst-chart .part-bologna .part-bologna_label {
+  display: none;
+  fill: #fff;
+  font-size: 13px;
+  font-weight: 400;
+  pointer-events: none;
+}
+#sunburst-chart .part-bologna .part-bologna_level {
+  fill: #fff;
+  font-size: 24px;
+  font-weight: 600;
+  pointer-events: none;
+}
+#sunburst-chart .part-bologna a:hover .background,
+#sunburst-chart .part-bologna a:focus .background {
+  fill: #093b3e;
+}
+#sunburst-chart .part-bologna a:hover .background ~ .part-bologna_label,
+#sunburst-chart .part-bologna a:focus .background ~ .part-bologna_label {
+  display: inline;
+}
+#sunburst-chart .part-eqf .background {
+  fill: #03747A;
+  stroke: #F2F2F2;
+  stroke-width: 4.032;
+}
+#sunburst-chart .part-eqf .part-eqf_label {
+  display: none;
+  fill: #fff;
+  font-size: 13px;
+  font-weight: 400;
+  pointer-events: none;
+}
+#sunburst-chart .part-eqf .part-eqf_level {
+  fill: #fff;
+  font-size: 26px;
+  font-weight: 600;
+  pointer-events: none;
+}
+#sunburst-chart .part-eqf a:hover .background,
+#sunburst-chart .part-eqf a:focus .background {
+  fill: #1b4e51;
+}
+#sunburst-chart .part-eqf a:hover .background ~ .part-eqf_label,
+#sunburst-chart .part-eqf a:focus .background ~ .part-eqf_label {
+  display: inline;
+}
+#sunburst-chart .part-seqf .background {
+  fill: #00A5B5;
+  stroke: #F2F2F2;
+  stroke-width: 4.032;
+}
+#sunburst-chart .part-seqf .part-seqf_label {
+  display: none;
+  fill: #fff;
+  font-size: 13px;
+  font-weight: 400;
+  pointer-events: none;
+}
+#sunburst-chart .part-seqf .part-seqf_level {
+  fill: #fff;
+  font-size: 34px;
+  font-weight: 600;
+  pointer-events: none;
+}
+#sunburst-chart .part-seqf a:hover .background,
+#sunburst-chart .part-seqf a:focus .background {
+  fill: #01818a;
+}
+#sunburst-chart .part-seqf a:hover .background ~ .part-seqf_label,
+#sunburst-chart .part-seqf a:focus .background ~ .part-seqf_label {
+  display: inline;
+}
+#sunburst-chart .part-qualifications .background {
+  fill: #D2D9D9;
+  stroke: #F2F2F2;
+  stroke-width: 4.032;
+}
+#sunburst-chart .part-qualifications .part-qualifications_label {
+  fill: #000;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  pointer-events: none;
+}
+#sunburst-chart .part-qualifications a:hover .background,
+#sunburst-chart .part-qualifications a:focus .background {
+  fill: #afbdbd;
+}

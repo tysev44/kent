@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body    { font-family: system-ui, sans-serif; margin: 0; display: grid; height: 100vh; }
+        main    { display: flex; flex-direction: column; flex: 1; }
+        iframe  { flex: 1; border: 0 ; width:100%}
+        .div     { margin:0 auto; font-size: 13px; width:98%;}
+        nav     { display: flex; gap: .5rem; padding: .5rem; place-content: center; }
+        button  { padding: .5rem 1.25rem; font-size: 1rem; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <main>
+        <iframe id="viewer" src="" loading="lazy"></iframe>
+        <div id="link" class="div" ></div>
+        <nav>
+          <button id="prev">◀︎ Previous</button>
+          <button id="next">Next ▶︎</button>
+        </nav>
+    </main>
+    <script type="module">
+    // 1️⃣ --- CONFIG ----------------------------------------------------------
+    const jsonPath     = './folder2.json';          // Relative path to the list
+    const urlBuilder   = folder => `./New file/${folder}/dist/`;  // Turn a folder name → URL
+    const defaultFile  = 'index.html';              // File to load in each folder
+    // -----------------------------------------------------------------------
+
+    // 2️⃣ Fetch the JSON list (alternatively, embed the array inline)
+    const folders = await fetch(jsonPath).then(r => r.json());
+
+    // 3️⃣ Build an array of page URLs (e.g. "folder1/index.html")
+    const pages   = folders.map(f => urlBuilder(f) + defaultFile);
+
+    // 4️⃣ Basic carousel logic
+    let current   = 0;
+    const frame   = document.getElementById('viewer');
+    const text   = document.getElementById('link');
+    const prevBtn = document.getElementById('prev');
+    const nextBtn = document.getElementById('next');
+
+    function load(idx) {
+      current      = (idx + pages.length) % pages.length; // wrap-around    
+      const pageUrl = pages[current];  
+      frame.src    = pages[current];
+      const pathParts = pageUrl.split('/');
+      const fileName = pathParts[pathParts.length - 1];
+      const folderName = pathParts[pathParts.indexOf('New file') + 1];
+
+  // Display in UI
+  text.innerHTML = `📁 Folder: ${folderName} | 📄 File: ${fileName}`;
+    }
+
+    prevBtn.addEventListener('click', () => load(current - 1));
+    nextBtn.addEventListener('click', () => load(current + 1));
+
+    // Optional: keyboard arrows
+    document.addEventListener('keydown', e => {
+      if (e.key === 'ArrowLeft') load(current - 1);
+      if (e.key === 'ArrowRight') load(current + 1);
+    });
+
+    load(0); // initial load
+  </script>
+</body>
+</html>

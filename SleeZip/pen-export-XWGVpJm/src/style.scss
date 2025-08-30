@@ -1,0 +1,84 @@
+.wrapper {
+  .images {
+    --flip-offset: 0%;
+    --flip-rotate: 0deg;
+    --flip-skew: 0deg;
+    --flip-overlay: 0;
+    --flip-shadow-opacity: 0;
+    --flip-z: 0px;
+    --flip-round: 0px;
+
+    cursor: pointer;
+    max-width: 720px;
+    width: 100%;
+    perspective: 300px;
+    transform-style: preserve-3d;
+    position: relative;
+    clip-path: inset(-80px 0 -80px 0);
+
+    .front,
+    .back {
+      width: 100%;
+
+      img {
+        display: block;
+        width: 100%;
+        object-fit: cover;
+        object-position: center center;
+        aspect-ratio: 1 / 0.4125;
+      }
+    }
+
+    .front {
+      clip-path: inset(0 var(--flip-round) 0 0 round 0 var(--flip-round) var(--flip-round) 0);
+      transform: translateY(calc(var(--flip-z) * -.45)) translateZ(var(--flip-z));
+      transform-origin: 50% 100%;
+      
+      &:before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-color: rgba(0, 0, 0, .6);
+        z-index: 1;
+        mix-blend-mode: multiply;
+        opacity: var(--flip-overlay);
+        transform: translateX(var(--flip-offset));
+      }
+
+      img {
+        transform: translateX(var(--flip-offset));
+      }
+
+    }
+    .back {
+      transform: translateX(calc(100% - var(--flip-offset))) rotateY(var(--flip-rotate)) skewX(var(--flip-skew));
+      transform-origin: var(--flip-offset) 100%;
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      box-shadow: -32px 0 16px -12px rgba(0, 0, 0, calc(var(--flip-shadow-opacity) * .1)), -40px 0 24px -24px rgba(0, 0, 0, calc(var(--flip-shadow-opacity) * .2)), -80px 0 32px -20px rgba(0, 0, 0, calc(var(--flip-shadow-opacity) * .2)), 4px 0 20px -4px rgba(0, 0, 0, calc(var(--flip-shadow-back-opacity) * .8));
+
+      &:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: calc(var(--flip-offset) + 10%);
+        background-image: linear-gradient(to right, rgba(255, 255, 255, calc(var(--flip-shadow-opacity) * 1)) calc(var(--flip-offset) * 1.15), rgba(0, 0, 0, calc(var(--flip-shadow-opacity) * .7)));
+        mix-blend-mode: multiply;
+      }
+    }
+  }
+}
+
+body {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  background-color: #282F38;
+  padding: 24px;
+  box-sizing: border-box;
+  overflow: hidden;
+}

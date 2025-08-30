@@ -1,0 +1,40 @@
+body {
+  height: 100vh;
+  margin: 0;
+  display: grid;
+  place-items: center;
+}
+
+:root {
+  --inset: 15%;
+  --size: 3%;
+}
+
+.inputs {
+  display: flex;
+  gap: 1rem;
+  > * {
+    flex: 1;
+    min-width: 0;
+  }
+}
+
+.squircle {
+  width: 50vw;
+  height: 50vw;
+  background: rebeccapurple;
+  clip-path: shape(
+    from var(--inset) var(--size),
+    curve to calc(100% - var(--inset)) var(--size) with 50% 0,
+    curve to calc(100% - var(--size)) var(--inset) with calc(100% - var(--size))
+      var(--size),
+    curve to calc(100% - var(--size)) calc(100% - var(--inset)) with 100% 50%,
+    curve to calc(100% - var(--inset)) calc(100% - var(--size)) with
+      calc(100% - var(--size)) calc(100% - var(--size)),
+    curve to var(--inset) calc(100% - var(--size)) with 50% 100%,
+    curve to var(--size) calc(100% - var(--inset)) with var(--size)
+      calc(100% - var(--size)),
+    curve to var(--size) var(--inset) with 0% 50%,
+    curve to var(--inset) var(--size) with var(--size) var(--size)
+  );
+}

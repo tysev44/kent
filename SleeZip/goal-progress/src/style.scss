@@ -1,0 +1,294 @@
+@use "sass:map";
+
+// mixins
+@mixin color-palette() {
+	// for base theming
+	--hue: 223;
+	--sat: 10%;
+	// status hues
+	--hue-danger: 6;
+	--hue-success: 126;
+	--hue-warning: 29;
+	// palette
+	--white: hsl(0,0%,100%);
+	$color-list: (
+		(
+			"name": "gray",
+			"hue": var(--hue),
+			"sat": var(--sat),
+			"light-base": 90%,
+			"light-decrement": 10%,
+			"shades": 9
+		),
+		(
+			"name": "danger",
+			"hue": var(--hue-danger),
+			"sat": 90%,
+			"light-base": 94%,
+			"light-decrement": 13%,
+			"shades": 6
+		),
+		(
+			"name": "success",
+			"hue": var(--hue-success),
+			"sat": 90%,
+			"light-base": 80%,
+			"light-decrement": 13%,
+			"shades": 6
+		),
+		(
+			"name": "warning",
+			"hue": var(--hue-warning),
+			"sat": 90%,
+			"light-base": 90%,
+			"light-decrement": 13%,
+			"shades": 6
+		)
+	);
+	// build the palette variables
+	@each $color in $color-list {
+		$name: map.get($color,"name");
+		$hue: map.get($color,"hue");
+		$sat: map.get($color,"sat");
+		$light-base: map.get($color,"light-base");
+		$light-decrement: map.get($color,"light-decrement");
+		$shades: map.get($color,"shades");
+
+		@for $c from 1 through $shades {
+			// Sass doesn’t know how to deal with CSS variables when used in color functions
+			--#{$name}#{$c}: hsl(#{$hue},#{$sat},#{$light-base - $light-decrement * ($c - 1)});
+		}
+	}
+}
+@mixin status-coloring($status,$color,$dark: false) {
+	$shade-knob: 5;
+	$shade-track: 1;
+	$shade-fill-top: 5;
+	$shade-fill-bottom: 4;
+	$shade-status: 5;
+
+	@if $dark == true {
+		$shade-knob: 3;
+		$shade-track: 6;
+		$shade-fill-top: 3;
+		$shade-fill-bottom: 4;
+		$shade-status: 3;
+	}
+	// assumes `.goal-progress` is the top-level element
+	&--#{$status} &__bar {
+		&-knob {
+			background-color: var(--#{$color}#{$shade-knob});
+		}
+		&-track {
+			background-color: var(--#{$color}#{$shade-track});
+		}
+		&-fill {
+			&-top {
+				background-color: var(--#{$color}#{$shade-fill-top});
+			}
+			&-bottom {
+				&:before {
+					background-color: var(--#{$color}#{$shade-fill-bottom});
+				}
+			}
+		}
+	}
+	&--#{$status} &__status {
+		color: var(--#{$color}#{$shade-status});
+	}
+}
+@mixin status-colors($dark: false) {
+	$colors: (
+		"ahead": "success",
+		"behind": "danger",
+		"par": "warning"
+	);
+	@each $status, $color in $colors {
+		@include status-coloring($status,$color,$dark);
+	}
+}
+
+// main styles
+* {
+	border: 0;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+:root {
+	@include color-palette();
+	--trans-dur: 0.3s;
+	font-size: clamp(1rem,0.95rem + 0.25vw,1.25rem);
+}
+body {
+	background-color: var(--gray1);
+	color: var(--gray9);
+	display: flex;
+	font: 1em/1.5 "DM Sans", sans-serif;
+	height: 100vh;
+	overflow-x: hidden;
+	transition:
+		background-color var(--trans-dur),
+		color var(--trans-dur);
+}
+main {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 1.5em;
+	margin: auto;
+	padding: 1.5em;
+	width: 100vw;
+	height: min-content;
+	min-height: 100%;
+}
+h2 {
+	font-size: 1.5em;
+	line-height: 1;
+	margin: 0 0 0.75rem;
+	padding-top: 0.75rem;
+}
+.goal-progress {
+	background-color: var(--white);
+	border-radius: 1.25em;
+	box-shadow: 0 0.25em 0.125em hsla(0,0%,0%,0.2);
+	padding: 1em 1.5em 1.5em;
+	width: 100%;
+	max-width: 28.5em;
+	transition:
+		background-color var(--trans-dur),
+		box-shadow var(--trans-dur);
+
+	h2 {
+		font-weight: 300;
+	}
+	p, 
+	strong {
+		transition: color var(--trans-dur);
+	}
+	p {
+		color: var(--gray6);
+		font-weight: 300;
+	}
+	strong {
+		color: var(--gray9);
+		font-weight: 500;
+	}
+	&__bar {
+		margin-bottom: 0.75em;
+		position: relative;
+		height: 2.25em;
+
+		&,
+		&-fill-bottom,
+		&-fill-top,
+		&-track {
+			width: 100%;
+		}
+		&-fill-bottom,
+		&-fill-top,
+		&-knob-track,
+		&-knob-wrap,
+		&-track {
+			position: absolute;
+		}
+		&-fill-bottom,
+		&-fill-top,
+		&-knob-track {
+			transition:
+				background-color var(--trans-dur),
+				transform 0.45s cubic-bezier(0.65,0,0.35,1);
+		}
+		&-fill-bottom,
+		&-fill-top {
+			height: 100%;
+			transform: translateX(-100%);
+		}
+		&-knob-wrap,
+		&-track,
+		&-fill-bottom {
+			overflow: hidden;
+		}
+		&-fill {
+			&-bottom {
+				&:before {
+					animation: fill-pattern-move 1s linear infinite;
+					content: "";
+					display: block;
+					mask: {
+						image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 9 9"><polygon points="5.75 0,8.75 0,3.25 9,0.25 9" transform="translate(-4.5,0)" /><polygon points="5.75 0,8.75 0,3.25 9,0.25 9" /><polygon points="5.75 0,8.75 0,3.25 9,0.25 9" transform="translate(4.5,0)" /></svg>');
+						size: 0.75em;
+						position: 0 0;
+					};
+					position: absolute;
+					top: 0;
+					left: 0;
+					width: calc(100% + 0.75em);
+					height: 100%;
+					transition: background-color var(--trans-dur);
+				}
+			}
+		}
+		&-knob {
+			border: 0.3125em solid var(--white);
+			border-radius: 50%;
+			box-shadow: 0 0.0625em 0.125em hsla(0,0%,0%,0.4);
+			margin-right: auto;
+			width: 1.5em;
+			height: 1.5em;
+			transition: background-color var(--trans-dur);
+
+			&-track {
+				top: 0.375em;
+				right: 1.625em;
+				left: 0.125em;
+			}
+			&-wrap {
+				// the margin and of width this as well as the specific right and left values of the knob track prevent the knob shadow from being cropped by this element’s hidden overflow
+				margin: 0 -0.125em;
+				width: calc(100% + 0.25em);
+				height: 100%;
+			}
+		}
+		&-track {
+			border-radius: 0.375em;
+			top: 0.75em;
+			height: 0.75em;
+			transition: background-color var(--trans-dur);
+		}
+		[dir="rtl"] & {
+			transform: scaleX(-1);
+		}
+	}
+	@include status-colors();
+}
+
+/* Dark theme */
+@media (prefers-color-scheme: dark) {
+	body {
+		background-color: var(--gray9);
+		color: var(--gray1);
+	}
+	.goal-progress {
+		background-color: var(--gray8);
+
+		p {
+			color: var(--gray3);
+		}
+		strong {
+			color: var(--gray1);
+		}
+		@include status-colors(true);
+	}
+}
+
+/* Animations */
+@keyframes fill-pattern-move {
+	from {
+		transform: translateX(0);
+	}
+	to {
+		transform: translateX(-0.75em);
+	}
+}

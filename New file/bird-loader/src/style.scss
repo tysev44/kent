@@ -1,0 +1,161 @@
+$animation-duration: 3s;
+$animation-transition: ease-in-out;
+
+// function adopted from @keyframers
+// https://codepen.io/team/keyframers/pen/NLEeab
+$beats: 4;
+@function b($n) {
+    @return percentage($n / $beats);
+}
+
+body {
+  background-color: #18233e;
+  margin: 0;
+  height: 100vh;
+  display: grid;
+  place-items: center;
+}
+
+.birdLoader {
+  position: relative;
+  height: 200px;
+  width: 200px;
+  
+  display: grid;
+  grid-template-rows: ((200px - 130px) / 2) 65px 65px ((200px - 130px) / 2);
+  grid-template-columns: ((200px - 130px) / 2) 30px 35px;
+}
+
+.birdLoader__red {
+  grid-column: 1 / 4;
+  grid-row: 1 / 5;
+  
+  width: 100px;
+  height: 200px;
+  border-radius: 100px 0 0 100px;
+  background: #aa3623;
+  
+  transform-origin: right center;
+  animation: red $animation-duration $animation-transition infinite;
+}
+
+.birdLoader__white {
+  grid-column: 2 / 4;
+  grid-row: 2 / 4;
+  
+  height: 130px;
+  width: 65px;
+  border-radius: 65px 0 0 65px;
+  background: #fff;
+  
+  transform-origin: right center;
+  animation: white $animation-duration $animation-transition infinite;
+}
+
+.birdLoader__grey {
+  grid-column: 2 / 4;
+  grid-row: 3 / 4;
+  
+  height: 65px;
+  width: 65px;
+  border-radius: 0 0 0 65px;
+  background-color: #e7e7e7;
+  
+  transform-origin: right top;
+  animation: grey $animation-duration $animation-transition infinite;
+}
+
+.birdLoader__yellow {
+  grid-column: -1;
+  grid-row: 2 / 3;
+  
+  height: 65px;
+  width: 65px;
+  border-radius: 0 65px 0 0;
+  background-color: #f7ce42;
+  
+  transform-origin: left bottom;
+  animation: yellow $animation-duration $animation-transition infinite;
+  z-index: 1;
+}
+
+.birdLoader__orange {
+  grid-column: -1;
+  grid-row: 3 / 4;
+  
+  height: 35px;
+  width: 35px;
+  border-radius: 0 0 30px 0;
+  background-color: #f7a500;
+  
+  transform-origin: left top;
+  animation: orange $animation-duration $animation-transition infinite;
+  z-index: -1;
+}
+
+.birdLoader__blue {
+  grid-column: 3 / 4;
+  grid-row: 2 / 3;
+  align-self: end;
+  
+  height: 35px;
+  width: 35px;
+  border-radius: 50%;
+  background-color: #18233e;
+  
+  animation: blue $animation-duration $animation-transition infinite;
+}
+
+@keyframes red {
+  #{b(1)}, #{b(2)} {
+    transform: rotate(180deg);
+  }
+  #{b(3)}, #{b(4)} {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes white {
+  #{b(1)}, #{b(2)} {
+    transform: rotate(-180deg);
+  }
+  #{b(3)}, #{b(4)} {
+    transform: rotate(-360deg);
+  }
+}
+
+@keyframes grey {
+  #{b(1)}, #{b(2)} {
+    transform: rotate(-90deg);
+  }
+  #{b(3)}, #{b(4)} {
+    transform: rotate(0);
+  }
+}
+
+@keyframes yellow {
+  #{b(1)}, #{b(2)} {
+    transform: rotate(-90deg);
+  }
+  #{b(3)}, #{b(4)} {
+    transform: rotate(0);
+  }
+}
+
+@keyframes orange {
+  #{b(1)}, #{b(2)} {
+    transform: rotate(90deg);
+  }
+  #{b(3)}, #{b(4)} {
+    transform: rotate(0);
+  }
+}
+
+@keyframes blue {
+  #{b(1)}, #{b(2)} {
+    transform: translateX(100%);
+  }
+  #{b(3)}, #{b(4)} {
+    transform: translateX(0);
+  }
+}

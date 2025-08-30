@@ -1,0 +1,229 @@
+* {
+	border: 0;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+:root {
+	--hue: 223;
+	--white: hsl(0,0%,100%);
+	--gray1: hsl(var(--hue),10%,90%);
+	--gray2: hsl(var(--hue),10%,70%);
+	--gray3: hsl(var(--hue),10%,50%);
+	--gray4: hsl(var(--hue),10%,30%);
+	--gray5: hsl(var(--hue),10%,10%);
+	--black: hsl(0,0%,0%);
+	--bg: var(--white);
+	--fg: var(--gray5);
+	--focus: var(--gray3);
+	--success: hsl(163,90%,40%);
+	--trans-dur: 0.3s;
+	--ease-in-out: cubic-bezier(0.65,0,0.35,1);
+	font-size: calc(12px + (20 - 12) * (100vw - 240px) / (1920 - 240));
+}
+body,
+button {
+	font: 1em/1.5 "DM Sans", sans-serif;
+}
+body {
+	background-color: var(--bg);
+	color: var(--fg);
+	display: flex;
+	height: 100vh;
+	transition:
+		background-color var(--trans-dur),
+		color var(--trans-dur);
+}
+button {
+	outline: transparent;
+	transition:
+		background-color var(--trans-dur),
+		color var(--trans-dur),
+		box-shadow var(--trans-dur);
+	-webkit-appearance: none;
+	appearance: none;
+	-webkit-tap-highlight-color: transparent;
+}
+main {
+	display: flex;
+	overflow-x: hidden;
+	padding: 1.5em 0;
+	width: 100vw;
+	height: 100vh;
+}
+svg {
+	polyline {
+		transition: stroke var(--trans-dur);
+	}
+}
+.onboarding {
+	margin: auto;
+	position: relative;
+	width: 100%;
+	max-width: 24em;
+
+	h2 {
+		font-size: 1.25em;
+		line-height: 1.2;
+	}
+	p {
+		color: var(--gray4);
+		transition: color var(--trans-dur);
+	}
+	&__button {
+		background-color: var(--gray5);
+		border-radius: 1.5em;
+		box-shadow: 0 0 0 0.25em transparent;
+		color: var(--bg);
+		cursor: pointer;
+		padding: 0.75em 1.875em;
+
+		&:focus-visible,
+		&:hover {
+			background-color: var(--black);
+		}
+		&:focus-visible {
+			box-shadow: 0 0 0 0.25em var(--focus);
+		}
+	}
+	&__icon,
+	&__progress {
+		display: block;
+		overflow: visible;
+		transition: opacity var(--trans-dur);
+	}
+	&__icon {
+		width: 1em;
+		height: 1em;
+
+		&--success {
+			color: var(--success);
+		}
+	}
+	&__progress {
+		width: 1.5em;
+		height: 1.5em;
+
+		&-track {
+			stroke: var(--gray1);
+			transition: stroke var(--trans-dur);
+		}
+	}
+	&__finish {
+		&-step {
+			position: relative;
+
+			&-phase {
+				display: flex;
+				gap: 1.5em;
+				transition: visibility var(--trans-dur) step-start;
+			}
+			&-phase ~ &-phase {
+				position: absolute;
+				inset: 0;
+			}
+			&-text {
+				opacity: 0.5;
+				transition: opacity var(--trans-dur);
+			}
+			&--current &-phase:nth-child(2),
+			&--done &-phase:nth-child(1),
+			&--waiting &-phase:nth-child(2) {
+				visibility: hidden;
+				transition-timing-function: step-end;
+			}
+			// SVGs shouldn’t have partial opacity
+			&--current &-phase:nth-child(2) svg,
+			&--current &-phase:nth-child(2) &-text,
+			&--done &-phase:nth-child(1) svg,
+			&--done &-phase:nth-child(1) &-text,
+			&--waiting &-phase:nth-child(2) svg,
+			&--waiting &-phase:nth-child(2) &-text {
+				opacity: 0;
+			}
+			&--current &-phase:nth-child(1) svg,
+			&--current &-phase:nth-child(1) &-text {
+				opacity: 1;
+			}
+		}
+		&-steps {
+			display: grid;
+			gap: 3em;
+			padding: 1.5em;
+
+			&--done {
+				animation: fade var(--trans-dur) linear forwards;
+			}
+		}
+	}
+	&__finish-steps &__icon {
+		margin: 0.25em;
+	}
+	&__finished {
+		animation: fade var(--trans-dur) linear forwards reverse;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		padding: 1.5em 3em;
+		position: absolute;
+		inset: 0;
+		text-align: center;
+		visibility: hidden;
+
+		h2 {
+			margin-bottom: 0.75rem;
+		}
+		p {
+			margin-bottom: 2.25em;
+		}
+	}
+	&__finished &__icon {
+		margin-bottom: 1.75em;
+		width: 2em;
+		height: 2em;
+	}
+	&--resetting &__icon,
+	&--resetting &__progress,
+	&--resetting &__finish-step-text {
+		transition-duration: 0s;
+	}
+}
+
+/* Dark theme */
+@media (prefers-color-scheme: dark) {
+	:root {
+		--bg: var(--gray5);
+		--fg: var(--gray1);
+	}
+	.onboarding {
+		p {
+			color: var(--gray2);
+		}
+		&__button {
+			background-color: var(--gray1);
+	
+			&:focus-visible,
+			&:hover {
+				background-color: var(--white);
+			}
+		}
+		&__progress {
+			&-track {
+				stroke: var(--gray4);
+			}
+		}
+	}
+}
+
+/* Animations */
+@keyframes fade {
+	from {
+		opacity: 1;
+		visibility: visible;
+	}
+	to {
+		opacity: 0;
+		visibility: hidden;
+	}
+}

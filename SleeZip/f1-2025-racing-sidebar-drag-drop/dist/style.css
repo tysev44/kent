@@ -1,0 +1,17 @@
+@font-face {
+    font-family: F1;
+    font-weight: 400;
+    src: url("https://assets.codepen.io/8292695/Formula1-Regular.otf")
+        format("opentype");
+}
+
+@font-face {
+    font-family: F1;
+    font-weight: 600;
+    src: url("https://assets.codepen.io/8292695/Formula1-Bold.otf")
+        format("opentype");
+}
+
+body {
+    font-family: "F1", sans-serif;
+}

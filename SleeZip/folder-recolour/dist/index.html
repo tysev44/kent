@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Folder Recolour</title>
+  <link rel="stylesheet" href="https://public.codepenassets.com/css/normalize-5.0.0.min.css">
+<link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<svg id="mainSVG" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1080 1080">
+  <defs>
+
+    <filter id="glow" x="-100%" y="-100%" width="250%" height="250%">
+      <feGaussianBlur stdDeviation="7" result="coloredBlur" />
+      <feOffset dx="0" dy="0" result="offsetblur"></feOffset>
+      <feFlood id="glowAlpha" flood-color="black" flood-opacity="0.4"></feFlood>
+      <feComposite in2="offsetblur" operator="in"></feComposite>
+      <feMerge>
+        <feMergeNode />
+        <feMergeNode in="SourceGraphic"></feMergeNode>
+      </feMerge>
+    </filter>
+    <clipPath id="mainMask">
+      <path class="mainMask" d="M864.51,787.3H210.18c-36.45,0-66-29.55-66-66V192.12c0-34.15,27.69-61.84,61.84-61.84h164.94c7.37,0,14.57,2.24,20.63,6.43l52.03,38.35c15.42,11.37,34.08,17.5,53.24,17.5h371.38c30.52,0,55.26,24.74,55.26,55.26v480.47c0,32.58-26.42,59-59,59Z" fill="#f85f60" />
+    </clipPath>
+
+    <linearGradient id="backGrad" x1="533.84" y1="50" x2="533.84" y2="269.59" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fff" />
+      <stop offset="1" stop-color="#000" />
+    </linearGradient>
+
+    <linearGradient id="frontGrad" x1="128.32" y1="514.49" x2="933.02" y2="514.49" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#000" />
+      <stop offset=".05" stop-color="#787878" stop-opacity=".53" />
+      <stop offset=".32" stop-color="#fff" stop-opacity="0" />
+      <stop offset=".68" stop-color="#fff" stop-opacity="0" />
+      <stop offset=".95" stop-color="#878787" stop-opacity=".47" />
+      <stop offset="1" stop-color="#000" />
+    </linearGradient>
+
+    <linearGradient id="barGrad" x1="532.72" y1="699.13" x2="532.72" y2="771.46" gradientUnits="userSpaceOnUse">
+      <stop offset=".35" stop-color="#000" stop-opacity="0" />
+      <stop offset=".52" stop-color="#fff" stop-opacity=".2" />
+      <stop offset=".7" stop-color="#000" stop-opacity="0" />
+    </linearGradient>
+    <linearGradient id="barGrad-2" y1="673.38" y2="745.7" xlink:href="#barGrad" />
+
+    <circle class="dot" cx="0" cy="0" r="40" fill="#ff695e" />
+    <g class="folder">
+
+      <clipPath class="dotClip">
+        <circle class="dotMask" cx="0" cy="0" r="20" stroke="#ff695e" stroke-width="0" fill="black" />
+      </clipPath>
+      <g class="dotContainer">
+        <g class="main" clip-path="url(#mainMask)">
+          <path class="back" d="M864.51,787.3H210.18c-36.45,0-66-29.55-66-66V192.12c0-34.15,27.69-61.84,61.84-61.84h164.94c7.37,0,14.57,2.24,20.63,6.43l52.03,38.35c15.42,11.37,34.08,17.5,53.24,17.5h371.38c30.52,0,55.26,24.74,55.26,55.26v480.47c0,32.58-26.42,59-59,59Z" fill="#f85f60" />
+          <path class="gradOverlay" d="M864.51,787.3H210.18c-36.45,0-66-29.55-66-66V192.12c0-34.15,27.69-61.84,61.84-61.84h164.94c7.37,0,14.57,2.24,20.63,6.43l52.03,38.35c15.42,11.37,34.08,17.5,53.24,17.5h371.38c30.52,0,55.26,24.74,55.26,55.26v480.47c0,32.58-26.42,59-59,59Z" fill="url(#backGrad)" opacity="0.97" />
+          <path class="front" d="M200.95,241.68h660.72c34.13,0,61.84,27.71,61.84,61.84v424.77c0,32.56-26.44,59-59,59H210.18c-36.43,0-66-29.57-66-66v-422.84c0-31.33,25.44-56.77,56.77-56.77Z" fill="#f85f60" />
+          <path class="gradOverlay" d="M200.95,241.68h660.72c34.13,0,61.84,27.71,61.84,61.84v424.77c0,32.56-26.44,59-59,59H210.18c-36.43,0-66-29.57-66-66v-422.84c0-31.33,25.44-56.77,56.77-56.77Z" fill="url(#frontGrad)" opacity="1" />
+          <g opacity="0.3">
+            <rect x="136" y="724.45" width="800" height="21.8" fill="url(#barGrad)" />
+            <rect x="136" y="698.69" width="800" height="21.8" fill="url(#barGrad-2)" />
+          </g>
+        </g>
+      </g>
+
+    </g>
+  </defs>
+<g id="folderContainer"  filter="url(#glow)">
+  </g>
+<g id="btnContainer" >
+  <circle class="outline" cx="0" cy="0" r="48" stroke="#ff695e" stroke-width="2" fill="none" />
+  </g>
+</svg>
+<!-- partial -->
+  <script src='https://unpkg.com/gsap@3/dist/gsap.min.js'></script><script  src="./script.js"></script>
+
+</body>
+</html>

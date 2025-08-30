@@ -1,0 +1,110 @@
+$debug: false;
+$animation-duration: 0.1s;
+
+@mixin eye($child, $eye-lid-height, $pupil-x, $pupil-y) {
+  &:nth-child(#{$child}):hover ~ .eye {
+    &::before {
+      height: $eye-lid-height;
+    }
+
+    &::after {
+      transform: translate($pupil-x, $pupil-y);
+    }
+  }
+}
+
+body {
+  position: relative;
+  margin: 0;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  background-color: #f46057;
+}
+
+.eye {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  overflow: hidden;
+  width: 20vw;
+  height: 20vw;
+  border-radius: 50%;
+  border: 2.5vw solid #e53833;
+  box-sizing: border-box;
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  // eyelid
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    height: 60%;
+    width: 100%;
+    background-color: #f46057;
+    border-radius: 10vw 10vw 0 0;
+    border-bottom: 2.5vw solid #e53833;
+    box-sizing: border-box;
+    z-index: 1;
+    transition: $animation-duration, border 0s;
+  }
+
+  // pupil
+  &::after {
+    content: "";
+    position: absolute;
+    width: 50%;
+    height: 50%;
+    border-radius: 50%;
+    background-color: #102a54;
+    transition: $animation-duration;
+  }
+}
+
+.eventListener {
+  height: 100%;
+  width: 100%;
+  border: 1px solid;
+  box-sizing: border-box;
+  opacity: 0;
+  user-select: none;
+  
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  &:hover {
+    background-color: #ff8f88;
+  }
+  
+  @if $debug {
+      opacity: 1;
+  }
+  
+  // animation
+  // nth-child, eye-lid-height, pupil-x, pupil-y
+  @include eye(1, 25%, -30%, -50%);
+  @include eye(2, 25%, -15%, -50%);
+  @include eye(3, 25%, 15%, -50%);
+  @include eye(4, 25%, 30%, -50%);
+  
+  @include eye(5, 45%, -40%, -20%);
+  @include eye(6, 45%, -25%, -20%);
+  @include eye(7, 45%, 25%, -20%);
+  @include eye(8, 45%, 40%, -20%);
+  
+  @include eye(9, 70%, -40%, 20%);
+  @include eye(10, 70%, -25%, 20%);
+  @include eye(11, 70%, 25%, 20%);
+  @include eye(12, 70%, 40%, 20%);
+  
+  @include eye(13, 75%, -30%, 30%);
+  @include eye(14, 75%, -10%, 30%);
+  @include eye(15, 75%, 10%, 30%);
+  @include eye(16, 75%, 30%, 30%);
+}

@@ -1,0 +1,119 @@
+body {
+  background-color: black;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* ----------- CREDIT LINK ----------- */
+
+#inspo {
+  position: absolute;
+  text-decoration: none;
+  color: black;
+  background: white;
+  padding: 14px 30px;
+  border-radius: 14px;
+  font-weight: 600;
+  font-size: 16px;
+  transition: 200ms;
+  z-index: 100;
+}
+
+#inspo:hover {
+  scale: 1.05;
+}
+
+/* ----------- INSTRUCTIONS ----------- */
+
+#instructions {
+  position: absolute;
+  margin-top: 100px;
+  color: white;
+  font-size: 18px;
+}
+
+/* ----------- IMAGES ----------- */
+
+#container {
+  position: absolute;
+  width: 1600px;
+  height: 1000px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.abstract {
+  position: absolute;
+}
+
+.abstract:nth-child(1) {
+  width: 174px;
+  left: 120px;
+  top: 220px;
+}
+
+.abstract:nth-child(2) {
+  width: 171px;
+  left: 420px;
+  top: 200px;
+}
+
+.abstract:nth-child(3) {
+  width: 254px;
+  left: 224px;
+}
+
+.abstract:nth-child(4) {
+  width: 200px;
+  rotate: 20deg;
+  left: 30px;
+  top: 530px;
+}
+
+.abstract:nth-child(5) {
+  width: 269px;
+  left: 366px;
+  top: 550px;
+}
+
+.abstract:nth-child(6) {
+  width: 124px;
+  left: 1030px;
+  top: 300px;
+}
+
+.abstract:nth-child(7) {
+  width: 232px;
+  left: 1150px;
+  top: 300px;
+}
+
+.abstract:nth-child(8) {
+  width: 231px;
+  left: 930px;
+  top: 550px;
+}
+
+.abstract:nth-child(9) {
+  width: 184px;
+  left: 1180px;
+  top: 550px;
+}
+
+.abstract:nth-child(10) {
+  width: 243px;
+  left: 1350px;
+}
+
+.abstract:nth-child(6),
+.abstract:nth-child(9) {
+  filter: invert(100%);
+}

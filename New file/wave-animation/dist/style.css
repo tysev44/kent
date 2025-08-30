@@ -1,0 +1,78 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+html {
+  font-size: 16px;
+}
+
+html,
+body {
+  display: grid;
+  place-items: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: #7f8c8d;
+  overflow: hidden;
+}
+
+/*
+"One element" wave animation.
+In reality I use a pseudo element (::before) as well,
+but as far as the markup is concerned, it's one element.
+*/
+.wave-container {
+  position: relative;
+  height: 12rem;
+  width: 12rem;
+  background: #f1c40f;
+  border: 1rem solid #2c3e50;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+.wave-container::before {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  height: 200%;
+  width: 200%;
+  background-color: #2c3e50;
+  border-radius: 38%;
+  content: "";
+  animation: wave 4000ms linear infinite;
+}
+.wave-container.js-show-solution {
+  overflow: visible;
+}
+.wave-container.js-show-solution::before {
+  opacity: 0.5;
+}
+
+@keyframes wave {
+  to {
+    transform: translateY(-100%) rotate(-360deg);
+  }
+}
+button {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  appearance: none;
+  font-size: 1rem;
+  line-height: 1;
+  font-weight: bold;
+  color: #2c3e50;
+  padding: 0.75rem;
+  background: #f1c40f;
+  border: 0.25rem solid #2c3e50;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+button:focus, button:hover {
+  background: #2c3e50;
+  color: #f1f1f1;
+}

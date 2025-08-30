@@ -1,0 +1,39 @@
+div {
+  width: 100px;
+  aspect-ratio: 1;
+  background-color: red;
+  animation: bob 1s infinite, sway 1s infinite,
+    nod 0.5s infinite linear alternate;
+
+  animation-composition: accumulate;
+  animation-composition: add;
+  animation-composition: replace;
+}
+
+@keyframes bob {
+  50% {
+    translate: 0 20px;
+  }
+}
+
+@keyframes sway {
+  50% {
+    translate: 20px 0;
+  }
+}
+
+@keyframes nod {
+  0% {
+    rotate: -5deg;
+  }
+  100% {
+    rotate: 5deg;
+  }
+}
+
+body {
+  height: 100vh;
+  margin: 0;
+  display: grid;
+  place-items: center;
+}

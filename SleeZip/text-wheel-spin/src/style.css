@@ -1,0 +1,53 @@
+* {
+  margin: 0;
+}
+
+main {
+  background-color: black;
+  weight: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.text {
+  position: absolute;
+  font-size: 100px;
+  font-weight: 700;
+  color: white;
+  width: 700px;
+  transform: translateY(-170px);
+  line-height: 110px;
+}
+
+#circle {
+  position: absolute;
+  height: 420px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: solid 2px #383838;
+  background-color: black;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#dot {
+  position: absolute;
+  background-color: #383838;
+  width: 2%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+}
+
+a {
+  position: absolute;
+  text-decoration: none;
+  color: #383838;
+  bottom: 20px;
+}

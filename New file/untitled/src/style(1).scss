@@ -1,0 +1,170 @@
+@property --gradient-dark {
+	syntax: "<percentage>";
+	inherits: false;
+	initial-value: 0%;
+}
+
+@property --gradient-color {
+	syntax: "<percentage>";
+	inherits: false;
+	initial-value: 0%;
+}
+
+@property --gradient-default {
+	syntax: "<percentage>";
+	inherits: false;
+	initial-value: 0%;
+}
+
+body {
+	min-height: 100dvh;
+	background-color: hsla(230deg 10% 95% / 100%);
+	display: grid;
+	place-items: center;
+}
+
+.logo {
+	display: flex;
+	align-items: center;
+	position: relative;
+	padding-left: 52px;
+	height: 46px;
+	transform-style: preserve-3d;
+	perspective: 160px;
+
+	span {
+		background-color: hsla(230deg 10% 75% / 100%);
+		display: block;
+		position: absolute;
+		top: 0;
+		height: 46px;
+		transform-origin: 0% 50%;
+		background-image: radial-gradient(circle at 100% 50%, hsla(230deg 15% 5% / 100%) var(--gradient-dark), hsla(270deg 75% 65% / 100%) var(--gradient-color), hsla(230deg 10% 75% / 100%) var(--gradient-default));
+		background-size: 150% 200%;
+
+		&:nth-child(1) {
+			left: 0;
+		}
+
+		&:nth-child(2) {
+			left: 6px;
+		}
+
+		&:nth-child(1),
+		&:nth-child(2) {
+			width: 3.5px;
+			clip-path: polygon(0 0, 100% 2px, 100% calc(100% - 2px), 0 100%);
+			transform: translateX(0) scale(1) translateZ(0);
+		}
+
+		&:nth-child(3),
+		&:nth-child(4) {
+			left: 12px;
+			width: 22px;
+			clip-path: polygon(0 0, 100% 12px, 100% calc(100% - 12px), 0 100%);
+		}
+
+		&:nth-child(4) {
+			opacity: 0;
+			z-index: 1;
+			transform: translateX(12px) scaleX(.5) rotateY(-10deg);
+			box-shadow: inset 2px 0 0 2px hsla(230deg 10% 95% / 100%);
+		}
+	}
+
+	&:after {
+		content: '';
+		background-color: hsla(230deg 10% 75% / 100%);
+		width: 109px;
+		height: 32px;
+		display: block;
+		mask-image: url(#logo);
+		margin: 8px 0 0 0;
+		background-image: radial-gradient(circle at 50% 100%, hsla(230deg 15% 5% / 100%) var(--gradient-dark), hsla(270deg 75% 65% / 100%) var(--gradient-color), hsla(230deg 10% 75% / 100%) var(--gradient-default));
+	animation: color 1s ease-in forwards 4.75s;
+	}
+}
+
+.logo span:nth-child(1) {
+	animation: rect-1 1.5s ease-in-out 3 .25s, color 1s ease-in forwards 5s;
+}
+
+.logo span:nth-child(2) {
+	animation: rect-2 1.5s ease-in-out .25s 3, color 1s ease-in forwards 4.95s;
+}
+
+.logo span:nth-child(3) {
+	animation: rect-3 1.5s ease-in-out .25s 3, color 1s ease-in forwards 4.9s;
+}
+
+.logo span:nth-child(4) {
+	animation: rect-4 1.5s ease-in-out .25s 3, color 1s ease-in forwards 4.9s;
+}
+
+@keyframes rect-1 {
+	0% {
+		transform: translateX(0) scale(1) translateZ(0);
+	}
+	50%,
+	100% {
+		filter: blur(2px);
+		opacity: 0;
+		transform: translateX(-6px) scale(.75);
+	}
+}
+
+@keyframes rect-2 {
+	0% {
+		transform: translateX(0px);
+	}
+	50%,
+	100% {
+		transform: translateX(-6px);
+	}
+}
+
+@keyframes rect-3 {
+	0% {
+		clip-path: polygon(0 0, 100% 12px, 100% calc(100% - 12px), 0 100%);
+	}
+	50%,
+	100% {
+		transform: translateX(-6px);
+		clip-path: polygon(0 0, 3.5px 2px, 3.5px calc(100% - 2px), 0 100%);
+	}
+}
+
+@keyframes rect-4 {
+	0% {
+		opacity: 0;
+		transform: translateX(12px) scaleX(.5) rotateY(-10deg);
+		clip-path: polygon(0 0, 100% 12px, 100% calc(100% - 12px), 0 100%);
+	}
+	0%,
+	25% {
+		box-shadow: inset 2px 0 0 2px hsla(230deg 10% 95% / 100%);
+	}
+	5%,
+	100% {
+		opacity: 1;
+	}
+	50%,
+	100% {
+		transform: translateX(0px) scaleX(1) rotateY(0deg);
+		box-shadow: none;
+	}
+}
+
+@keyframes color {
+	25%,
+	100% {
+		--gradient-default: 100%;
+	}
+	50% {
+		--gradient-color: 100%;
+	}
+	100% {
+		--gradient-color: 100%;
+		--gradient-dark: 100%;
+	}
+}

@@ -1,0 +1,18 @@
+- var n4gon = 4, ns = 15;
+
+style
+	- for(var j = 0; j < ns; j++)
+		| .slice:nth-child(#{j + 1}) { --j: #{j} }
+svg
+	clipPath#c(clipPathUnits='objectBoundingBox'): path
+.cube(style=`--ns: ${ns};
+						 --tan: ${Math.tan(.25*Math.PI/ns)}`)
+	- for(var i = 0; i <= n4gon; i++) {
+		.cube__face(style=i < n4gon ? `--i: ${i}` : null)
+			- if(i < n4gon && i%2 === 0) {
+				- for(var j = 0; j < ns; j++) {
+					.slice
+				-}
+			- }
+	- }
+	

@@ -1,0 +1,80 @@
+body {
+  height: 100vh;
+  margin: 0;
+  display: grid;
+  place-items: center;
+  font-family: Avenir, Montserrat, Corbel, "URW Gothic", source-sans-pro,
+    sans-serif;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  li {
+    background: orange;
+    padding: 0.5rem 3rem 0.5rem 1rem;
+    margin-block-end: 0.25rem;
+    view-transition-name: match-element;
+    position: relative;
+
+    button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+      width: 30px;
+      border: 0;
+      background: lch(100% 0 0 / 50%);
+      display: grid;
+      place-items: center;
+
+      &:focus,
+      &:hover {
+        background: lch(100% 0 0 / 75%);
+      }
+
+      &:disabled {
+        svg,
+        & {
+          opacity: 0.5;
+        }
+      }
+
+      svg {
+        width: 100%;
+        view-transition-name: match-element;
+      }
+    }
+  }
+}
+
+::view-transition-group(*) {
+  animation-duration: 1s;
+}
+
+::view-transition-old(woosh),
+::view-transition-new(woosh) {
+  animation: woosh 1s ease-in-out;
+}
+
+::view-transition-old(tony-hawk),
+::view-transition-new(tony-hawk) {
+  animation: tony-hawk 1s ease-in-out;
+}
+
+@keyframes tony-hawk {
+  50% {
+    rotate: 20deg;
+    scale: 2.5;
+  }
+}
+
+@keyframes woosh {
+  50% {
+    translate: -100px 0;
+    scale: 1.5;
+    box-shadow: 0 30px 15px lch(0% 0 0 / 50%);
+  }
+}

@@ -1,0 +1,293 @@
+// Breakpoints
+$bp-min: 375px
+$bp-split: 1112px
+$bp-max: 1440px
+
+// Colors
+$green: #0BD162
+$gray: #727272
+
+// Layout
+$section-padding: 40px
+$section-padding-max: 120px
+
+// CSS Lock Mixins
+@function strip-unit($number)
+  @if type-of($number) == 'number' and not unitless($number)
+    @return $number / ($number * 0 + 1)
+  @return $number
+
+@mixin css-lock($property, $min-value, $max-value, $min-bp: $bp-min, $max-bp: $bp-max, $set-initial-value: true, $set-final-value: true)
+  @if $set-initial-value == true
+    #{$property}: #{$min-value}
+  @media (min-width: #{$min-bp})
+    #{$property}: calc(#{$min-value} + (#{strip-unit($max-value)} - #{strip-unit($min-value)}) * ((100vw - #{$min-bp}) / (#{strip-unit($max-bp)} - #{strip-unit($min-bp)})))
+  @if $set-final-value == true
+    @media (min-width: #{$max-bp}) 
+      #{$property}: #{$max-value}
+
+// Animations
+$reveal-time: 1.5s
+[data-masked="left"]
+  clip-path: circle(0% at 0% 50%)
+
+[data-masked="right"]
+  clip-path: circle(0% at 100% 50%)
+
+@keyframes reveal-forwards
+  100%
+    clip-path: circle(140% at 0% 50%)
+
+@keyframes reveal-backwards
+  100%
+    clip-path: circle(140% at 0% 50%)
+
+[data-reveal="left"]
+  animation: $reveal-time reveal-forwards ease forwards
+  
+[data-reveal="right"]
+  animation: $reveal-time reveal-forwards ease forwards
+
+*
+  box-sizing: border-box
+  &:last-child
+    margin-bottom: 0
+  &:first-child
+    margin-top: 0
+
+main
+  min-width: $bp-min   
+  min-height: 100vh
+  font-weight: 500
+  font-family: "cash-market-rounded", "Helvetica Neue", helvetica, sans-serif
+  -webkit-font-smoothing: antialiased
+  overflow-x: hidden
+
+section
+  +css-lock(padding, $section-padding, $section-padding-max)
+  .content
+    max-width: $bp-max - ($section-padding-max * 2)
+    margin: 0 auto
+p
+  +css-lock(font-size, 24px, 36px)
+  +css-lock(line-height, 60px, 100px)
+  max-width: 19.2em
+  
+h2
+  line-height: 1
+  +css-lock(font-size, 32px, 60px)
+  +css-lock(margin-bottom, 60px, 100px)
+      
+cite, aside, figcaption, footer
+  +css-lock(font-size, 16px, 24px)
+  +css-lock(line-height, 30px, 40px)
+
+[data-cash-logo]
+  display: flex
+  align-items: center
+  
+[data-cash-icon]
+  width: 32px
+  height: 32px
+  +css-lock(width, 32px, 64px)
+  +css-lock(height, 32px, 64px)
+  svg
+    width: 100%
+    display: block
+    
+[data-cash-logotype]
+  display: none
+  +css-lock(font-size, 16px, 36px)
+  @media (min-width: $bp-split)
+    display: block
+    margin-left: 1rem
+  
+[data-button]
+  display: flex
+  align-items: center
+  justify-content: space-between
+  border-radius: 10px
+  padding: 0 24px
+  margin-bottom: 20px
+  background: $green
+  height: 60px
+  color: white
+  font-size: 24px
+  font-weight: 500
+  text-decoration: none
+  width: 220px
+      
+// Chapter specific
+[data-chapter="intro"],
+[data-chapter="go"]
+  background: $green
+  h1, h2, p, figcaption, .name
+    color: white
+  [data-remaining]
+    +css-lock(font-size, 50px, 180px)
+    +css-lock(margin-top, 80px, 200px)
+    line-height: 1
+  figcaption
+    display: block
+    max-width: 10em
+    
+[data-chapter="intro"]
+  figure
+    position: relative
+  aside
+    +css-lock(margin-top, 30px, 100px)
+  .name
+    display: block
+  .amount
+    img
+      position: absolute
+    .only
+      +css-lock(width, 89px, 203px)
+      +css-lock(left, 68px, 308px)
+      +css-lock(top, -54px, -114px)
+    .left
+      +css-lock(width, 83px, 209px)
+      +css-lock(left, 190px, 810px)
+      +css-lock(top, 80px, 240px)
+    .stroke
+      +css-lock(width, 222px, 877px)
+      +css-lock(top, 58px, 195px)
+      left: -2px
+    .indiana
+      +css-lock(width, 300px, 1128px)
+      +css-lock(top, -16px, -75px)
+    aside
+      max-width: 10em
+      @media (min-width: $bp-split)
+        max-width: 100%
+  .andrew
+    +css-lock(padding-top, 620px, 1200px, $bp-min, $bp-split, true, false)
+    +css-lock(padding-top, 390px, 500px, $bp-split, $bp-max, false, true)
+    img
+      display: block
+      position: absolute
+      left: 50%
+      +css-lock(top, 85px, 240px)
+      transform: translate3d(-50%,0,0)
+      +css-lock(width, 459px, 1110px)
+      +css-lock(left, 1000px, 1250px, $bp-split, $bp-max, false, true)
+    cite
+      display: block
+      +css-lock(margin-top, 30px, 40px)
+      +css-lock(left, 566px, 720px, $bp-split, $bp-max, false)
+      +css-lock(top, 468px, 600px, $bp-split, $bp-max, false)
+      @media (min-width: $bp-split)
+        margin: 0
+        position: absolute
+        text-align: right
+  
+[data-chapter="go"]
+  [data-steps]
+    display: flex
+    flex-wrap: wrap
+  [data-column]
+    flex: 1 0 100%
+    @media (min-width: $bp-split)
+      flex: 1 0 50%
+  [data-step]
+    +css-lock(margin-bottom, 20px, 30px)
+    position: relative
+    flex: 1 0 50%
+  [data-connector]
+    position: absolute
+  [data-icon]
+      +css-lock(margin-bottom, 15px, 35px)
+  [data-step="1"]
+    +css-lock(left, 0%, 200%, $bp-min, $bp-split, true, false)
+    [data-icon]
+      +css-lock(width, 57px, 95px)
+    [data-connector]
+      +css-lock(width, 189px, 330px)
+      +css-lock(left, 73px, 155px)
+      +css-lock(top, 0px, -30px)
+      
+      +css-lock(width, 265px, 295px, $bp-split, $bp-max, false)
+      +css-lock(left, 125px, 155px, $bp-split, $bp-max, false)
+      +css-lock(top, 0px, -30px, $bp-split, $bp-max, false)
+      @media (min-width: $bp-split)
+        transform: rotate(-6deg)  
+    @media (min-width: $bp-split)
+      left: 0
+  [data-step="2"]
+    left: 50%
+    [data-icon]
+      +css-lock(width, 58px, 98px)
+    [data-connector]
+      +css-lock(width, 119px, 200px)
+      +css-lock(left, -140px, -185px)
+      +css-lock(top, 20px, 30px)
+      
+      +css-lock(width, 169px, 197px, $bp-split, $bp-max, false)
+      +css-lock(left, 220px, 255px, $bp-split, $bp-max, false)
+      +css-lock(top, 13px, 0px, $bp-split, $bp-max, false)
+      transform: rotate(180deg)
+      @media (min-width: $bp-split)
+        transform: rotate(0)
+  [data-step="3"]
+    +css-lock(left, 0%, 255%, $bp-min, $bp-split)
+    [data-icon]
+      +css-lock(width, 60px, 103px)
+    [data-connector]
+      transform: rotate(20deg)
+      @media (min-width: $bp-split)
+        transform: rotate(0deg)
+      +css-lock(width, 219px, 340px)
+      +css-lock(left, 110px, 140px)
+      +css-lock(top, 0px, -20px)
+      
+      +css-lock(width, 300px, 339px, $bp-split, $bp-max, false, true)
+      +css-lock(left, 125px, 185px, $bp-split, $bp-max, false)
+      +css-lock(top, -30px, -30px, $bp-split, $bp-max, false)
+    @media (min-width: $bp-split)
+      left: 0
+  [data-step="4"]
+    left: 50%
+    [data-icon]
+      +css-lock(width, 78px, 123px)
+    
+[data-chapter="about"]
+  figure
+    position: relative
+  .images
+    +css-lock(margin-bottom, 30px, 40px)
+    +css-lock(right, -25px, 100px, $bp-split, $bp-max, false, true)
+    @media (min-width: $bp-split)
+      position: absolute
+  img
+    display: inline-block
+  .iphone
+    +css-lock(width, 160px, 320px)
+    +css-lock(margin-right, 10px, 30px)
+    @media (min-width: $bp-split)
+      margin-right: 0
+  .cash-card
+    +css-lock(width, 120px, 240px)
+    +css-lock(right, -80px, -100px, $bp-split, $bp-max)
+    @media (min-width: $bp-split)
+      position: absolute
+      bottom: 0
+  [data-buttons]
+    display: flex
+    flex-wrap: wrap
+    +css-lock(margin-top, 40px, 60px)
+    [data-button]
+      width: 100%
+      max-width: 250px
+      flex: 1 0 100%
+    [data-button="ios"]
+      margin-right: 20px
+[data-chapter="footer"]
+  .copyright
+    margin-bottom: 60px
+  nav
+    ul
+      display: flex
+      flex-wrap: wrap
+      color: $gray
+    li
+      margin-right: 1em

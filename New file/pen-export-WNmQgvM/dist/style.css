@@ -1,0 +1,41 @@
+ul {
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: space-between;
+	column-gap: 2rem;
+	list-style: none;
+	margin: 100px auto;
+	padding: 0;
+	max-width: 600px;
+}
+li {
+	border-radius: 20px;
+	width: 25%;
+	aspect-ratio: 1;
+	background: lightblue;
+	transition: opacity .3s linear;
+	cursor: pointer;
+}
+/*
+One way.
+This makes it so all li elements are at half opacity
+when the ul element is hovered but no li element is hovered.
+
+Might look better in some instances.
+*/
+/*
+ul:hover > :not(:hover) {
+	opacity: .5;
+}
+*/
+
+/*
+Another way.
+This makes it so the ul elements hover state is not
+affecting the state of the li elements.
+
+Might look better in other instances.
+*/
+ul:has(li:hover) li:not(:hover) {
+	opacity: .5;
+}

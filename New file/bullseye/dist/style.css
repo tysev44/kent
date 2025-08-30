@@ -1,0 +1,85 @@
+/* dark: rgba(57, 147, 145, 1)
+light: rgba(134, 194, 190, 1)
+*/
+
+.bullseye {
+  margin-left:40px;
+  width:200px;
+  height:200px;
+  background: rgb(57,147,145); /* Old browsers */
+  background: radial-gradient(ellipse at center,  
+    rgba(134, 194, 190, 1) 0px,rgba(134, 194, 190, 1) 15px,
+    rgba(57, 147, 145, 1) 15px,rgba(57,147,145,1) 20px,
+    rgba(57, 147, 145, 0) 20px,rgba(57,147,145,0) 40px,
+    
+    rgba(57, 147, 145, 1) 40px,rgba(57,147,145,1) 45px,
+    rgba(134, 194, 190, 1) 45px,rgba(134, 194, 190, 1) 55px,
+    rgba(57, 147, 145, 1) 55px,rgba(57,147,145,1) 60px,
+    rgba(57, 147, 145, 0) 60px,rgba(57,147,145,0) 80px,
+
+    rgba(57, 147, 145, 1) 80px,rgba(57,147,145,1) 85px,
+    rgba(134, 194, 190, 1) 85px,rgba(134, 194, 190, 1) 95px,
+    rgba(57, 147, 145, 1) 95px,rgba(57,147,145,1) 100px,
+    rgba(57, 147, 145, 0) 100px,rgba(57,147,145,0) 120px,
+
+    rgba(0,0,0,0) 100%); 
+  
+    position:relative; 
+}
+
+.arrow {
+  position:absolute;
+  border-top:5px solid rgba(57, 147, 145, 1);
+  border-right:5px solid rgba(57, 147, 145, .7);
+
+  width: 98px;
+  height:68px;
+  top:98px;
+  left:-35px;
+  
+    -ms-transform: skew(-45deg, 0); /* IE 9 */
+    -webkit-transform: skew(-45deg,0); /* Chrome, Safari, Opera */
+    transform: skew(-45deg, 0);
+  
+}
+
+.fletch-bot {
+  position:absolute;
+  left:-35px;
+  top:98px;
+  width:25px;
+  height:8px;
+  border: 5px solid rgba(57, 147, 145, 1);
+  background: rgba(134, 194, 190, 1);
+    -ms-transform: skew(-35deg, 0); /* IE 9 */
+    -webkit-transform: skew(-35deg,0); /* Chrome, Safari, Opera */
+    transform: skew(-35deg, 0);
+  border-radius: 5px;
+}
+.fletch-top {
+  position:absolute;
+  top:85px;
+  left:-35px;
+  width:25px;
+  height:8px;
+  border: 5px solid rgba(57, 147, 145, 1);
+  background: linear-gradient(to right, rgb(100,174,174) 40% , rgba(57, 147, 145, 1) 40%,rgba(57, 147, 145, 1) 75%, rgb(100,174,174) 75%);
+    
+  -ms-transform: skew(35deg, 0); /* IE 9 */
+    -webkit-transform: skew(35deg,0); /* Chrome, Safari, Opera */
+    transform: skew(35deg, 0);
+  border-radius: 5px;
+}
+
+body {
+  background:#fefdfa;
+}
+.container {
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   width: 200px;
+   height: 200px;
+   margin-top: -100px; /* Half the height */
+   margin-left: -100px; /* Half the width */
+}

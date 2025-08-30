@@ -1,0 +1,69 @@
+@import url('https://fonts.googleapis.com/css2?family=Bad+Script&display=swap');
+
+:root {
+  font-family: 'Bad Script', cursive;
+  color: rgba(255, 255, 255, 1);
+  background-color: #242424;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+}
+
+.container {
+  width: 50%;
+  height: 50%;
+  position: relative;
+}
+
+.text1,
+.text2 {
+  position: absolute;
+  margin: 0;
+  text-align: center;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 9vw;
+}
+
+.text1 {
+  z-index: 2;
+}
+
+.text2 {
+  z-index: 0;
+}
+
+.text1 span {
+  opacity: 0;
+  position: relative;
+}
+
+.text2 span {
+  opacity: 1;
+  position: relative;
+}
+
+.pen {
+  width: 9vw;
+  height: 9vw;
+  position: relative;
+  z-index: 1;
+}
+
+svg {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}

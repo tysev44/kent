@@ -1,0 +1,143 @@
+/*genericons*/
+@import url(//cdn.jsdelivr.net/genericons/3.0.3/genericons.css);
+/*font*/
+@import url(https://fonts.googleapis.com/css?family=Lato);
+@-webkit-keyframes show {
+  0% {
+    -webkit-transform: rotate(180deg) scale(0);
+    -ms-transform: rotate(180deg) scale(0);
+    -moz-transform: rotate(180deg) scale(0);
+    -o-transform: rotate(180deg) scale(0);
+    transform: rotate(180deg) scale(0);
+    right: 11px;
+    top: 5em;
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: rotate(360deg) scale(1);
+    -ms-transform: rotate(360deg) scale(1);
+    -moz-transform: rotate(360deg) scale(1);
+    -o-transform: rotate(360deg) scale(1);
+    transform: rotate(360deg) scale(1);
+    right: -5px;
+    top: 0;
+  }
+}
+@-moz-keyframes show {
+  0% {
+    -webkit-transform: rotate(180deg) scale(0);
+    -ms-transform: rotate(180deg) scale(0);
+    -moz-transform: rotate(180deg) scale(0);
+    -o-transform: rotate(180deg) scale(0);
+    transform: rotate(180deg) scale(0);
+    right: 11px;
+    top: 5em;
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: rotate(360deg) scale(1);
+    -ms-transform: rotate(360deg) scale(1);
+    -moz-transform: rotate(360deg) scale(1);
+    -o-transform: rotate(360deg) scale(1);
+    transform: rotate(360deg) scale(1);
+    right: -5px;
+    top: 0;
+  }
+}
+@-ms-keyframes show {
+  0% {
+    -webkit-transform: rotate(180deg) scale(0);
+    -ms-transform: rotate(180deg) scale(0);
+    -moz-transform: rotate(180deg) scale(0);
+    -o-transform: rotate(180deg) scale(0);
+    transform: rotate(180deg) scale(0);
+    right: 11px;
+    top: 5em;
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: rotate(360deg) scale(1);
+    -ms-transform: rotate(360deg) scale(1);
+    -moz-transform: rotate(360deg) scale(1);
+    -o-transform: rotate(360deg) scale(1);
+    transform: rotate(360deg) scale(1);
+    right: -5px;
+    top: 0;
+  }
+}
+@keyframes show {
+  0% {
+    -webkit-transform: rotate(180deg) scale(0);
+    -ms-transform: rotate(180deg) scale(0);
+    -moz-transform: rotate(180deg) scale(0);
+    -o-transform: rotate(180deg) scale(0);
+    transform: rotate(180deg) scale(0);
+    right: 11px;
+    top: 5em;
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: rotate(360deg) scale(1);
+    -ms-transform: rotate(360deg) scale(1);
+    -moz-transform: rotate(360deg) scale(1);
+    -o-transform: rotate(360deg) scale(1);
+    transform: rotate(360deg) scale(1);
+    right: -5px;
+    top: 0;
+  }
+}
+body {
+  background: #E9E9E9;
+  font-family: "Lato", "sans-serif";
+}
+
+.container {
+  width: 3em;
+  height: 3em;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-top: -1.5em;
+  margin-left: -1.5em;
+}
+.container .genericon {
+  font-size: 3em;
+  color: #8596A0;
+  line-height: 1;
+}
+.container #notice {
+  position: absolute;
+  padding: 3px 6px;
+  background: #56AAE8;
+  color: #F7F8FA;
+  border-radius: 5px;
+  right: -5px;
+  border: 3px solid #E9E9E9;
+  font-size: 0.6em;
+  opacity: 0;
+  -webkit-animation-delay: 1s;
+  -ms-animation-delay: 1s;
+  -moz-animation-delay: 1s;
+  -o-animation-delay: 1s;
+  animation-delay: 1s;
+  -webkit-animation-timing-function: linear;
+  -ms-animation-timing-function: linear;
+  -moz-animation-timing-function: linear;
+  -o-animation-timing-function: linear;
+  animation-timing-function: linear;
+  -webkit-animation-name: show;
+  -ms-animation-name: show;
+  -moz-animation-name: show;
+  -o-animation-name: show;
+  animation-name: show;
+  -webkit-animation-duration: 0.5s;
+  -ms-animation-duration: 0.5s;
+  -moz-animation-duration: 0.5s;
+  -o-animation-duration: 0.5s;
+  animation-duration: 0.5s;
+  -webkit-animation-fill-mode: forwards;
+  -ms-animation-fill-mode: forwards;
+  -moz-animation-fill-mode: forwards;
+  -o-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+}

@@ -1,0 +1,151 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: black;
+  width: 100vw;
+  height: 100vh;
+  font-family: apple-system, BlinkMacSystemFont, sans-serif;
+  overflow: hidden;
+}
+
+/* -- Watch on Wrist Image & Mask -- */
+
+#watch-mask {
+  position: absolute;
+  -webkit-mask-image: url("https://assets.codepen.io/8292695/apple-watch-mask.png");
+  -webkit-mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  width: 1641px;
+  height: 782px;
+  top: 333px;
+}
+
+#watch-wrist {
+  background-image: url("https://www.apple.com/v/apple-watch-series-9/b/images/overview/gestures/kinetic_scenarios__frgipowfylqq_large.jpg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 1641px;
+  height: 782px;
+}
+
+/* -- Watch Faces -- */
+
+.face {
+  position: absolute;
+  width: 324px;
+  height: 302px;
+  top: 382px;
+  border-radius: 60px;
+}
+
+.face#music {
+  background-image: url("https://www.apple.com/v/apple-watch-series-9/b/images/overview/gestures/kinetic_scenarios_screen_music_avail__dk1ivof1c7o2_large.jpg");
+}
+
+.face#phone {
+  background-image: url("https://www.apple.com/v/apple-watch-series-9/b/images/overview/gestures/kinetic_scenarios_screen_phone__d7a4w8q0h2uu_large.jpg");
+}
+
+.face#timer {
+  background-image: url("https://www.apple.com/v/apple-watch-series-9/b/images/overview/gestures/kinetic_scenarios_screen_timer_avail__fpm8d4n0sma2_large.jpg");
+}
+
+.face#messages {
+  background-image: url("https://www.apple.com/v/apple-watch-series-9/b/images/overview/gestures/kinetic_scenarios_screen_messages__1lylillc32ae_large.jpg");
+}
+
+.face#stacks {
+  background-image: url("https://www.apple.com/v/apple-watch-series-9/b/images/overview/gestures/kinetic_scenarios_screen_stacks__bpcf5jglfyz6_large.jpg");
+}
+
+/* -- Initial state -- */
+
+.face#music {
+  opacity: 1;
+}
+
+.face#phone,
+.face#timer,
+.face#messages,
+.face#stacks {
+  opacity: 0;
+}
+
+/* -- Captions -- */
+
+.caption {
+  position: absolute;
+  top: 200px;
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  gap: 20px;
+}
+
+.icon {
+  width: 48px;
+  height: 48px;
+}
+
+.text {
+  width: 440px;
+  font-size: 40px;
+  font-weight: 600;
+  color: white;
+}
+
+/* -- Initial state -- */
+
+.caption#music {
+  opacity: 1;
+}
+
+.caption#phone,
+.caption#timer,
+.caption#messages,
+.caption#stacks {
+  opacity: 0;
+  top: 400px;
+}
+
+/* -- Icons -- */
+
+.caption#music > .icon {
+  background-image: url("https://www.apple.com/v/apple-watch-series-9/b/images/overview/gestures/kinetic_icon_music__f18swdmsur2a_large.png");
+}
+
+.caption#phone > .icon {
+  background-image: url("https://www.apple.com/v/apple-watch-series-9/b/images/overview/gestures/kinetic_icon_phone__bvwisuxv2ple_large.png");
+}
+
+.caption#timer > .icon {
+  background-image: url("https://www.apple.com/v/apple-watch-series-9/b/images/overview/gestures/kinetic_icon_timer__bvwdwn15n6eq_large.png");
+}
+
+.caption#messages > .icon {
+  background-image: url("https://www.apple.com/v/apple-watch-series-9/b/images/overview/gestures/kinetic_icon_messages__bsqzh354xjki_large.png");
+}
+
+.caption#stacks > .icon {
+  background-image: url("https://www.apple.com/v/apple-watch-series-9/b/images/overview/gestures/kinetic_icon_stacks__bc172mqrl5wy_large.png");
+}
+
+/* -- Alignment with the rest -- */
+
+.caption#stacks {
+  margin-left: 31px;
+}
+
+.caption#stacks > .text {
+  width: 471px;
+}

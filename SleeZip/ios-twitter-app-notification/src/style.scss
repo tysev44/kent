@@ -1,0 +1,81 @@
+/*genericons*/
+@import url(//cdn.jsdelivr.net/genericons/3.0.3/genericons.css);
+
+/*font*/
+@import url(https://fonts.googleapis.com/css?family=Lato);
+@mixin keyframes($name) {
+  @-webkit-keyframes #{$name} {
+    @content; 
+  }
+  @-moz-keyframes #{$name} {
+    @content;
+  }
+  @-ms-keyframes #{$name} {
+    @content;
+  }
+  @keyframes #{$name} {
+    @content;
+  } 
+}
+
+@mixin vendor-prefix($name, $argument) {
+  -webkit-#{$name}: #{$argument};
+  -ms-#{$name}: #{$argument};
+  -moz-#{$name}: #{$argument};
+  -o-#{$name}: #{$argument};
+  #{$name}: #{$argument};
+}
+
+@include keyframes(show) {
+  0% { 
+    @include vendor-prefix(transform,rotate(180deg) scale(0));
+    right: 11px;
+    top: 5em;
+    
+  }
+
+  100% {
+    opacity:1;
+    @include vendor-prefix(transform,rotate(360deg) scale(1));
+    right: -5px;
+    top: 0;
+   }
+}
+
+body{
+  background: #E9E9E9;
+  font-family: 'Lato', 'sans-serif';
+}
+
+.container{
+  width:3em;
+  height:3em;
+  position:absolute;
+  left:50%;
+  top:50%;
+  margin-top:-1.5em;
+  margin-left:-1.5em;
+  
+  .genericon{
+    font-size:3em;
+    color:#8596A0;
+    line-height:1;
+  }
+  #notice{
+    position:absolute;
+    padding:3px 6px;
+    background:#56AAE8;
+    color:#F7F8FA;
+    border-radius:5px;
+    right:-5px;
+    border:3px solid #E9E9E9;
+    font-size: 0.6em;
+    opacity:0;
+    @include vendor-prefix(animation-delay, 1s);
+    @include vendor-prefix(animation-timing-function,linear);
+    @include vendor-prefix(animation-name,show);
+    @include vendor-prefix(animation-duration, 0.5s);
+    @include vendor-prefix(animation-fill-mode,forwards);
+  }
+}
+

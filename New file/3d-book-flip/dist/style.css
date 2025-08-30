@@ -1,0 +1,106 @@
+body{
+  background:grey;
+}
+
+.frame{
+  margin-left:45%;
+  margin-top:20%;
+  cursor:pointer;
+}
+
+div div{
+  transform-origin:0% 50%;
+  position:absolute;
+  width:200px;
+  height:250px;
+}
+
+.cover{
+  background: 
+		linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), 
+		url("https://2.bp.blogspot.com/-qSkh0yYmL00/UvZ2SuSLy-I/AAAAAAAAF08/eymBOs-HA6Y/s1600/01_15_eset_robot.png");
+  background-size: 0, cover;
+  
+  font-family: 'Montserrat', sans-serif;
+  text-align:right;
+  font-size:1.4em;
+  letter-spacing:10px;
+}
+
+.page{
+  background: white;
+}
+
+.front{
+  transform-style:preserve-3d;
+  transition: 0.5s ease all;
+  transform:perspective(1000px) rotateY(-45deg)
+}
+
+.one{
+  opacity:0.5;
+  transform-style:preserve-3d;
+  transition: 0.5s ease all;
+  transform:perspective(1000px) rotateY(-40deg)
+}
+
+.two{
+  opacity:0.4;
+  transform-style:preserve-3d;
+  transition: 0.5s ease all;
+  transform:perspective(1000px) rotateY(-35deg)
+}
+
+.three{
+  opacity:0.3;
+  transform-style:preserve-3d;
+  transition: 0.5s ease all;
+  transform:perspective(1000px) rotateY(-30deg)
+}
+
+.four{
+  opacity:0.5;
+  transform-style:preserve-3d;
+  transition: 0.5s ease all;
+  transform:perspective(1000px) rotateY(-25deg)
+}
+
+.back{
+  opacity:0.5;
+  transform-origin:50% 50%;
+  transform-style:preserve-3d;
+  transition: 0.5s ease all;
+  transform:perspective(1000px) rotateY(-180deg)
+}
+
+/* Animation */
+
+.frame:hover .front{
+  transform-style:preserve-3d;
+  transition: 0.5s ease all;
+  transform:perspective(1000px) rotateY(-80deg)
+}
+
+.frame:hover .one{
+  transform-style:preserve-3d;
+  transition: 0.5s ease all;
+  transform:perspective(1000px) rotateY(-70deg)
+}
+
+.frame:hover .two{
+  transform-style:preserve-3d;
+  transition: 0.5s ease all;
+  transform:perspective(1000px) rotateY(-60deg)
+}
+
+.frame:hover .three{
+  transform-style:preserve-3d;
+  transition: 0.5s ease all;
+  transform:perspective(1000px) rotateY(-50deg)
+}
+
+.frame:hover .four{
+  transform-style:preserve-3d;
+  transition: 0.5s ease all;
+  transform:perspective(1000px) rotateY(-40deg)
+}

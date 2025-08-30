@@ -1,0 +1,74 @@
+.vessel {
+  width: 405px;
+  height: 735px;
+  border: 2px solid #ddd;
+  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.wrapper {
+  position: absolute;
+  top: 20px;
+  left: 100px;
+}
+
+.item {
+  display: block;
+  list-style: none;
+  width: 350px;
+  height: 200px;
+  border-radius: 20px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: 0.5s all ease-out;
+  transform: perspective(250px) rotateX(-20deg);
+}
+.item.pink {
+  background: #feabbc;
+  top: 10px;
+}
+.item.pink:after {
+  background: #feabbc;
+}
+.item.blue {
+  background: #3789fd;
+  top: 70px;
+}
+.item.blue:after {
+  background: #3789fd;
+}
+.item.black {
+  top: 130px;
+  background: #5e5e60;
+}
+.item.black:after {
+  background: #5e5e60;
+}
+.item:after {
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  border-radius: 30px;
+  bottom: -25px;
+  left: 6px;
+  z-index: -1;
+  filter: blur(15px) opacity(30%);
+  opacity: 0;
+  transition: 0.5s all ease-out;
+}
+.item.hide {
+  top: -300px;
+  transform: perspective(250px) rotateX(0deg);
+  opacity: 0;
+  z-index: -100;
+}
+.item.show {
+  transform: perspective(250px) rotateX(0deg);
+  top: 10px;
+}
+.item.show:after {
+  opacity: 1;
+}

@@ -1,0 +1,344 @@
+$ease-in: cubic-bezier(0.12,0,0.39,0);
+$ease-out: cubic-bezier(0.61,1,0.88,1);
+$ease-in-out: cubic-bezier(0.37,0,0.63,1);
+
+* {
+	border: 0;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+:root {
+	// theme
+	--hue: 223;
+	--sat: 10%;
+	--bg: hsl(var(--hue),var(--sat),90%);
+	--fg: hsl(var(--hue),var(--sat),10%);
+	// check circle colors
+	--primary: hsl(var(--hue),90%,50%);
+	--green: hsl(150,90%,40%);
+	--red: hsl(0,90%,50%);
+	--purple: hsl(270,90%,60%);
+	--white: hsl(0,0%,100%);
+	--light-gray1: hsl(var(--hue),var(--sat),85%);
+	--light-gray2: hsl(var(--hue),var(--sat),65%);
+	--dark-gray1: hsl(var(--hue),var(--sat),35%);
+	--dark-gray2: hsl(var(--hue),var(--sat),15%);
+	--check-bubble: var(--light-gray1);
+	--check-outline: var(--light-gray2);
+	// other
+	--trans-dur: 0.3s;
+	font-size: clamp(1rem,0.95rem + 0.25vw,1.25rem);
+}
+body {
+	background-color: var(--bg);
+	color: var(--fg);
+	display: flex;
+	font: 1em/1.5 sans-serif;
+	height: 100vh;
+	transition:
+		background-color var(--trans-dur),
+		color var(--trans-dur);
+}
+.check {
+	overflow: visible;
+	pointer-events: none;
+	width: 6em;
+	height: auto;
+
+	circle,
+	polygon {
+		transition:
+			fill var(--trans-dur),
+			stroke var(--trans-dur);
+	}
+	&__move-fade,
+	&__scale-in,
+	&__scale-out,
+	&__stroke-offset {
+		animation: {
+			duration: 1s;
+			timing-function: $ease-in-out;
+			fill-mode: forwards;
+		};
+	}
+	&__fade {
+		transition: opacity var(--trans-dur);
+	}
+	&__move-fade {
+		animation-timing-function: $ease-out;
+	}
+}
+.field {
+	display: flex;
+	margin: auto;
+
+	&,
+	&__checkbox {
+		-webkit-tap-highlight-color: transparent;
+	}
+	&__checkbox {
+		-webkit-appearance: none;
+		appearance: none;
+	}
+	&__label {
+		cursor: pointer;
+		display: flex;
+		gap: 0.5em;
+		align-items: center;
+	}
+	/*
+	Checked state for check circle
+	
+	For the best practical use (e.g. onboarding), replace `&__checkbox:checked + &__label` with a class that should trigger the animation, which can be set by component state in your JS framework.
+	*/
+	&__checkbox:checked + &__label .check {
+		&__fade {
+			opacity: 1;
+			transition-duration: 0s;
+		}
+		&__move-fade {
+			$move-fades: 5;
+			@for $f from 1 through $move-fades {
+				&--#{$f} {
+					animation-name: move-fade#{$f};
+				}
+			}
+		}
+		&__scale {
+			$scale-ins: 3;
+			&-in {
+				transform: scale(1);
+
+				@for $s from 1 through $scale-ins {
+					&--#{$s} {
+						animation-name: scale-in#{$s};
+					}
+				}
+			}
+			&-out {
+				animation-name: scale-out;
+			}
+		}
+		&__stroke-offset {
+			$stroke-offsets: 4;
+			@for $o from 1 through $stroke-offsets {
+				&--#{$o} {
+					animation-name: stroke-offset#{$o};
+				}
+			}
+		}
+	}
+	&__sr-only {
+		overflow: hidden;
+		position: absolute;
+		width: 1px;
+		height: 1px;
+	}
+}
+
+/* Dark theme */
+@media (prefers-color-scheme: dark) {
+	:root {
+		--bg: hsl(var(--hue),var(--sat),10%);
+		--fg: hsl(var(--hue),var(--sat),90%);
+		--check-bubble: var(--dark-gray2);
+		--check-outline: var(--dark-gray1);
+	}
+}
+
+/* Animations */
+@keyframes move-fade1 {
+	from {
+		animation-timing-function: steps(1,end);
+		opacity: 0;
+		transform: translate(0,16px);
+	}
+	31% {
+		opacity: 1;
+		transform: translate(0,16px);
+	}
+	75% {
+		opacity: 1;
+		transform: translate(0,0);
+	}
+	92.75%,
+	to {
+		opacity: 0;
+		transform: translate(0,0);
+	}
+}
+@keyframes move-fade2 {
+	from {
+		animation-timing-function: steps(1,end);
+		opacity: 0;
+		transform: translate(22px,0);
+	}
+	35.25% {
+		opacity: 1;
+		transform: translate(22px,0);
+	}
+	75% {
+		opacity: 1;
+		transform: translate(0,0);
+	}
+	92.75%,
+	to {
+		opacity: 0;
+		transform: translate(0,0);
+	}
+}
+@keyframes move-fade3 {
+	from {
+		animation-timing-function: steps(1,end);
+		opacity: 0;
+		transform: translate(-27px,0);
+	}
+	44% {
+		opacity: 1;
+		transform: translate(-27px,0);
+	}
+	82.25% {
+		opacity: 1;
+		transform: translate(0,0);
+	}
+	to {
+		opacity: 0;
+		transform: translate(0,0);
+	}
+}
+@keyframes move-fade4 {
+	from {
+		animation-timing-function: steps(1,end);
+		opacity: 0;
+		transform: translate(0,-11px);
+	}
+	44% {
+		opacity: 1;
+		transform: translate(0,-11px);
+	}
+	82.25% {
+		opacity: 1;
+		transform: translate(0,0);
+	}
+	to {
+		opacity: 0;
+		transform: translate(0,0);
+	}
+}
+@keyframes move-fade5 {
+	from {
+		animation-timing-function: steps(1,end);
+		opacity: 0;
+		transform: translate(0,-23px);
+	}
+	22% {
+		opacity: 1;
+		transform: translate(0,-23px);
+	}
+	61.75% {
+		opacity: 1;
+		transform: translate(0,0);
+	}
+	79.5%,
+	to {
+		opacity: 0;
+		transform: translate(0,0);
+	}
+}
+@keyframes scale-in1 {
+	from {
+		transform: scale(0);
+	}
+	26.5%,
+	to {
+		transform: scale(1);
+	}
+}
+@keyframes scale-in2 {
+	from,
+	13.25% {
+		transform: scale(0);
+	}
+	44% {
+		transform: scale(1.05);
+	}
+	48.5%,
+	to {
+		transform: scale(1);
+	}
+}
+@keyframes scale-in3 {
+	from,
+	35.25% {
+		transform: scale(0);
+	}
+	66.25% {
+		transform: scale(1.05);
+	}
+	70.5%,
+	to {
+		transform: scale(1);
+	}
+}
+@keyframes scale-out {
+	from {
+		transform: scale(1);
+	}
+	31%,
+	to {
+		transform: scale(0);
+	}
+}
+@keyframes stroke-offset1 {
+	from,
+	20.5% {
+		stroke-dashoffset: 17;
+	}
+	41% {
+		stroke-dashoffset: 0;
+	}
+	61.75%,
+	to {
+		stroke-dashoffset: -17;
+	}
+}
+@keyframes stroke-offset2 {
+	from,
+	29.5% {
+		stroke-dashoffset: 22.63;
+	}
+	50% {
+		stroke-dashoffset: 0;
+	}
+	70.5%,
+	to {
+		stroke-dashoffset: -22.63;
+	}
+}
+@keyframes stroke-offset3 {
+	from,
+	38% {
+		stroke-dashoffset: 17;
+	}
+	58.75% {
+		stroke-dashoffset: 0;
+	}
+	79.5%,
+	to {
+		stroke-dashoffset: -17;
+	}
+}
+@keyframes stroke-offset4 {
+	from,
+	22% {
+		stroke-dashoffset: 17;
+	}
+	42.75% {
+		stroke-dashoffset: 0;
+	}
+	63.25%,
+	to {
+		stroke-dashoffset: -17;
+	}
+}

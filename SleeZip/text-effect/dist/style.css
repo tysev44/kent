@@ -1,0 +1,127 @@
+.smoke {
+  zoom: 2;
+  --font-size: 20px;
+  font-weight: 500;
+  line-height: var(--font-size);
+  color: #292C3D;
+  display: block;
+  font-size: var(--font-size);
+  letter-spacing: 0.0075em;
+  --move: 24px;
+  --move-y: -16px;
+  --blur: 6px;
+}
+.smoke div {
+  display: flex;
+}
+.smoke div span {
+  display: block;
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+}
+.smoke div span:nth-child(1) {
+  --d: 0.05s;
+}
+.smoke div span:nth-child(2) {
+  --d: 0.1s;
+}
+.smoke div span:nth-child(3) {
+  --d: 0.15s;
+}
+.smoke div span:nth-child(4) {
+  --d: 0.2s;
+}
+.smoke div span:nth-child(5) {
+  --d: 0.25s;
+}
+.smoke div span:nth-child(6) {
+  --d: 0.3s;
+}
+.smoke div span:nth-child(7) {
+  --d: 0.35s;
+}
+.smoke div span:nth-child(8) {
+  --d: 0.4s;
+}
+.smoke div span:nth-child(9) {
+  --d: 0.45s;
+}
+.smoke div span:nth-child(10) {
+  --d: 0.5s;
+}
+.smoke div span:nth-child(11) {
+  --d: 0.55s;
+}
+.smoke.active span {
+  --duration: 1.25s;
+  -webkit-animation: smoke var(--duration) linear var(--d);
+          animation: smoke var(--duration) linear var(--d);
+}
+
+@-webkit-keyframes smoke {
+  45%, 55% {
+    filter: blur(var(--blur));
+  }
+  50%, 50.1% {
+    opacity: 0;
+  }
+  25%, 75% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(var(--move)) translateY(var(--move-y));
+  }
+  50.1% {
+    transform: translateX(calc(var(--move) * -1));
+  }
+}
+
+@keyframes smoke {
+  45%, 55% {
+    filter: blur(var(--blur));
+  }
+  50%, 50.1% {
+    opacity: 0;
+  }
+  25%, 75% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(var(--move)) translateY(var(--move-y));
+  }
+  50.1% {
+    transform: translateX(calc(var(--move) * -1));
+  }
+}
+html {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+}
+
+* {
+  box-sizing: inherit;
+}
+*:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  font-family: "Onest", Arial;
+  justify-content: center;
+  align-items: center;
+  background: #F9FAFA;
+}
+body .twitter {
+  position: fixed;
+  display: block;
+  right: 20px;
+  bottom: 20px;
+}
+body .twitter svg {
+  width: 32px;
+  height: 32px;
+  fill: #1da1f2;
+}

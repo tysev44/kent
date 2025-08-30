@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Check Circle With Pop Effect</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" /><link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<label class="field">
+	<input class="field__checkbox" type="checkbox" checked>
+	<span class="field__label">
+		<svg class="check" viewBox="0 0 64 64" aria-hidden="true">
+			<g transform="translate(32,32)">
+				<g stroke-linecap="round" stroke-width="3">
+					<polyline class="check__stroke-offset check__stroke-offset--1" stroke="var(--purple)" points="-30 -30,-42 -42" stroke-dasharray="17 17" stroke-dashoffset="17" />
+					<polyline class="check__stroke-offset check__stroke-offset--2" stroke="var(--primary)" points="38 -38,54 -54" stroke-dasharray="22.63 22.63" stroke-dashoffset="22.63" />
+					<polyline class="check__stroke-offset check__stroke-offset--3" stroke="var(--green)" points="-28 28,-40 40" stroke-dasharray="17 17" stroke-dashoffset="17" />
+					<polyline class="check__stroke-offset check__stroke-offset--4" stroke="var(--red)" points="32 32,44 44" stroke-dasharray="17 17" stroke-dashoffset="17" />
+				</g>
+				<g>
+					<circle class="check__move-fade check__move-fade--1" fill="var(--red)" r="3" cx="4" cy="-44" opacity="0" />
+					<circle class="check__move-fade check__move-fade--2" fill="var(--primary)" r="3" cx="-44" cy="-8" opacity="0" />
+					<circle class="check__move-fade check__move-fade--3" fill="var(--green)" r="3" cx="52" cy="12" opacity="0" />
+					<circle class="check__move-fade check__move-fade--4" fill="var(--purple)" r="2" cx="-2" cy="40" opacity="0" />
+					<circle class="check__move-fade check__move-fade--5" fill="var(--primary)" r="3" cx="-12" cy="46" opacity="0" />
+				</g>
+				<g class="check__scale-out" fill="none" stroke="var(--check-outline)" stroke-width="2">
+					<circle r="30" />
+					<polygon points="-10 -4,-16 2,-4 14,16 -6,10 -12,-4 2" />
+				</g>
+				<g class="check__fade" opacity="0">
+					<circle class="check__scale-in check__scale-in--1" fill="var(--check-bubble)" r="30.9" />
+					<circle class="check__scale-in check__scale-in--2" fill="var(--primary)" r="31" />
+					<polygon class="check__scale-in check__scale-in--3" fill="var(--white)" stroke="var(--primary)" stroke-width="2" points="-10 -4,-16 2,-4 14,16 -6,10 -12,-4 2" />
+				</g>
+			</g>
+		</svg>
+		<span class="field__sr-only">Check circle</span>
+	</span>
+</label>
+<!-- partial -->
+  
+</body>
+</html>

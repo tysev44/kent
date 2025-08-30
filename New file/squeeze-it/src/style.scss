@@ -1,0 +1,62 @@
+$turbo: #e0dd00;
+$mine-shaft: #333333;
+$white: #ffffff;
+
+body {
+  margin: 0;
+  display: grid;
+  height: 100vh;
+  place-items: center;
+}
+
+.c-button {
+  font-family: "Poppins", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: $mine-shaft;
+
+  border: 0;
+  outline: 0;
+
+  position: relative;
+  width: 9.375em;
+  height: 3.1em;
+  border-radius: 0.625em;
+  background: transparent;
+  cursor: pointer;
+
+  &::before {
+    content: "";
+    position: absolute;
+    right: 0.625em;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1em;
+    height: 1.125em;
+    background: $turbo;
+    clip-path: polygon(0 0, 100% 50%, 0 100%);
+    z-index: -2;
+  }
+
+  &:after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: inherit;
+    height: inherit;
+    border-radius: inherit;
+    border: 0.25em solid $turbo;
+    background-color: $white;
+    box-sizing: border-box;
+    transition: 0.3s;
+    z-index: -1;
+  }
+
+  &:hover::after {
+    height: 0;
+    border-radius: 0;
+    width: 6.75em;
+  }
+}

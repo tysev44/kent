@@ -1,0 +1,133 @@
+body {
+  font-size: 10px;
+  background-color: #6fa5f6;
+  font-family: "Open Sans", sans-serif;
+  display: grid;
+  height: 100vh;
+  place-items: center;
+}
+
+.c-checkbox {
+  display: none;
+}
+.c-checkbox:checked ~ .c-form .c-form__eyeIcon::before {
+  transform: scale(20);
+}
+.c-checkbox:checked ~ .c-form .c-form__eyeIconBar::before {
+  transform: scaleX(0);
+}
+.c-checkbox:checked ~ .c-form .c-form__lockIcon {
+  color: #121726;
+}
+
+.c-form {
+  position: relative;
+  overflow: hidden;
+  width: 41em;
+  height: 8em;
+  padding: 2em 3.125em;
+  box-sizing: border-box;
+  border-radius: 1.25em;
+  background-color: #121726;
+  box-shadow: 0 0.125em 0.125em 0 rgba(0, 0, 0, 0.14), 0 0.1875em 0.0625em -0.125em rgba(0, 0, 0, 0.12), 0 0.0625em 0.3125em 0 rgba(0, 0, 0, 0.2);
+  display: flex;
+}
+
+.c-form__input {
+  flex-grow: 1;
+  font-size: 1.5625em;
+  font-family: inherit;
+  color: #565cc0;
+  border: 0;
+  outline: 0;
+  padding: 0 0.88em;
+  box-sizing: border-box;
+  background-color: transparent;
+  z-index: 2;
+}
+.c-form__input::placeholder {
+  color: #cccccc;
+}
+
+.c-form__eyeIcon {
+  position: relative;
+  width: 4em;
+  height: 4em;
+  border-radius: 50%;
+  color: #575dbe;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.c-form__eyeIcon::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  background-color: #ffffff;
+  transition: 0.15s;
+  pointer-events: none;
+}
+.c-form__eyeIcon::after {
+  content: "";
+  height: 0.875em;
+  width: 0.875em;
+  border-radius: 50%;
+  background-color: currentColor;
+  box-shadow: 0 0 0 0.375em #ffffff, 0 0 0 0.625em;
+  z-index: 1;
+}
+
+.c-form__eyeIconBar {
+  position: absolute;
+  width: 2.8125em;
+  height: 0.25em;
+  transform: rotate(45deg);
+  z-index: 2;
+}
+.c-form__eyeIconBar::before {
+  content: "";
+  display: block;
+  width: inherit;
+  height: inherit;
+  background-color: currentColor;
+  transform-origin: bottom right;
+  transform: scaleY(1);
+  transition: transform 0.15s;
+}
+
+.c-form__lockIcon {
+  order: -1;
+  position: relative;
+  width: 4em;
+  height: 4em;
+  color: #ffffff;
+  z-index: 1;
+  transition: 0s 0.1s;
+}
+.c-form__lockIcon::before, .c-form__lockIcon::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.c-form__lockIcon::before {
+  bottom: 0.875em;
+  width: 1.75em;
+  height: 1.25em;
+  border-radius: 0.3125em 0.3125em 0 0;
+  background-color: currentColor;
+}
+.c-form__lockIcon::after {
+  bottom: 2em;
+  width: 1.5em;
+  height: 1.125em;
+  border: 0.25em solid;
+  border-bottom: 0;
+  box-sizing: border-box;
+  border-radius: 1.5em 1.5em 0 0;
+}

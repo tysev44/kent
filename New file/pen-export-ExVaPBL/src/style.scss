@@ -1,0 +1,14 @@
+html,
+body {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+	background: #eaeaea;
+}
+svg {
+	margin: 0;
+	width: 289px;
+	height: 289px;
+}

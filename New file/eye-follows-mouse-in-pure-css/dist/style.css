@@ -1,0 +1,159 @@
+body {
+  position: relative;
+  margin: 0;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  background-color: #f46057;
+}
+
+.eye {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  overflow: hidden;
+  width: 20vw;
+  height: 20vw;
+  border-radius: 50%;
+  border: 2.5vw solid #e53833;
+  box-sizing: border-box;
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.eye::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  height: 60%;
+  width: 100%;
+  background-color: #f46057;
+  border-radius: 10vw 10vw 0 0;
+  border-bottom: 2.5vw solid #e53833;
+  box-sizing: border-box;
+  z-index: 1;
+  transition: 0.1s, border 0s;
+}
+.eye::after {
+  content: "";
+  position: absolute;
+  width: 50%;
+  height: 50%;
+  border-radius: 50%;
+  background-color: #102a54;
+  transition: 0.1s;
+}
+
+.eventListener {
+  height: 100%;
+  width: 100%;
+  border: 1px solid;
+  box-sizing: border-box;
+  opacity: 0;
+  user-select: none;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.eventListener:hover {
+  background-color: #ff8f88;
+}
+.eventListener:nth-child(1):hover ~ .eye::before {
+  height: 25%;
+}
+.eventListener:nth-child(1):hover ~ .eye::after {
+  transform: translate(-30%, -50%);
+}
+.eventListener:nth-child(2):hover ~ .eye::before {
+  height: 25%;
+}
+.eventListener:nth-child(2):hover ~ .eye::after {
+  transform: translate(-15%, -50%);
+}
+.eventListener:nth-child(3):hover ~ .eye::before {
+  height: 25%;
+}
+.eventListener:nth-child(3):hover ~ .eye::after {
+  transform: translate(15%, -50%);
+}
+.eventListener:nth-child(4):hover ~ .eye::before {
+  height: 25%;
+}
+.eventListener:nth-child(4):hover ~ .eye::after {
+  transform: translate(30%, -50%);
+}
+.eventListener:nth-child(5):hover ~ .eye::before {
+  height: 45%;
+}
+.eventListener:nth-child(5):hover ~ .eye::after {
+  transform: translate(-40%, -20%);
+}
+.eventListener:nth-child(6):hover ~ .eye::before {
+  height: 45%;
+}
+.eventListener:nth-child(6):hover ~ .eye::after {
+  transform: translate(-25%, -20%);
+}
+.eventListener:nth-child(7):hover ~ .eye::before {
+  height: 45%;
+}
+.eventListener:nth-child(7):hover ~ .eye::after {
+  transform: translate(25%, -20%);
+}
+.eventListener:nth-child(8):hover ~ .eye::before {
+  height: 45%;
+}
+.eventListener:nth-child(8):hover ~ .eye::after {
+  transform: translate(40%, -20%);
+}
+.eventListener:nth-child(9):hover ~ .eye::before {
+  height: 70%;
+}
+.eventListener:nth-child(9):hover ~ .eye::after {
+  transform: translate(-40%, 20%);
+}
+.eventListener:nth-child(10):hover ~ .eye::before {
+  height: 70%;
+}
+.eventListener:nth-child(10):hover ~ .eye::after {
+  transform: translate(-25%, 20%);
+}
+.eventListener:nth-child(11):hover ~ .eye::before {
+  height: 70%;
+}
+.eventListener:nth-child(11):hover ~ .eye::after {
+  transform: translate(25%, 20%);
+}
+.eventListener:nth-child(12):hover ~ .eye::before {
+  height: 70%;
+}
+.eventListener:nth-child(12):hover ~ .eye::after {
+  transform: translate(40%, 20%);
+}
+.eventListener:nth-child(13):hover ~ .eye::before {
+  height: 75%;
+}
+.eventListener:nth-child(13):hover ~ .eye::after {
+  transform: translate(-30%, 30%);
+}
+.eventListener:nth-child(14):hover ~ .eye::before {
+  height: 75%;
+}
+.eventListener:nth-child(14):hover ~ .eye::after {
+  transform: translate(-10%, 30%);
+}
+.eventListener:nth-child(15):hover ~ .eye::before {
+  height: 75%;
+}
+.eventListener:nth-child(15):hover ~ .eye::after {
+  transform: translate(10%, 30%);
+}
+.eventListener:nth-child(16):hover ~ .eye::before {
+  height: 75%;
+}
+.eventListener:nth-child(16):hover ~ .eye::after {
+  transform: translate(30%, 30%);
+}

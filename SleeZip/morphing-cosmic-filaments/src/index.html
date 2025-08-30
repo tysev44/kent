@@ -1,0 +1,396 @@
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<style>
+	*{margin:0;padding:0;box-sizing:border-box}
+	body{
+		font-family:Inter,system-ui,sans-serif;
+		background:#000205;
+		color:#dcdfff;
+		overflow:hidden
+	}
+	#container{position:fixed;inset:0;
+		background:radial-gradient(circle at 50% 40%,#040714 0%,#010308 80%,#000105 100%)}
+	canvas{display:block;width:100%;height:100%}
+	.instructions{
+		position:fixed;bottom:20px;left:50%;transform:translateX(-50%);
+		padding:10px 22px;border-radius:10px;
+		background:rgba(255,255,255,.08);
+		border:1px solid rgba(255,255,255,.15);
+		backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+		color:#cdd0ff;font-size:13px;user-select:none;pointer-events:none;z-index:10;
+		text-shadow:0 0 5px rgba(255,255,255,.35)
+	}
+</style>
+
+<script type="importmap">
+{
+	"imports":{
+		"three":"https://cdn.jsdelivr.net/npm/three@0.162.0/build/three.module.js",
+		"three/addons/":"https://cdn.jsdelivr.net/npm/three@0.162.0/examples/jsm/"
+	}
+}
+</script>
+
+<div id="container"></div>
+<div class="instructions">Tap / click to morph the cosmic filaments</div>
+
+<script type="module">
+	import * as THREE from 'three';
+	import {EffectComposer}   from 'three/addons/postprocessing/EffectComposer.js';
+	import {RenderPass}       from 'three/addons/postprocessing/RenderPass.js';
+	import {UnrealBloomPass} from 'three/addons/postprocessing/UnrealBloomPass.js';
+	import {FilmPass}         from 'three/addons/postprocessing/FilmPass.js';
+	import {OutputPass}       from 'three/addons/postprocessing/OutputPass.js';
+
+	const PARTICLES = 20000;
+	const clock     = new THREE.Clock();
+	const TRANSITION_SPEED = 0.025;
+
+	let scene,camera,renderer,composer;
+	let pointsMesh,starfield;
+	let patternIndex = 0;
+	let transitioning=false,progress=0;
+
+	function normalize(pts,scale){
+		if(!pts.length) return pts;
+		const box=new THREE.Box3().setFromPoints(pts);
+		const ctr=box.getCenter(new THREE.Vector3());
+		const s = scale/Math.max(box.getSize(new THREE.Vector3()).length(),1e-6);
+		pts.forEach(p=>p.sub(ctr).multiplyScalar(s));
+		return pts;
+	}
+
+	function branching(count){
+		const pts=[],branches=70,per=Math.floor(count/branches);
+		function make(o,d,depth){
+			let p=o.clone(),v=d.clone().normalize();
+			const seg=45/per/(depth+1);
+			for(let i=0;i<per;i++){
+				v.add(new THREE.Vector3().randomDirection().multiplyScalar(.28)).normalize();
+				p.add(v.clone().multiplyScalar(seg*(1+Math.random()*.4)));
+				pts.push(p.clone());
+				if(depth<3 && Math.random()<.78/(depth+1))
+					make(p,v.clone().applyAxisAngle(new THREE.Vector3().randomDirection(),Math.PI/2+.3*(Math.random()-.5)),depth+1);
+				if(pts.length>=count) return;
+			}
+		}
+		for(let i=0;i<branches&&pts.length<count;i++){
+			make(new THREE.Vector3().random().subScalar(.5).multiplyScalar(6),
+			     new THREE.Vector3().random().subScalar(.5),0);
+		}
+		while(pts.length<count)
+			pts.push(pts[Math.random()*pts.length|0].clone().add(new THREE.Vector3().randomDirection().multiplyScalar(2)));
+		return normalize(pts,70);
+	}
+
+	function web(count){
+		const pts=[],nodes=120,radius=18,per=Math.max(2,Math.floor(count/(nodes*3)));
+		const v=[...Array(nodes)].map(()=>new THREE.Vector3().random().subScalar(.5).multiplyScalar(85));
+		pts.push(...v);
+		for(let i=0;i<nodes;i++)for(let j=i+1;j<nodes&&pts.length<count;j++){
+			const d=v[i].distanceTo(v[j]);
+			if(d<radius && Math.random()<.35){
+				const links=Math.floor(per*(1-d/radius));
+				for(let k=1;k<links;k++){
+					const t=k/links;
+					pts.push(new THREE.Vector3().lerpVectors(v[i],v[j],t)
+						.add(new THREE.Vector3().randomDirection().multiplyScalar(1.5)));
+					if(pts.length>=count) break;
+				}
+			}
+		}
+		while(pts.length<count)
+			pts.push(pts[Math.random()*pts.length|0].clone().add(new THREE.Vector3().randomDirection().multiplyScalar(3)));
+		return normalize(pts,65);
+	}
+
+	function swirl(count){
+		const pts=[],arms=7,per=Math.floor(count/arms),L=85,sp=.9,th=5;
+		for(let a=0;a<arms;a++){
+			const ang0=a/arms*Math.PI*2;
+			for(let i=0;i<per;i++){
+				const d=i/per*L,ang=ang0+d*sp/18;
+				const x=d*Math.cos(ang),y=d*Math.sin(ang),z=Math.sin(d*.1+ang0)*th*.5;
+				const r=Math.random()*th,ao=Math.random()*Math.PI*2;
+				const ox=r*Math.cos(ao),oy=r*Math.sin(ao);
+				const rx=ox*Math.cos(ang)-oy*Math.sin(ang),ry=ox*Math.sin(ang)+oy*Math.cos(ang);
+				pts.push(new THREE.Vector3(x+rx,y+ry,z+(Math.random()-.5)*th));
+			}
+		}
+		while(pts.length<count) pts.push(new THREE.Vector3().random().subScalar(.5).multiplyScalar(10));
+		return normalize(pts,75);
+	}
+
+	function helix(count){
+		const pts=[],strands=4,per=Math.floor(count/strands),height=70,radius=30,pitch=13;
+		for(let s=0;s<strands;s++){
+			const phase=s/strands*Math.PI*2;
+			for(let i=0;i<per;i++){
+				const t=i/per;
+				const y=t*height-height/2;
+				const ang=phase+t*height/pitch;
+				const r=radius*(.6+.4*Math.sin(t*Math.PI));
+				const x=r*Math.cos(ang),z=r*Math.sin(ang);
+				pts.push(new THREE.Vector3(x,y,z));
+			}
+		}
+		return normalize(pts,70);
+	}
+
+	function torusKnotCloud(count){
+		const pts=[];
+		const p=2,q=3;
+		const R=45,r=15;
+		const turns=6*q;
+		const steps=count;
+		for(let i=0;i<steps;i++){
+			const t=i/steps*turns*Math.PI;
+			const cosQ=Math.cos(q*t/p),sinQ=Math.sin(q*t/p);
+			const x=(R+r*cosQ)*Math.cos(t);
+			const y=(R+r*cosQ)*Math.sin(t);
+			const z=r*sinQ;
+			const jitter=new THREE.Vector3().randomDirection().multiplyScalar(1.4*Math.random());
+			pts.push(new THREE.Vector3(x,y,z).add(jitter));
+		}
+		return normalize(pts,75);
+	}
+
+	const patterns=[branching,web,swirl,helix,torusKnotCloud];
+
+	function makeFilaments(){
+		const geo=new THREE.BufferGeometry();
+		geo.setAttribute('position',new THREE.BufferAttribute(new Float32Array(PARTICLES*3),3));
+		geo.setAttribute('color',   new THREE.BufferAttribute(new Float32Array(PARTICLES*3),3));
+		geo.setAttribute('size',    new THREE.BufferAttribute(new Float32Array(PARTICLES),1));
+		geo.setAttribute('seed',    new THREE.BufferAttribute(new Float32Array(PARTICLES),1));
+		geo.setAttribute('prevPosition', new THREE.BufferAttribute(new Float32Array(PARTICLES*3),3));
+		geo.setAttribute('trailFactor', new THREE.BufferAttribute(new Float32Array(PARTICLES),1));
+
+		const palette=['#8050ff','#ff46ff','#00e3ff','#4fa8ff','#ffffff'].map(c=>new THREE.Color(c));
+		for(let i=0;i<PARTICLES;i++){
+			const c=palette[Math.random()*palette.length|0].clone()
+				.offsetHSL((Math.random()-.5)*.05,(Math.random()-.5)*.12,(Math.random()-.5)*.08);
+			geo.attributes.color.setXYZ(i,c.r,c.g,c.b);
+			geo.attributes.size.setX(i,.45+Math.random()*1.15);
+			geo.attributes.seed.setX(i,Math.random()*Math.PI*2);
+			geo.attributes.trailFactor.setX(i, 0.5 + Math.random() * 0.7);
+		}
+
+		const mat=new THREE.ShaderMaterial({
+			uniforms:{
+				time:{value:0},
+				deltaTime:{value:0}
+			},
+			vertexShader:`
+				uniform float time;
+				uniform float deltaTime;
+				attribute float size;
+				attribute float seed;
+				attribute vec3 prevPosition;
+				attribute float trailFactor;
+				varying vec3 vColor;
+				varying float vTrailLength;
+				
+				void main(){
+					vColor = color;
+					vec3 p = position;
+					float a = time * 0.3 + seed;
+					float w = 0.14 + sin(seed * 4.0) * 0.06;
+					
+					p.x += sin(a + p.y * 0.25) * w;
+					p.y += cos(a + p.z * 0.25) * w;
+					p.z += sin(a + p.x * 0.25) * w;
+					
+					vec3 velocity = (p - prevPosition) / max(deltaTime, 0.0001);
+					float speed = length(velocity);
+					
+					vTrailLength = min(speed * 2.5 * trailFactor, 2.0);
+					
+					vec4 mv = modelViewMatrix * vec4(p, 1.0);
+					float pulse = 1.0 + 0.08 * sin(time * 4.0 + seed * 6.0);
+					
+					vec3 trailDir = normalize(velocity);
+					vec3 camRight = normalize(cross(normalize(mv.xyz), vec3(0.0, 1.0, 0.0)));
+					vec3 camUp = normalize(cross(normalize(mv.xyz), camRight));
+					
+					gl_PointSize = size * pulse * 220.0 / -mv.z;
+					gl_Position = projectionMatrix * mv;
+				}`,
+			fragmentShader:`
+				varying vec3 vColor;
+				varying float vTrailLength;
+				
+				void main(){
+					vec2 uv = gl_PointCoord - 0.5;
+					
+					uv.x = uv.x / (1.0 + vTrailLength) + 0.5 * vTrailLength / (1.0 + vTrailLength);
+					
+					float d = length(uv);
+					if(d > 0.5) discard;
+					
+					float trailGradient = 1.0;
+					if(vTrailLength > 0.1) {
+						float normalizedX = (uv.x + 0.5) * (1.0 + vTrailLength);
+						trailGradient = smoothstep(0.0, 1.0, normalizedX);
+					}
+					
+					float alpha = (1.0 - smoothstep(0.35, 0.5, d)) * trailGradient;
+					gl_FragColor = vec4(vColor, alpha);
+				}`,
+			transparent:true,
+			blending:THREE.AdditiveBlending,
+			depthWrite:false,
+			vertexColors:true
+		});
+		return new THREE.Points(geo,mat);
+	}
+
+	function makeStarfield(){
+		const N=2200;
+		const geo=new THREE.BufferGeometry();
+		geo.setAttribute('position',new THREE.BufferAttribute(new Float32Array(N*3),3));
+		geo.setAttribute('color',   new THREE.BufferAttribute(new Float32Array(N*3),3));
+		geo.setAttribute('size',    new THREE.BufferAttribute(new Float32Array(N),1));
+
+		for(let i=0;i<N;i++){
+			const th=Math.random()*Math.PI*2,ph=Math.acos(2*Math.random()-1);
+			const r=230+Math.random()*70;
+			geo.attributes.position.setXYZ(i,
+				r*Math.sin(ph)*Math.cos(th),
+				r*Math.sin(ph)*Math.sin(th),
+				r*Math.cos(ph));
+			const c=Math.random()<.82?new THREE.Color('#ffffff'):new THREE.Color('#b9d4ff');
+			geo.attributes.color.setXYZ(i,c.r,c.g,c.b);
+			geo.attributes.size.setX(i,.12+Math.random()*.25);
+		}
+
+		const mat=new THREE.ShaderMaterial({
+			vertexShader:`
+				attribute float size;
+				varying vec3 vColor;
+				void main(){
+					vColor=color;
+					vec4 mv=modelViewMatrix*vec4(position,1.);
+					gl_PointSize=size*320./-mv.z;
+					gl_Position=projectionMatrix*mv;
+				}`,
+			fragmentShader:`
+				varying vec3 vColor;
+				void main(){
+					vec2 uv=gl_PointCoord-.5;
+					float d=length(uv);
+					if(d>.5) discard;
+					float a=1.-smoothstep(.42,.5,d);
+					gl_FragColor=vec4(vColor,a);
+				}`,
+			transparent:true,
+			blending:THREE.AdditiveBlending,
+			depthWrite:false,
+			vertexColors:true
+		});
+		return new THREE.Points(geo,mat);
+	}
+
+	function init(){
+		scene=new THREE.Scene();
+		scene.fog=new THREE.FogExp2(0x010203,.009);
+
+		camera=new THREE.PerspectiveCamera(64,innerWidth/innerHeight,.1,1000);
+		camera.position.set(50,14,0);
+		camera.lookAt(0,0,0);
+
+		renderer=new THREE.WebGLRenderer({antialias:true,alpha:true});
+		renderer.setPixelRatio(devicePixelRatio);
+		renderer.setSize(innerWidth,innerHeight);
+		document.getElementById('container').appendChild(renderer.domElement);
+
+		pointsMesh=makeFilaments(); scene.add(pointsMesh);
+		starfield =makeStarfield(); scene.add(starfield);
+		applyPattern(0);
+
+		composer=new EffectComposer(renderer);
+		composer.addPass(new RenderPass(scene,camera));
+		composer.addPass(new UnrealBloomPass(new THREE.Vector2(innerWidth,innerHeight),0.46,0.65,0.9));
+		composer.addPass(new FilmPass(0.03,0,0,false));
+		composer.addPass(new OutputPass());
+
+		addEventListener('resize',onResize);
+		addEventListener('pointerdown',()=>!transitioning&&queueNext());
+	}
+
+	function applyPattern(idx){
+		const pts=patterns[idx](PARTICLES);
+		const pos=pointsMesh.geometry.attributes.position.array;
+		const prevPos=pointsMesh.geometry.attributes.prevPosition.array;
+		for(let i=0;i<PARTICLES;i++){
+			const p=pts[i]||new THREE.Vector3();
+			const idx=i*3;
+			pos.set([p.x,p.y,p.z],idx);
+			prevPos.set([p.x,p.y,p.z],idx);
+		}
+		pointsMesh.geometry.attributes.position.needsUpdate=true;
+		pointsMesh.geometry.attributes.prevPosition.needsUpdate=true;
+	}
+
+	function queueNext(){
+		patternIndex=(patternIndex+1)%patterns.length;
+		transitioning=true;progress=0;
+		const to=patterns[patternIndex](PARTICLES);
+		pointsMesh.userData.from=new Float32Array(pointsMesh.geometry.attributes.position.array);
+		pointsMesh.userData.to =new Float32Array(PARTICLES*3);
+		for(let i=0;i<PARTICLES;i++){
+			const p=to[i]||new THREE.Vector3();
+			pointsMesh.userData.to.set([p.x,p.y,p.z],i*3);
+		}
+	}
+
+	function updateTransition(dt){
+		if(!transitioning) return;
+		progress=Math.min(1,progress+TRANSITION_SPEED*dt*60);
+		const e=1-Math.pow(1-progress,2);
+		const from=pointsMesh.userData.from,to=pointsMesh.userData.to,pos=pointsMesh.geometry.attributes.position.array;
+		for(let i=0;i<pos.length;i++) pos[i]=from[i]+(to[i]-from[i])*e;
+		pointsMesh.geometry.attributes.position.needsUpdate=true;
+		if(progress>=1){transitioning=false;delete pointsMesh.userData.from;delete pointsMesh.userData.to;}
+	}
+
+	function updateTrails() {
+		const pos = pointsMesh.geometry.attributes.position.array;
+		const prevPos = pointsMesh.geometry.attributes.prevPosition.array;
+		
+		for (let i = 0; i < pos.length; i += 3) {
+			prevPos[i] = pos[i];
+			prevPos[i+1] = pos[i+1];
+			prevPos[i+2] = pos[i+2];
+		}
+		
+		pointsMesh.geometry.attributes.prevPosition.needsUpdate = true;
+	}
+
+	function animate(){
+		requestAnimationFrame(animate);
+		const dt=clock.getDelta(),t=clock.elapsedTime;
+
+		updateTransition(dt);
+		
+		pointsMesh.material.uniforms.time.value = t;
+		pointsMesh.material.uniforms.deltaTime.value = dt;
+
+		const r=50,ang=t*.048;
+		camera.position.set(Math.cos(ang)*r,Math.sin(ang*.7)*16+10,Math.sin(ang)*r);
+		camera.lookAt(0,0,0);
+
+		composer.render(dt);
+		
+		updateTrails();
+	}
+
+	function onResize(){
+		camera.aspect=innerWidth/innerHeight;
+		camera.updateProjectionMatrix();
+		renderer.setSize(innerWidth,innerHeight);
+		composer.setSize(innerWidth,innerHeight);
+	}
+
+	init(); animate();
+</script>

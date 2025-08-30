@@ -1,0 +1,23 @@
+html {
+  font-family: "Domine", serif;
+}
+
+ul {
+  list-style: none;
+  max-inline-size: 550px;
+}
+
+li {
+  margin-block: 2rem;
+  line-height: 1.4;
+}
+
+li::first-letter {
+  -webkit-initial-letter: 3;
+  initial-letter: 3;
+}
+
+strong {
+  font-size: 2rem;
+  font-family: "Single Day", cursive;
+}

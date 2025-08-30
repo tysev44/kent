@@ -1,0 +1,22 @@
+.pulse {
+  height: 10px;
+  width: 10px;
+  border-radius: 50%;
+  background-color: #ff0000;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 rgba(255, 0, 0, 0.5);
+  }
+  100% {
+    box-shadow: 0 0 0 15px rgba(255, 0, 0, 0);
+  }
+}
+body {
+  height: 100vh;
+  margin: 0;
+  display: grid;
+  place-items: center;
+}

@@ -1,0 +1,43 @@
+.squircle {
+  aspect-ratio: 1;
+  background: oklch(64% 59% 23deg); 
+  
+  clip-path: shape(from 38.2% 0%,
+  line to 61.8% 0%,
+  curve to 84.2% 1.9% with 72.8% 0% / 78.3% 0%,
+  curve to 98.1% 15.8% with 90.7% 4.2% / 95.8% 9.3%,
+  curve to 100% 38.2% with 100% 21.7% / 100% 27.2%,
+  line to 100% 61.8%,
+  curve to 98.1% 84.2% with 100% 72.8% / 100% 78.3%,
+  curve to 84.2% 98.1% with 95.8% 90.7% / 90.7% 95.8%,
+  curve to 61.8% 100% with 78.3% 100% / 72.8% 100%,
+  line to 38.2% 100%,
+  curve to 15.8% 98.1% with 27.2% 100% / 21.7% 100%,
+  curve to 1.9% 84.2% with 9.3% 95.8% / 4.2% 90.7%,
+  curve to 0% 61.8% with 0% 78.3% / 0% 72.8%,
+  line to 0% 38.2%,
+  curve to 1.9% 15.8% with 0% 27.2% / 0% 21.7%,
+  curve to 15.8% 1.9% with 4.2% 9.3% / 9.3% 4.2%,
+  curve to 38.2% 0% with 21.7% 0% / 27.2% 0%
+);
+
+  &:nth-child(1) {
+    width: 100px;
+  }
+  
+  &:nth-child(2) {
+    width: 200px;
+  }
+  
+  &:nth-child(3) {
+    width: 300px;
+  }
+}
+
+body {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}

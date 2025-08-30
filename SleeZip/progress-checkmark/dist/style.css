@@ -1,0 +1,75 @@
+.progress {
+  --progress-circle-scale: 1;
+  --progress-circle-x: 0;
+  --progress-circle-offset: 0;
+  --progress-circle-stroke: 6;
+  --progress-tick-offset: 100;
+  position: relative;
+}
+.progress svg {
+  display: block;
+  fill: none;
+  overflow: visible;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.progress svg.pie {
+  width: 16px;
+  height: 16px;
+  transform: translateX(var(--progress-circle-x)) rotate(-90deg) scale(var(--progress-circle-scale));
+}
+.progress svg.pie circle {
+  stroke-width: var(--progress-circle-stroke);
+  stroke: black;
+}
+.progress svg.pie circle:first-child {
+  stroke-opacity: 0.25;
+}
+.progress svg.pie circle:last-child {
+  stroke-dasharray: 100;
+  stroke-dashoffset: var(--progress-circle-offset);
+}
+.progress svg.tick {
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  stroke-width: 3.5;
+  stroke: black;
+}
+.progress svg.tick polyline {
+  stroke-dasharray: 100;
+  stroke-dashoffset: var(--progress-tick-offset);
+}
+
+html {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+}
+
+* {
+  box-sizing: inherit;
+}
+*:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #fff;
+}
+body .dribbble {
+  position: fixed;
+  display: block;
+  right: 20px;
+  bottom: 20px;
+}
+body .dribbble img {
+  display: block;
+  height: 28px;
+}

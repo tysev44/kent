@@ -1,0 +1,47 @@
+section {
+  display: flex;
+  align-items: center;
+  height: 100vh;
+  justify-content: center;
+  background: #2F485E;
+}
+section img {
+  width: 70vw;
+  height: 50vh;
+  -o-object-fit: contain;
+     object-fit: contain;
+  position: absolute;
+}
+section img:nth-child(1) {
+  transform: translate3d(0, 0, 0) scaleY(0.1) scaleX(1.1) skew(-20deg);
+  transform-origin: 50% 100%;
+  filter: grayscale(1) brightness(0);
+  -webkit-animation: shadow 3s infinite ease-in-out;
+          animation: shadow 3s infinite ease-in-out;
+}
+section img:nth-child(2) {
+  -webkit-animation: hover 3s infinite ease-in-out;
+          animation: hover 3s infinite ease-in-out;
+}
+
+@-webkit-keyframes hover {
+  50% {
+    transform: translateY(-15%) rotate(15deg);
+  }
+}
+
+@keyframes hover {
+  50% {
+    transform: translateY(-15%) rotate(15deg);
+  }
+}
+@-webkit-keyframes shadow {
+  50% {
+    transform: translate3d(0, 0, 0) scaleY(0.2) skew(-30deg);
+  }
+}
+@keyframes shadow {
+  50% {
+    transform: translate3d(0, 0, 0) scaleY(0.2) skew(-30deg);
+  }
+}

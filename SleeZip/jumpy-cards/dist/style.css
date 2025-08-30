@@ -1,0 +1,110 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
+
+:root {
+  --gap: 85px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  background-color: #eeeced;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Inter", sans-serif;
+}
+
+.card {
+  position: absolute;
+  width: 200px;
+  aspect-ratio: 1;
+  border: 8px solid #fff;
+  border-radius: 30px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+
+  .image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.card:nth-child(1) {
+  rotate: 10deg;
+  translate: calc(-2 * var(--gap));
+}
+
+.card:nth-child(2) {
+  rotate: 5deg;
+  translate: calc(-1 * var(--gap));
+}
+
+.card:nth-child(3) {
+  rotate: -3deg;
+}
+
+.card:nth-child(4) {
+  rotate: -10deg;
+  translate: var(--gap);
+}
+
+.card:nth-child(5) {
+  rotate: 2deg;
+  translate: calc(2 * var(--gap));
+}
+
+.links {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn {
+  padding: 8px 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.15);
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.6);
+  transition: 0.2s;
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-5px);
+    color: rgba(0, 0, 0, 1);
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  &:active {
+    transform: translateY(0px);
+    color: rgba(0, 0, 0, 0.6);
+    box-shadow: 0 3px 4px rgba(0, 0, 0, 0.15);
+  }
+
+  .icon {
+    height: 16px;
+    width: 16px;
+  }
+}
+
+#replay-btn {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  border: none;
+}

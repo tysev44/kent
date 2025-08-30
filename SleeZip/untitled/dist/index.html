@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Untitled</title>
+  <link rel="stylesheet" href="https://public.codepenassets.com/css/normalize-5.0.0.min.css">
+<link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<main>
+	<h3>Dynamic List</h3>
+
+	<div class="toolbar">
+		<button id="add">Add Item</button>
+		<button id="remove">Remove</button>
+	</div>
+
+	<div class="list-container">
+		<ul>
+			<li>Initial Item 1</li>
+			<li>Initial Item 2</li>
+		</ul>
+	</div>
+
+	<div class="content-below">
+		This content sits below the list container. It jumps up / down.
+	</div>
+
+	<div style="view-transition-name: content;" class="content-below">
+    This content sits below the list container. Notice how it smoothly moves up or down.
+	</div>
+</main>
+<!-- partial -->
+  <script  src="./script.js"></script>
+
+</body>
+</html>
